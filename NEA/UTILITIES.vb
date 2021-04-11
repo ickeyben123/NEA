@@ -88,7 +88,7 @@ Class UTILITIES
     Public Function DICTIONARY_TO_STRING(INPUT As Dictionary(Of String, String))
         Dim RETURN_STRING As String = ""
         For Each ELEMENT As KeyValuePair(Of String, String) In INPUT
-            Console.WriteLine(ELEMENT.Value)
+            'Console.WriteLine(ELEMENT.Value)
             RETURN_STRING = RETURN_STRING & ELEMENT.Value
         Next
         Return RETURN_STRING

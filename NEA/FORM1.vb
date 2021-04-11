@@ -52,6 +52,29 @@ Public Class FORM1
         MODE_GROUP.Visible = True
     End Sub
 
+    Private Sub LISTBOX_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles ListBox1.MouseUp
+        If E.Button = MouseButtons.Right And ListBox1.SelectedItems.Count = 1 Then
+            Debug.WriteLine("fuick")
+            Dim cms = New ContextMenuStrip
+            Dim item1 = cms.Items.Add("Edit")
+            item1.Tag = 1
+            AddHandler item1.Click, AddressOf EDIT
+            Dim item2 = cms.Items.Add("Delete")
+            item2.Tag = 2
+            cms.Show(ListBox1, E.Location)
+            AddHandler item2.Click, AddressOf DELETE
+        End If
+    End Sub
+
+    Private Sub EDIT()
+
+    End Sub
+
+    Private Sub DELETE()
+
+    End Sub
+
+
     ' Account Login Subroutines
 
     Public Sub ATTEMPT_LOGIN() Handles LOGIN_BUTTON.MouseClick ' This fires when the user clicks the login buttonm
@@ -72,6 +95,7 @@ Public Class FORM1
             ACCOUNT_OBJECT.SELECT_MODE(LOGIN_MODE.TEACHER)
         End If
     End Sub
+
 End Class
 
 ' This is the class that is used to create questions.

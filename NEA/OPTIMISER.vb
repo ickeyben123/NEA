@@ -153,7 +153,7 @@ Class OPTIMISER : Inherits UTILITIES
         PREPARATION_BY_TIMES_RULING(TREE_TO_MODIFY)
         PREPERATION_POWER_RULING(TREE_TO_MODIFY)
         MULTIPLIER_WRAPPER_SOLVER(TREE_TO_MODIFY)
-        Console.WriteLine("to be " & IN_ORDER(TREE_TO_MODIFY, True))
+        'Console.WriteLine("to be " & IN_ORDER(TREE_TO_MODIFY, True))
         DIFFERENTATION_WRAPPER(TREE_TO_MODIFY)
         ' Simplify the differentiated
         ' NEGATIVE_POWERS_TO_DIVISORS(TREE_TO_MODIFY)
@@ -358,7 +358,7 @@ Class OPTIMISER : Inherits UTILITIES
             Next
         Else
             Dim DIFFERENTIABLE As TREE_NODE = LIMITED_DIFFERENTIATE(NODE)
-            Console.WriteLine("lol" & IN_ORDER(DIFFERENTIABLE, True) & NODE.VALUE)
+            'Console.WriteLine("lol" & IN_ORDER(DIFFERENTIABLE, True) & NODE.VALUE)
             NODE.LEFT.RemoveRange(0, NODE.LEFT.Count)
             NODE.RIGHT.RemoveRange(0, NODE.RIGHT.Count)
             NODE.VALUE = DIFFERENTIABLE.VALUE
@@ -538,33 +538,33 @@ Class OPTIMISER : Inherits UTILITIES
         End If
 
 
-        'If NODE.VALUE = "+" Then
-        '    Dim INTERATION_LIST = {NODE.LEFT, NODE.RIGHT}
-        '    For Each ELEMENT_LIST As List(Of TREE_NODE) In INTERATION_LIST
-        '        Dim BUFFER As Integer = 0
-        '        For A = 0 To ELEMENT_LIST.Count - 1
-        '            If (A - BUFFER) <= ELEMENT_LIST.Count - 1 Then
-        '                Dim TRUE_POINTER As Integer = A - BUFFER
-        '                If ELEMENT_LIST(TRUE_POINTER).VALUE = "*" Then ' If its a * node, so something like 0*x
-        '                    Dim TOTAL_LIST As New List(Of TREE_NODE)
-        '                    TOTAL_LIST.AddRange(ELEMENT_LIST(TRUE_POINTER).RIGHT)
-        '                    TOTAL_LIST.AddRange(ELEMENT_LIST(TRUE_POINTER).LEFT)
-        '                    Dim ZEROS = From INT In TOTAL_LIST Where INT.VALUE = "0" ' Collects all the 0's in the node, if there are any.
-        '                    If ZEROS.Count > 0 Then
-        '                        ELEMENT_LIST.RemoveAt(TRUE_POINTER)
-        '                        If NODE.LEFT.Count + NODE.RIGHT.Count = 0 Then
-        '                            NODE.VALUE = ""
-        '                        End If
-        '                        BUFFER += 1
-        '                    End If
-        '                ElseIf ELEMENT_LIST(TRUE_POINTER).VALUE = "0" Then ' Just a 0
-        '                    ELEMENT_LIST.RemoveAt(TRUE_POINTER)
-        '                    BUFFER += 1
-        '                End If
-        '            End If
-        '        Next
-        '    Next
-        'End If
+        If NODE.VALUE = "+" Then
+            Dim INTERATION_LIST = {NODE.LEFT, NODE.RIGHT}
+            For Each ELEMENT_LIST As List(Of TREE_NODE) In INTERATION_LIST
+                Dim BUFFER As Integer = 0
+                For A = 0 To ELEMENT_LIST.Count - 1
+                    If (A - BUFFER) <= ELEMENT_LIST.Count - 1 Then
+                        Dim TRUE_POINTER As Integer = A - BUFFER
+                        If ELEMENT_LIST(TRUE_POINTER).VALUE = "*" Then ' If its a * node, so something like 0*x
+                            Dim TOTAL_LIST As New List(Of TREE_NODE)
+                            TOTAL_LIST.AddRange(ELEMENT_LIST(TRUE_POINTER).RIGHT)
+                            TOTAL_LIST.AddRange(ELEMENT_LIST(TRUE_POINTER).LEFT)
+                            Dim ZEROS = From INT In TOTAL_LIST Where INT.VALUE = "0" ' Collects all the 0's in the node, if there are any.
+                            If ZEROS.Count > 0 Then
+                                ELEMENT_LIST.RemoveAt(TRUE_POINTER)
+                                If NODE.LEFT.Count + NODE.RIGHT.Count = 0 Then
+                                    NODE.VALUE = ""
+                                End If
+                                BUFFER += 1
+                            End If
+                        ElseIf ELEMENT_LIST(TRUE_POINTER).VALUE = "0" Then ' Just a 0
+                            ELEMENT_LIST.RemoveAt(TRUE_POINTER)
+                            BUFFER += 1
+                        End If
+                    End If
+                Next
+            Next
+        End If
 
         If NODE.VALUE = "*" Then
             If NODE.RIGHT.Count = 1 Then
@@ -838,7 +838,7 @@ Class OPTIMISER : Inherits UTILITIES
                         End If
 
                         If TEMPORARY_NODE.VALUE = "+" Then ' This means that there was a successful calculation.
-                            Console.WriteLine("done lol")
+                            'Console.WriteLine("done lol")
                             ' We will remove the two nodes that were previously in the temporary node
                             ELEMENT_LIST.Remove(SELECTED_NODE)
                             NODE.LEFT.Remove(EVERY_OTHER_NODE(C))
@@ -1006,7 +1006,7 @@ Class OPTIMISER : Inherits UTILITIES
                                     Next
 
                                     If STRING_TERMS_B.Count = 0 Then ' If I just compared their string then it wouldnt allow 9xy + 9yx as although they're the same, the string wont be.
-                                        Console.WriteLine(IN_ORDER(TERMS_A.VARIABLE, True) & " " & IN_ORDER(TERMS_B.VARIABLE, True))
+                                        'Console.WriteLine(IN_ORDER(TERMS_A.VARIABLE, True) & " " & IN_ORDER(TERMS_B.VARIABLE, True))
                                         Dim NEW_NODE As New TREE_NODE
                                         NEW_NODE.VALUE = TERMS_A.COEFFICIENT + TERMS_B.COEFFICIENT ' This will be the new coefficient
                                         ' Console.WriteLine("FINALISED THING" & IN_ORDER(TERMS_B.VARIABLE, True) & "NODE ROOT" & TERMS_B.VARIABLE.LEFT(0).VALUE)
@@ -1510,29 +1510,29 @@ Module MODULE1
             Console.Write("DO THE INPUT:")
             Dim INPUT As String = Console.ReadLine()
             Dim SIMPLIFIED As New SIMPLE_SIMPLIFY(INPUT)
-            Console.WriteLine("")
-            Console.WriteLine(SIMPLIFIED.RESULT)
-            Console.WriteLine("")
-            Console.WriteLine("DIFFERENTIATE? (y/n)")
-            Console.WriteLine("If it is multivariable, note that the evaluation is d(f(x,y,z...))/dx.")
-            Console.WriteLine("Partial Derivatives that evaluate as ∂(f(x))/∂x *dx will become ∂(f(x))/∂x.")
-            Console.WriteLine("Partial Derivatives of any other form will produce a ratio derivative in a product.")
-            Console.WriteLine("- Such as ∂(f(x))/∂x * dy/dx")
-            Console.WriteLine("This form is correct for all multivariable calculations, no matter the number of arguments.")
+            'Console.WriteLine("")
+            'Console.WriteLine(SIMPLIFIED.RESULT)
+            'Console.WriteLine("")
+            'Console.WriteLine("DIFFERENTIATE? (y/n)")
+            'Console.WriteLine("If it is multivariable, note that the evaluation is d(f(x,y,z...))/dx.")
+            'Console.WriteLine("Partial Derivatives that evaluate as ∂(f(x))/∂x *dx will become ∂(f(x))/∂x.")
+            'Console.WriteLine("Partial Derivatives of any other form will produce a ratio derivative in a product.")
+            'Console.WriteLine("- Such as ∂(f(x))/∂x * dy/dx")
+            'Console.WriteLine("This form is correct for all multivariable calculations, no matter the number of arguments.")
             Dim YES As String = Console.ReadLine
             If YES.ToLower = "y" Then
                 SIMPLIFIED.DIFFERENTIATE()
-                Console.WriteLine("")
-                Console.WriteLine("d(" & INPUT & ")" & "/dx = " & SIMPLIFIED.RESULT)
-                Console.WriteLine("")
+                'Console.WriteLine("")
+                'Console.WriteLine("d(" & INPUT & ")" & "/dx = " & SIMPLIFIED.RESULT)
+                'Console.WriteLine("")
             End If
-            Console.WriteLine("Expand the brackets? (y/n)")
+            'Console.WriteLine("Expand the brackets? (y/n)")
             YES = Console.ReadLine
             If YES.ToLower = "y" Then
                 SIMPLIFIED.EXPAND()
-                Console.WriteLine("")
-                Console.WriteLine(SIMPLIFIED.RESULT)
-                Console.WriteLine("")
+                'Console.WriteLine("")
+                'Console.WriteLine(SIMPLIFIED.RESULT)
+                'Console.WriteLine("")
             End If
         End While
     End Sub

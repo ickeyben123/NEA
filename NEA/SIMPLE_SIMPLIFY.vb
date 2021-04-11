@@ -32,14 +32,14 @@ Class SIMPLE_SIMPLIFY : Inherits EXPRESSION_TREE
     End Function
 
     Private Function REMOVE_ZERO_CLEANUP(INPUT As String) ' This is used to cleanup strings that contain 0 elements. This is required due to the nature of the solver. 
-        Console.WriteLine("TO DODD" & INPUT)
+        ' Console.WriteLine("TO DODD" & INPUT)
         Dim ELEMENTED_INPUT = INPUT.ToCharArray ' The array {-,6,x,^,2,+}
         Dim TO_ADD As New Queue(Of String) ' This will be used to create 'items', like 3x^2. This is then added to a final list. 
         Dim PREVIOUS_ELEMENT As String = ""
         Dim ELEMENT_TO_ADD As String = ""
         Dim FINISHED_LIST As New List(Of String)
         For Each ELEMENT As String In ELEMENTED_INPUT
-            Console.WriteLine("Current Element" & ELEMENT)
+            ' Console.WriteLine("Current Element" & ELEMENT)
             If PREVIOUS_ELEMENT <> "+" And PREVIOUS_ELEMENT <> "-" And PREVIOUS_ELEMENT <> "*" And PREVIOUS_ELEMENT <> "/" Then ' The previous element isn't an operator.
                 FINISHED_LIST.Add(ELEMENT) ' Add the operator seperately.
             Else
@@ -61,7 +61,7 @@ Class SIMPLE_SIMPLIFY : Inherits EXPRESSION_TREE
         FINISHED_LIST.Add(ELEMENT_TO_ADD)
         ELEMENT_TO_ADD = ""
         For Each ELEMENT As String In FINISHED_LIST
-            Console.WriteLine("FIISHED " & ELEMENT)
+            ' Console.WriteLine("FIISHED " & ELEMENT)
         Next
         Return True
 
