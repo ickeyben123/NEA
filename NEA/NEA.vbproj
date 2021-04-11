@@ -73,6 +73,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EXPRESSION_TREE.vb" />
     <Compile Include="FORM1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +81,8 @@
       <DependentUpon>FORM1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="OPTIMISER.vb" />
+    <Compile Include="POSTFIX_EXPRESSION.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -95,6 +98,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SIMPLE_SIMPLIFY.vb" />
+    <Compile Include="TREE_OPTIMISER.vb" />
+    <Compile Include="UTILITIES.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FORM1.resx">
