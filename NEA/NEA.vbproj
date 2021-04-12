@@ -73,6 +73,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DATA_HANDLE.vb" />
     <Compile Include="EXPRESSION_TREE.vb" />
     <Compile Include="FORM1.vb">
       <SubType>Form</SubType>
@@ -98,6 +99,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="QUESTION.vb" />
     <Compile Include="SIMPLE_SIMPLIFY.vb" />
     <Compile Include="TREE_OPTIMISER.vb" />
     <Compile Include="UTILITIES.vb" />

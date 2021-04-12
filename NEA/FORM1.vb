@@ -22,8 +22,9 @@ Public Class FORM1
 
     ' Main Sub
     Sub Main()
-
-
+        Debug.Write("fuckfufkcu")
+        ' CLEAR_ALL()
+        ' SHOW_LOGIN_SCREEN()
     End Sub
 
     ' EVENTS
@@ -34,8 +35,11 @@ Public Class FORM1
     ' Form Subroutines
 
     Public Function CLEAR_ALL()
+        Debug.WriteLine("fuckfufkcu")
         For Each cControl As Control In Controls  'Loops through all 'controls' in the form
+            Debug.Write("fuckfufkcu")
             If TypeOf cControl Is GroupBox Then
+                Debug.Write("fuckfufkcu")
                 cControl.Visible = False
             End If
         Next
@@ -53,16 +57,20 @@ Public Class FORM1
     End Sub
 
     Private Sub LISTBOX_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles ListBox1.MouseUp
-        If E.Button = MouseButtons.Right And ListBox1.SelectedItems.Count = 1 Then
-            Debug.WriteLine("fuick")
-            Dim cms = New ContextMenuStrip
-            Dim item1 = cms.Items.Add("Edit")
-            item1.Tag = 1
-            AddHandler item1.Click, AddressOf EDIT
-            Dim item2 = cms.Items.Add("Delete")
-            item2.Tag = 2
-            cms.Show(ListBox1, E.Location)
-            AddHandler item2.Click, AddressOf DELETE
+        Dim CMS = New ContextMenuStrip
+        Debug.WriteLine("fuckfufkcu")
+        If E.Button = MouseButtons.Right Then
+            If ListBox1.SelectedItems.Count = 1 Then
+                Dim ITEM1 = CMS.Items.Add("Edit " & ListBox1.SelectedItem.ToString)
+                ITEM1.Tag = 1
+                AddHandler ITEM1.Click, AddressOf EDIT
+                Dim ITEM2 = CMS.Items.Add("Delete " & ListBox1.SelectedItem.ToString)
+                ITEM2.Tag = 2
+                AddHandler ITEM2.Click, AddressOf DELETE
+            End If
+            Dim ITEM3 = CMS.Items.Add("Add new question")
+            ITEM3.Tag = 3
+            CMS.Show(ListBox1, E.Location)
         End If
     End Sub
 
@@ -98,36 +106,6 @@ Public Class FORM1
 
 End Class
 
-' This is the class that is used to create questions.
-' Handles the storage of answers and the custom interfaces it uses. 
-Class QUESTION
-
-    Protected TYPE As QUESTION_TYPE
-    Protected ANSWER_MENU As GroupBox 'Every Question has an group box which contains the correct controls.
-    Protected Properties As List(Of Array()) ' The properties of this group box, typically in form { {CONTROL_NAME,VALUE} } , this changes the text
-    Protected ANSWER As String
-    Protected ENABLED As Boolean = True ' Determines if editable.
-
-    Public Overridable Sub SUBMIT_ANSWER(INPUT As String) 'Submits answer..
-        Me.ANSWER = INPUT
-    End Sub
-
-    Public Sub MENU_VISIBILITY(INPUT As Boolean) ' Sets the menu visibility when needing to edit.
-        Me.ANSWER_MENU.Visible = INPUT
-    End Sub
-
-    Public Sub SET_ANSWER_MENU() ' Sets the answer menu's (groupbox) properties.
-        For Each IArray As Array In Properties ' Loop through the properties list
-            If ANSWER_MENU.Controls.ContainsKey(IArray(0)) Then
-                Dim LOCAL_CONTROL As Array = ANSWER_MENU.Controls.Find(IArray(0), True)
-                For Each IControl As Control In LOCAL_CONTROL
-                    IControl.Text = IArray(1)
-                Next
-            End If
-        Next
-    End Sub
-
-End Class
 
 ' Solving classes
 
@@ -146,15 +124,6 @@ Class ALGEBRA_SIMPLIFICATION : Inherits QUESTION
 
 End Class
 
-' This handles the exporting/importing of a set of questions.
-Class DATA_HANDLE
-
-    Protected QUESTIONS As List(Of QUESTION)
-
-
-
-
-End Class
 
 ' This class handles the systems to create questions
 Class QUESTION_CREATION : Inherits DATA_HANDLE
