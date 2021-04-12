@@ -21,10 +21,11 @@ End Enum
 Public Class FORM1
 
     ' Main Sub
-    Sub Main()
-        Debug.Write("fuckfufkcu")
-        ' CLEAR_ALL()
-        ' SHOW_LOGIN_SCREEN()
+    Private Sub Main(sender As Object, e As EventArgs) Handles Me.Shown
+
+        SHOW_MODE_SCREEN()
+
+
     End Sub
 
     ' EVENTS
@@ -32,14 +33,13 @@ Public Class FORM1
     Dim WithEvents ACCOUNT_OBJECT As New ACCOUNT
     Dim WithEvents NOTIFICATIONS_OBJECT As New NOTIFICATIONS(Me)
 
-    ' Form Subroutines
+    '/////////////////////////////
+    ' General Form Subroutines
+    '/////////////////////////////
 
     Public Function CLEAR_ALL()
-        Debug.WriteLine("fuckfufkcu")
         For Each cControl As Control In Controls  'Loops through all 'controls' in the form
-            Debug.Write("fuckfufkcu")
             If TypeOf cControl Is GroupBox Then
-                Debug.Write("fuckfufkcu")
                 cControl.Visible = False
             End If
         Next
@@ -56,9 +56,54 @@ Public Class FORM1
         MODE_GROUP.Visible = True
     End Sub
 
+    Public Function TOGGLE_CERTAIN_SCREEN(SCREEN, SETTING)
+        CLEAR_ALL()
+        SCREEN.Visible = SETTING
+        Return True
+    End Function
+
+
+    ' Account Login Subroutines
+
+    Public Sub ATTEMPT_LOGIN() Handles LOGIN_BUTTON.MouseClick ' This fires when the user clicks the login buttonm
+        Dim result As Boolean = ACCOUNT_OBJECT.LOGIN(LOGIN_INPUT.Text) ' Calls login method in the account object.
+        If result Then 'if it was correct
+            NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Correct Login Info! Transferring to " & ACCOUNT_OBJECT.ACCOUNT_TYPE.ToString & " Screen", Color.Green)
+
+            If ACCOUNT_OBJECT.ACCOUNT_TYPE = LOGIN_MODE.STUDENT Then
+
+            Else
+                TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
+                AddHandler TEACHER_CREATE_QUESTIONS.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True)
+            End If
+
+        Else
+            NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Wrong Login Info!", Color.Red)
+        End If
+    End Sub
+
+
+    Public Sub MODE_CLICK(sender As Object, e As EventArgs) Handles MODE_STUDENT.MouseClick, MODE_TEACHER.MouseClick
+        If sender Is MODE_STUDENT Then ' This means they chose to be a student
+            ACCOUNT_OBJECT.SELECT_MODE(LOGIN_MODE.STUDENT)
+        Else ' They chose teacher
+            ACCOUNT_OBJECT.SELECT_MODE(LOGIN_MODE.TEACHER)
+        End If
+    End Sub
+
+
+    '/////////////////////////////
+    ' END
+    '////////////////////////////
+
+
+    '//////////////////////////////
+    ' Teacher UI Subroutines.
+    '/////////////////////////////
+
+
     Private Sub LISTBOX_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles ListBox1.MouseUp
         Dim CMS = New ContextMenuStrip
-        Debug.WriteLine("fuckfufkcu")
         If E.Button = MouseButtons.Right Then
             If ListBox1.SelectedItems.Count = 1 Then
                 Dim ITEM1 = CMS.Items.Add("Edit " & ListBox1.SelectedItem.ToString)
@@ -82,53 +127,20 @@ Public Class FORM1
 
     End Sub
 
-
-    ' Account Login Subroutines
-
-    Public Sub ATTEMPT_LOGIN() Handles LOGIN_BUTTON.MouseClick ' This fires when the user clicks the login buttonm
-        Dim result As Boolean = ACCOUNT_OBJECT.LOGIN(LOGIN_INPUT.Text) ' Calls login method in the account object.
-        If result Then 'if it was correct
-            NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Correct Login Info! Transferring to " & ACCOUNT_OBJECT.ACCOUNT_TYPE & " Screen", Color.Green)
-            CLEAR_ALL()
-        Else
-            NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Wrong Login Info!", Color.Red)
-        End If
-    End Sub
-
-
-    Public Sub MODE_CLICK(sender As Object, e As EventArgs) Handles MODE_STUDENT.MouseClick, MODE_TEACHER.MouseClick
-        If sender Is MODE_STUDENT Then ' This means they chose to be a student
-            ACCOUNT_OBJECT.SELECT_MODE(LOGIN_MODE.STUDENT)
-        Else ' They chose teacher
-            ACCOUNT_OBJECT.SELECT_MODE(LOGIN_MODE.TEACHER)
-        End If
-    End Sub
-
-End Class
-
-
-' Solving classes
-
-' This class solves simple questions such as 3x +5y +2z+3z
-Class SIMPLE_SIMPLIFICATION
-
-End Class
-
-' Question sub-classes used for the actual question templates.
-Class ALGEBRA_SIMPLIFICATION : Inherits QUESTION
-
-    Sub New()
-        Me.ANSWER_MENU = FORM1.QUESTION_INPUT1 ' Sets the groupbox that will be shown.
+    Private Sub TEACHER_GROUP_Enter(sender As Object, e As EventArgs) Handles TEACHER_GROUP.Enter
 
     End Sub
 
+
+
+
+    '/////////////////////////////
+    ' END
+    '////////////////////////////
+
+
 End Class
 
-
-' This class handles the systems to create questions
-Class QUESTION_CREATION : Inherits DATA_HANDLE
-
-End Class
 
 ' A custom class for notification creation. An optional addition that I made... because I like to waste time.
 Class NOTIFICATIONS ' Handles notifications, has a max of 6 notifications at one time. 
@@ -268,7 +280,7 @@ Class ACCOUNT
     End Function
 
     Public Function ACCOUNT_TYPE()
-        Return Me.MODE.ToString
+        Return Me.MODE
     End Function
 
 End Class

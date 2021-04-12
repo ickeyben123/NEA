@@ -24,8 +24,8 @@ Partial Class FORM1
     Private Sub InitializeComponent()
         Dim Label2 As System.Windows.Forms.Label
         Dim Label1 As System.Windows.Forms.Label
-        Dim TITLE As System.Windows.Forms.Label
         Dim Label3 As System.Windows.Forms.Label
+        Dim TITLE As System.Windows.Forms.Label
         Me.QUESTION_QUESTION = New System.Windows.Forms.Label()
         Me.MODE_STUDENT = New System.Windows.Forms.Button()
         Me.MODE_GROUP = New System.Windows.Forms.GroupBox()
@@ -34,30 +34,30 @@ Partial Class FORM1
         Me.LOGIN_GROUP = New System.Windows.Forms.GroupBox()
         Me.LOGIN_BUTTON = New System.Windows.Forms.Button()
         Me.LOGIN_INPUT = New System.Windows.Forms.TextBox()
-        Me.TEACHER_GROUP = New System.Windows.Forms.GroupBox()
-        Me.TEACHER_MARK_SUBMISSIONS = New System.Windows.Forms.Button()
-        Me.TEACHER_CREATE_QUESTIONS = New System.Windows.Forms.Button()
         Me.QUESTION_INPUT1 = New System.Windows.Forms.GroupBox()
         Me.QUESTION_REMOVE = New System.Windows.Forms.Button()
         Me.QUESTION_CREATE = New System.Windows.Forms.Button()
         Me.QUESTION_COUNT = New System.Windows.Forms.Label()
         Me.QUESTION_INPUT = New System.Windows.Forms.RichTextBox()
-        Me.Q_CONTROL_GROUP = New System.Windows.Forms.GroupBox()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.TEACHER_GROUP = New System.Windows.Forms.GroupBox()
+        Me.TEACHER_MARK_SUBMISSIONS = New System.Windows.Forms.Button()
+        Me.TEACHER_CREATE_QUESTIONS = New System.Windows.Forms.Button()
+        Me.Q_CONTROL_GROUP = New System.Windows.Forms.GroupBox()
         Label2 = New System.Windows.Forms.Label()
         Label1 = New System.Windows.Forms.Label()
-        TITLE = New System.Windows.Forms.Label()
         Label3 = New System.Windows.Forms.Label()
+        TITLE = New System.Windows.Forms.Label()
         Me.MODE_GROUP.SuspendLayout()
         Me.LOGIN_GROUP.SuspendLayout()
-        Me.TEACHER_GROUP.SuspendLayout()
         Me.QUESTION_INPUT1.SuspendLayout()
+        Me.TEACHER_GROUP.SuspendLayout()
         Me.Q_CONTROL_GROUP.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -84,16 +84,6 @@ Partial Class FORM1
         Label1.Text = "Please Login"
         Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'TITLE
-        '
-        TITLE.AutoSize = True
-        TITLE.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        TITLE.Location = New System.Drawing.Point(238, 198)
-        TITLE.Name = "TITLE"
-        TITLE.Size = New System.Drawing.Size(849, 82)
-        TITLE.TabIndex = 2
-        TITLE.Text = "What do you want to do?"
-        '
         'Label3
         '
         Label3.AutoSize = True
@@ -103,6 +93,16 @@ Partial Class FORM1
         Label3.Size = New System.Drawing.Size(353, 82)
         Label3.TabIndex = 0
         Label3.Text = "Question:"
+        '
+        'TITLE
+        '
+        TITLE.AutoSize = True
+        TITLE.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        TITLE.Location = New System.Drawing.Point(238, 198)
+        TITLE.Name = "TITLE"
+        TITLE.Size = New System.Drawing.Size(849, 82)
+        TITLE.TabIndex = 2
+        TITLE.Text = "What do you want to do?"
         '
         'QUESTION_QUESTION
         '
@@ -201,39 +201,6 @@ Partial Class FORM1
         Me.LOGIN_INPUT.TabIndex = 0
         Me.LOGIN_INPUT.UseSystemPasswordChar = True
         '
-        'TEACHER_GROUP
-        '
-        Me.TEACHER_GROUP.Controls.Add(TITLE)
-        Me.TEACHER_GROUP.Controls.Add(Me.TEACHER_MARK_SUBMISSIONS)
-        Me.TEACHER_GROUP.Controls.Add(Me.TEACHER_CREATE_QUESTIONS)
-        Me.TEACHER_GROUP.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TEACHER_GROUP.Location = New System.Drawing.Point(0, 0)
-        Me.TEACHER_GROUP.Name = "TEACHER_GROUP"
-        Me.TEACHER_GROUP.Size = New System.Drawing.Size(1324, 1062)
-        Me.TEACHER_GROUP.TabIndex = 5
-        Me.TEACHER_GROUP.TabStop = False
-        Me.TEACHER_GROUP.Text = "Main Menu"
-        '
-        'TEACHER_MARK_SUBMISSIONS
-        '
-        Me.TEACHER_MARK_SUBMISSIONS.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TEACHER_MARK_SUBMISSIONS.Location = New System.Drawing.Point(831, 514)
-        Me.TEACHER_MARK_SUBMISSIONS.Name = "TEACHER_MARK_SUBMISSIONS"
-        Me.TEACHER_MARK_SUBMISSIONS.Size = New System.Drawing.Size(258, 231)
-        Me.TEACHER_MARK_SUBMISSIONS.TabIndex = 1
-        Me.TEACHER_MARK_SUBMISSIONS.Text = "Answer Submissions"
-        Me.TEACHER_MARK_SUBMISSIONS.UseVisualStyleBackColor = True
-        '
-        'TEACHER_CREATE_QUESTIONS
-        '
-        Me.TEACHER_CREATE_QUESTIONS.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TEACHER_CREATE_QUESTIONS.Location = New System.Drawing.Point(210, 514)
-        Me.TEACHER_CREATE_QUESTIONS.Name = "TEACHER_CREATE_QUESTIONS"
-        Me.TEACHER_CREATE_QUESTIONS.Size = New System.Drawing.Size(258, 231)
-        Me.TEACHER_CREATE_QUESTIONS.TabIndex = 0
-        Me.TEACHER_CREATE_QUESTIONS.Text = "Create Questions"
-        Me.TEACHER_CREATE_QUESTIONS.UseVisualStyleBackColor = True
-        '
         'QUESTION_INPUT1
         '
         Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_REMOVE)
@@ -297,6 +264,123 @@ Partial Class FORM1
         Me.QUESTION_INPUT.TabIndex = 1
         Me.QUESTION_INPUT.Text = "3X+5Y-3X+2Y"
         '
+        'ListBox1
+        '
+        Me.ListBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ListBox1.FormattingEnabled = True
+        Me.ListBox1.ItemHeight = 25
+        Me.ListBox1.Items.AddRange(New Object() {"oolol"})
+        Me.ListBox1.Location = New System.Drawing.Point(18, 46)
+        Me.ListBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.ListBox1.Name = "ListBox1"
+        Me.ListBox1.Size = New System.Drawing.Size(775, 979)
+        Me.ListBox1.TabIndex = 0
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(818, 46)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(355, 61)
+        Me.Label4.TabIndex = 1
+        Me.Label4.Text = "QUESTION 1"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(822, 117)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(247, 29)
+        Me.Label5.TabIndex = 2
+        Me.Label5.Text = "Algebra Simplification"
+        '
+        'Button1
+        '
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(828, 200)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(452, 83)
+        Me.Button1.TabIndex = 3
+        Me.Button1.Text = "EDIT"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Button2.Location = New System.Drawing.Point(828, 309)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(452, 83)
+        Me.Button2.TabIndex = 4
+        Me.Button2.Text = "REMOVE"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button3.ForeColor = System.Drawing.Color.Green
+        Me.Button3.Location = New System.Drawing.Point(828, 942)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(462, 83)
+        Me.Button3.TabIndex = 5
+        Me.Button3.Text = "EXPORT"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button4
+        '
+        Me.Button4.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button4.ForeColor = System.Drawing.Color.White
+        Me.Button4.Location = New System.Drawing.Point(831, 776)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(462, 126)
+        Me.Button4.TabIndex = 6
+        Me.Button4.Text = "CLEAR ALL"
+        Me.Button4.UseVisualStyleBackColor = False
+        '
+        'TEACHER_GROUP
+        '
+        Me.TEACHER_GROUP.Controls.Add(TITLE)
+        Me.TEACHER_GROUP.Controls.Add(Me.TEACHER_MARK_SUBMISSIONS)
+        Me.TEACHER_GROUP.Controls.Add(Me.TEACHER_CREATE_QUESTIONS)
+        Me.TEACHER_GROUP.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TEACHER_GROUP.Location = New System.Drawing.Point(0, 0)
+        Me.TEACHER_GROUP.Name = "TEACHER_GROUP"
+        Me.TEACHER_GROUP.Size = New System.Drawing.Size(1324, 1062)
+        Me.TEACHER_GROUP.TabIndex = 5
+        Me.TEACHER_GROUP.TabStop = False
+        Me.TEACHER_GROUP.Text = "Main Menu"
+        Me.TEACHER_GROUP.Visible = False
+        '
+        'TEACHER_MARK_SUBMISSIONS
+        '
+        Me.TEACHER_MARK_SUBMISSIONS.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TEACHER_MARK_SUBMISSIONS.Location = New System.Drawing.Point(831, 514)
+        Me.TEACHER_MARK_SUBMISSIONS.Name = "TEACHER_MARK_SUBMISSIONS"
+        Me.TEACHER_MARK_SUBMISSIONS.Size = New System.Drawing.Size(258, 231)
+        Me.TEACHER_MARK_SUBMISSIONS.TabIndex = 1
+        Me.TEACHER_MARK_SUBMISSIONS.Text = "Answer Submissions"
+        Me.TEACHER_MARK_SUBMISSIONS.UseVisualStyleBackColor = True
+        '
+        'TEACHER_CREATE_QUESTIONS
+        '
+        Me.TEACHER_CREATE_QUESTIONS.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TEACHER_CREATE_QUESTIONS.Location = New System.Drawing.Point(210, 514)
+        Me.TEACHER_CREATE_QUESTIONS.Name = "TEACHER_CREATE_QUESTIONS"
+        Me.TEACHER_CREATE_QUESTIONS.Size = New System.Drawing.Size(258, 231)
+        Me.TEACHER_CREATE_QUESTIONS.TabIndex = 0
+        Me.TEACHER_CREATE_QUESTIONS.Text = "Create Questions"
+        Me.TEACHER_CREATE_QUESTIONS.UseVisualStyleBackColor = True
+        '
         'Q_CONTROL_GROUP
         '
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Button4)
@@ -312,113 +396,30 @@ Partial Class FORM1
         Me.Q_CONTROL_GROUP.Name = "Q_CONTROL_GROUP"
         Me.Q_CONTROL_GROUP.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Q_CONTROL_GROUP.Size = New System.Drawing.Size(1324, 1062)
-        Me.Q_CONTROL_GROUP.TabIndex = 7
+        Me.Q_CONTROL_GROUP.TabIndex = 8
         Me.Q_CONTROL_GROUP.TabStop = False
         Me.Q_CONTROL_GROUP.Text = "Question Control"
-        '
-        'Button4
-        '
-        Me.Button4.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.ForeColor = System.Drawing.Color.White
-        Me.Button4.Location = New System.Drawing.Point(831, 803)
-        Me.Button4.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(462, 126)
-        Me.Button4.TabIndex = 6
-        Me.Button4.Text = "CLEAR ALL"
-        Me.Button4.UseVisualStyleBackColor = False
-        '
-        'Button3
-        '
-        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button3.ForeColor = System.Drawing.Color.Green
-        Me.Button3.Location = New System.Drawing.Point(828, 954)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(462, 83)
-        Me.Button3.TabIndex = 5
-        Me.Button3.Text = "EXPORT"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Button2.Location = New System.Drawing.Point(828, 309)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(452, 83)
-        Me.Button2.TabIndex = 4
-        Me.Button2.Text = "REMOVE"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(828, 200)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(452, 83)
-        Me.Button1.TabIndex = 3
-        Me.Button1.Text = "EDIT"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(822, 117)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(247, 29)
-        Me.Label5.TabIndex = 2
-        Me.Label5.Text = "Algebra Simplification"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(818, 46)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(355, 61)
-        Me.Label4.TabIndex = 1
-        Me.Label4.Text = "QUESTION 1"
-        '
-        'ListBox1
-        '
-        Me.ListBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.ItemHeight = 25
-        Me.ListBox1.Items.AddRange(New Object() {"oolol"})
-        Me.ListBox1.Location = New System.Drawing.Point(18, 46)
-        Me.ListBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(775, 979)
-        Me.ListBox1.TabIndex = 0
         '
         'FORM1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1324, 1062)
-        Me.Controls.Add(Me.Q_CONTROL_GROUP)
-        Me.Controls.Add(Me.TEACHER_GROUP)
         Me.Controls.Add(Me.LOGIN_GROUP)
         Me.Controls.Add(Me.MODE_GROUP)
         Me.Controls.Add(Me.QUESTION_INPUT1)
+        Me.Controls.Add(Me.Q_CONTROL_GROUP)
+        Me.Controls.Add(Me.TEACHER_GROUP)
         Me.Name = "FORM1"
         Me.Text = "Form1"
         Me.MODE_GROUP.ResumeLayout(False)
         Me.MODE_GROUP.PerformLayout()
         Me.LOGIN_GROUP.ResumeLayout(False)
         Me.LOGIN_GROUP.PerformLayout()
-        Me.TEACHER_GROUP.ResumeLayout(False)
-        Me.TEACHER_GROUP.PerformLayout()
         Me.QUESTION_INPUT1.ResumeLayout(False)
         Me.QUESTION_INPUT1.PerformLayout()
+        Me.TEACHER_GROUP.ResumeLayout(False)
+        Me.TEACHER_GROUP.PerformLayout()
         Me.Q_CONTROL_GROUP.ResumeLayout(False)
         Me.Q_CONTROL_GROUP.PerformLayout()
         Me.ResumeLayout(False)
@@ -431,9 +432,6 @@ Partial Class FORM1
     Friend WithEvents LOGIN_GROUP As GroupBox
     Friend WithEvents LOGIN_BUTTON As Button
     Friend WithEvents LOGIN_INPUT As TextBox
-    Friend WithEvents TEACHER_GROUP As GroupBox
-    Friend WithEvents TEACHER_MARK_SUBMISSIONS As Button
-    Friend WithEvents TEACHER_CREATE_QUESTIONS As Button
     Friend WithEvents QUESTION_INPUT1 As GroupBox
     Friend WithEvents QUESTION_COUNT As Label
     Friend WithEvents QUESTION_CREATE As Button
@@ -441,11 +439,14 @@ Partial Class FORM1
     Friend WithEvents QUESTION_REMOVE As Button
     Friend WithEvents QUESTION_QUESTION As Label
     Friend WithEvents Q_CONTROL_GROUP As GroupBox
-    Friend WithEvents ListBox1 As ListBox
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label4 As Label
+    Friend WithEvents TEACHER_GROUP As GroupBox
+    Friend WithEvents TEACHER_MARK_SUBMISSIONS As Button
+    Friend WithEvents TEACHER_CREATE_QUESTIONS As Button
+    Friend WithEvents Button4 As Button
+    Friend WithEvents Button3 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Button1 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button4 As Button
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents ListBox1 As ListBox
 End Class

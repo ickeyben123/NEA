@@ -12,7 +12,6 @@ Class POSTFIX_EXPRESSION : Inherits UTILITIES ' defines any expression that is w
     Protected OPERATOR_STACK As Stack(Of String) = New Stack(Of String)()
     Protected OUTPUT_POSTFIX As List(Of String) = New List(Of String)
     Protected TRUE_EXPRESSION_LIST As List(Of String) = New List(Of String)
-
     'FIXED! 
     Function CONVERT_CHAR_ARRAY_TO_CORRECT_FORM(INPUT As String) ' This changes something like {1,3,x,+,3} into {13x,+,3}, otherwise I wouldn't be able to tell where the numbers end, easily.
         Dim TEMP_QUEUE As Queue(Of String) = New Queue(Of String) ' A temporary queue used to hold the numbers, say if I have {1,3,x,+}, it will add {1,3,x} to the stack, and stop at the +. 

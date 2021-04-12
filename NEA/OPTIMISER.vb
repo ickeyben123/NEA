@@ -1505,35 +1505,35 @@ End Class
 
 Module MODULE1
 
-    Sub MAIN()
-        While True
-            Console.Write("DO THE INPUT:")
-            Dim INPUT As String = Console.ReadLine()
-            Dim SIMPLIFIED As New SIMPLE_SIMPLIFY(INPUT)
-            'Console.WriteLine("")
-            'Console.WriteLine(SIMPLIFIED.RESULT)
-            'Console.WriteLine("")
-            'Console.WriteLine("DIFFERENTIATE? (y/n)")
-            'Console.WriteLine("If it is multivariable, note that the evaluation is d(f(x,y,z...))/dx.")
-            'Console.WriteLine("Partial Derivatives that evaluate as ∂(f(x))/∂x *dx will become ∂(f(x))/∂x.")
-            'Console.WriteLine("Partial Derivatives of any other form will produce a ratio derivative in a product.")
-            'Console.WriteLine("- Such as ∂(f(x))/∂x * dy/dx")
-            'Console.WriteLine("This form is correct for all multivariable calculations, no matter the number of arguments.")
-            Dim YES As String = Console.ReadLine
-            If YES.ToLower = "y" Then
-                SIMPLIFIED.DIFFERENTIATE()
-                'Console.WriteLine("")
-                'Console.WriteLine("d(" & INPUT & ")" & "/dx = " & SIMPLIFIED.RESULT)
-                'Console.WriteLine("")
-            End If
-            'Console.WriteLine("Expand the brackets? (y/n)")
-            YES = Console.ReadLine
-            If YES.ToLower = "y" Then
-                SIMPLIFIED.EXPAND()
-                'Console.WriteLine("")
-                'Console.WriteLine(SIMPLIFIED.RESULT)
-                'Console.WriteLine("")
-            End If
-        End While
-    End Sub
+    'Sub MAIN()
+    '    While True
+    '        Debug.WriteLine("DO THE INPUT:")
+    '        Dim INPUT As String = Console.ReadLine()
+    '        Dim SIMPLIFIED As New SIMPLE_SIMPLIFY(INPUT)
+    '        'Console.WriteLine("")
+    '        'Console.WriteLine(SIMPLIFIED.RESULT)
+    '        'Console.WriteLine("")
+    '        'Console.WriteLine("DIFFERENTIATE? (y/n)")
+    '        'Console.WriteLine("If it is multivariable, note that the evaluation is d(f(x,y,z...))/dx.")
+    '        'Console.WriteLine("Partial Derivatives that evaluate as ∂(f(x))/∂x *dx will become ∂(f(x))/∂x.")
+    '        'Console.WriteLine("Partial Derivatives of any other form will produce a ratio derivative in a product.")
+    '        'Console.WriteLine("- Such as ∂(f(x))/∂x * dy/dx")
+    '        'Console.WriteLine("This form is correct for all multivariable calculations, no matter the number of arguments.")
+    '        Dim YES As String = Console.ReadLine
+    '        If YES.ToLower = "y" Then
+    '            SIMPLIFIED.DIFFERENTIATE()
+    '            'Console.WriteLine("")
+    '            'Console.WriteLine("d(" & INPUT & ")" & "/dx = " & SIMPLIFIED.RESULT)
+    '            'Console.WriteLine("")
+    '        End If
+    '        'Console.WriteLine("Expand the brackets? (y/n)")
+    '        YES = Console.ReadLine
+    '        If YES.ToLower = "y" Then
+    '            SIMPLIFIED.EXPAND()
+    '            'Console.WriteLine("")
+    '            'Console.WriteLine(SIMPLIFIED.RESULT)
+    '            'Console.WriteLine("")
+    '        End If
+    '    End While
+    'End Sub
 End Module
