@@ -8,7 +8,10 @@ End Enum
 
 Class OPTIMISER : Inherits UTILITIES
 
-    ' General class for optimising trees. 
+    ' General class for optimising trees.
+    ' Will be extremely long and tantamount to the pain I'm willing to endure.
+
+
     Private TREE_TO_MODIFY As TREE_NODE
     '' FIX LIKE TERM SUMMING AS IT BREAKS THE POWER ADDITION
     Public Function OPTIMISE_TREE(TO_MODIFY As TREE_NODE, Optional EXPAND_BRACKETS As Boolean = False)
@@ -30,6 +33,7 @@ Class OPTIMISER : Inherits UTILITIES
             PREPARATION_BY_TIMES_RULING(TREE_TO_MODIFY)
             NEGATIVE_POWERS_TO_DIVISORS(TREE_TO_MODIFY)
             TREE_TO_MODIFY = TO_MODIFY
+
             While Not LAST_TREE = IN_ORDER(TREE_TO_MODIFY, True)
                 LAST_TREE = IN_ORDER(TREE_TO_MODIFY, True)
                 REMOVE_NEGATIVITY(TREE_TO_MODIFY) ' removes the negative roots.
@@ -37,32 +41,27 @@ Class OPTIMISER : Inherits UTILITIES
                 LEVEL_OPERATORS(TREE_TO_MODIFY) ' levels the operators, see function for more details.
                 RATIONAL_SIMPLIFICATION(TREE_TO_MODIFY)
             End While
+
             LAST_TREE = ""
+
             While Not LAST_TREE = IN_ORDER(TREE_TO_MODIFY, True)
                 LAST_TREE = IN_ORDER(TREE_TO_MODIFY, True)
                 PREPARATION_BY_TIMES_RULING(TREE_TO_MODIFY)
                 FRACTION_COLLECTER_WRAPPER(TREE_TO_MODIFY)
                 COLLECT_LIKE_TERMS(TREE_TO_MODIFY)
             End While
-            'Console.WriteLine("finished boi v2")
+
             If EXPAND_BRACKETS Then
                 MULTIPLIER_SIMPLIFIER(TREE_TO_MODIFY)
             End If
+
             MULTIPLIER_WRAPPER_SOLVER(TREE_TO_MODIFY)
             PREPERATION_POWER_RULING(TREE_TO_MODIFY)
             POWER_SOLVER(TREE_TO_MODIFY)
-            'Console.WriteLine("finished boi v2")
-            'Console.WriteLine(IN_ORDER(TREE_TO_MODIFY, True))
             REMOVE_LOOSE_ADDITIONS(TREE_TO_MODIFY)
             REMOVE_POWERS(TREE_TO_MODIFY)
             CLEANUP_FINALISER(TREE_TO_MODIFY)
-            'REMOVE_DIVISION_ENTIRELY(TREE_TO_MODIFY)
-            '  DIVISION_MULTIPLICATION(TREE_TO_MODIFY)
-            'Console.WriteLine("finished boi v3")
-            'Console.WriteLine(IN_ORDER(TREE_TO_MODIFY, True))
         Next
-        ' Console.WriteLine("finished boi v3")
-        ' Console.WriteLine(IN_ORDER(TREE_TO_MODIFY, True))
         Return IN_ORDER(TREE_TO_MODIFY, True)
     End Function
 

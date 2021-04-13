@@ -24,9 +24,10 @@ Partial Class FORM1
     Private Sub InitializeComponent()
         Dim Label2 As System.Windows.Forms.Label
         Dim Label1 As System.Windows.Forms.Label
-        Dim Label3 As System.Windows.Forms.Label
         Dim TITLE As System.Windows.Forms.Label
-        Me.QUESTION_QUESTION = New System.Windows.Forms.Label()
+        Dim Label8 As System.Windows.Forms.Label
+        Dim Label3 As System.Windows.Forms.Label
+        Me.QUESTION_CHOOSER_LIST = New System.Windows.Forms.ListBox()
         Me.MODE_STUDENT = New System.Windows.Forms.Button()
         Me.MODE_GROUP = New System.Windows.Forms.GroupBox()
         Me.MODE_TEACHER = New System.Windows.Forms.Button()
@@ -34,12 +35,7 @@ Partial Class FORM1
         Me.LOGIN_GROUP = New System.Windows.Forms.GroupBox()
         Me.LOGIN_BUTTON = New System.Windows.Forms.Button()
         Me.LOGIN_INPUT = New System.Windows.Forms.TextBox()
-        Me.QUESTION_INPUT1 = New System.Windows.Forms.GroupBox()
-        Me.QUESTION_REMOVE = New System.Windows.Forms.Button()
-        Me.QUESTION_CREATE = New System.Windows.Forms.Button()
-        Me.QUESTION_COUNT = New System.Windows.Forms.Label()
-        Me.QUESTION_INPUT = New System.Windows.Forms.RichTextBox()
-        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.Q_CONTROL_GROUP_LISTBOX = New System.Windows.Forms.ListBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -50,15 +46,31 @@ Partial Class FORM1
         Me.TEACHER_MARK_SUBMISSIONS = New System.Windows.Forms.Button()
         Me.TEACHER_CREATE_QUESTIONS = New System.Windows.Forms.Button()
         Me.Q_CONTROL_GROUP = New System.Windows.Forms.GroupBox()
+        Me.Q_CONTROL_GROUP_ADD_QUESTION = New System.Windows.Forms.Button()
+        Me.QUESTION_CHOOSER = New System.Windows.Forms.GroupBox()
+        Me.QUESTION_CHOOSER_BACK = New System.Windows.Forms.Button()
+        Me.QUESTION_CHOOSER_CREATE = New System.Windows.Forms.Button()
+        Me.QUESTION_INPUT = New System.Windows.Forms.RichTextBox()
+        Me.QUESTION_COUNT = New System.Windows.Forms.Label()
+        Me.QUESTION_CREATE = New System.Windows.Forms.Button()
+        Me.QUESTION_REMOVE = New System.Windows.Forms.Button()
+        Me.QUESTION_CREATION_ANSWER = New System.Windows.Forms.RichTextBox()
+        Me.QUESTION_INPUT1 = New System.Windows.Forms.GroupBox()
+        Me.QUESTION_RECOMPUTE_ANSWER = New System.Windows.Forms.Button()
+        Me.QUESTION_CREATION_EXIT = New System.Windows.Forms.Button()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.QUESTION_DISPLAY = New System.Windows.Forms.Label()
         Label2 = New System.Windows.Forms.Label()
         Label1 = New System.Windows.Forms.Label()
-        Label3 = New System.Windows.Forms.Label()
         TITLE = New System.Windows.Forms.Label()
+        Label8 = New System.Windows.Forms.Label()
+        Label3 = New System.Windows.Forms.Label()
         Me.MODE_GROUP.SuspendLayout()
         Me.LOGIN_GROUP.SuspendLayout()
-        Me.QUESTION_INPUT1.SuspendLayout()
         Me.TEACHER_GROUP.SuspendLayout()
         Me.Q_CONTROL_GROUP.SuspendLayout()
+        Me.QUESTION_CHOOSER.SuspendLayout()
+        Me.QUESTION_INPUT1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label2
@@ -84,16 +96,6 @@ Partial Class FORM1
         Label1.Text = "Please Login"
         Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label3
-        '
-        Label3.AutoSize = True
-        Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Label3.Location = New System.Drawing.Point(34, 62)
-        Label3.Name = "Label3"
-        Label3.Size = New System.Drawing.Size(353, 82)
-        Label3.TabIndex = 0
-        Label3.Text = "Question:"
-        '
         'TITLE
         '
         TITLE.AutoSize = True
@@ -104,15 +106,35 @@ Partial Class FORM1
         TITLE.TabIndex = 2
         TITLE.Text = "What do you want to do?"
         '
-        'QUESTION_QUESTION
+        'Label8
         '
-        Me.QUESTION_QUESTION.AutoSize = True
-        Me.QUESTION_QUESTION.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.QUESTION_QUESTION.Location = New System.Drawing.Point(48, 165)
-        Me.QUESTION_QUESTION.Name = "QUESTION_QUESTION"
-        Me.QUESTION_QUESTION.Size = New System.Drawing.Size(715, 55)
-        Me.QUESTION_QUESTION.TabIndex = 2
-        Me.QUESTION_QUESTION.Text = "Simplify the following expression"
+        Label8.AutoSize = True
+        Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label8.Location = New System.Drawing.Point(34, 62)
+        Label8.Name = "Label8"
+        Label8.Size = New System.Drawing.Size(1080, 82)
+        Label8.TabIndex = 0
+        Label8.Text = "Available Questions Templates."
+        '
+        'Label3
+        '
+        Label3.AutoSize = True
+        Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label3.Location = New System.Drawing.Point(34, 62)
+        Label3.Name = "Label3"
+        Label3.Size = New System.Drawing.Size(353, 82)
+        Label3.TabIndex = 0
+        Label3.Text = "Question:"
+        '
+        'QUESTION_CHOOSER_LIST
+        '
+        Me.QUESTION_CHOOSER_LIST.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_CHOOSER_LIST.FormattingEnabled = True
+        Me.QUESTION_CHOOSER_LIST.ItemHeight = 32
+        Me.QUESTION_CHOOSER_LIST.Location = New System.Drawing.Point(48, 165)
+        Me.QUESTION_CHOOSER_LIST.Name = "QUESTION_CHOOSER_LIST"
+        Me.QUESTION_CHOOSER_LIST.Size = New System.Drawing.Size(678, 676)
+        Me.QUESTION_CHOOSER_LIST.TabIndex = 7
         '
         'MODE_STUDENT
         '
@@ -168,8 +190,8 @@ Partial Class FORM1
         '
         Me.LOGIN_GROUP.Controls.Add(Me.LOGIN_BUTTON)
         Me.LOGIN_GROUP.Controls.Add(Label2)
-        Me.LOGIN_GROUP.Controls.Add(Label1)
         Me.LOGIN_GROUP.Controls.Add(Me.LOGIN_INPUT)
+        Me.LOGIN_GROUP.Controls.Add(Label1)
         Me.LOGIN_GROUP.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LOGIN_GROUP.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.LOGIN_GROUP.Location = New System.Drawing.Point(0, 0)
@@ -201,80 +223,16 @@ Partial Class FORM1
         Me.LOGIN_INPUT.TabIndex = 0
         Me.LOGIN_INPUT.UseSystemPasswordChar = True
         '
-        'QUESTION_INPUT1
+        'Q_CONTROL_GROUP_LISTBOX
         '
-        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_REMOVE)
-        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_CREATE)
-        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_COUNT)
-        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_QUESTION)
-        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_INPUT)
-        Me.QUESTION_INPUT1.Controls.Add(Label3)
-        Me.QUESTION_INPUT1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.QUESTION_INPUT1.Location = New System.Drawing.Point(0, 0)
-        Me.QUESTION_INPUT1.Name = "QUESTION_INPUT1"
-        Me.QUESTION_INPUT1.Size = New System.Drawing.Size(1324, 1062)
-        Me.QUESTION_INPUT1.TabIndex = 6
-        Me.QUESTION_INPUT1.TabStop = False
-        Me.QUESTION_INPUT1.Text = "Question Creation"
-        '
-        'QUESTION_REMOVE
-        '
-        Me.QUESTION_REMOVE.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.QUESTION_REMOVE.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.QUESTION_REMOVE.ForeColor = System.Drawing.Color.Maroon
-        Me.QUESTION_REMOVE.Location = New System.Drawing.Point(494, 937)
-        Me.QUESTION_REMOVE.Name = "QUESTION_REMOVE"
-        Me.QUESTION_REMOVE.Size = New System.Drawing.Size(410, 80)
-        Me.QUESTION_REMOVE.TabIndex = 5
-        Me.QUESTION_REMOVE.Text = "Remove from list"
-        Me.QUESTION_REMOVE.UseVisualStyleBackColor = True
-        Me.QUESTION_REMOVE.Visible = False
-        '
-        'QUESTION_CREATE
-        '
-        Me.QUESTION_CREATE.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.QUESTION_CREATE.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.QUESTION_CREATE.ForeColor = System.Drawing.Color.Green
-        Me.QUESTION_CREATE.Location = New System.Drawing.Point(58, 937)
-        Me.QUESTION_CREATE.Name = "QUESTION_CREATE"
-        Me.QUESTION_CREATE.Size = New System.Drawing.Size(410, 80)
-        Me.QUESTION_CREATE.TabIndex = 4
-        Me.QUESTION_CREATE.Text = "Add to list"
-        Me.QUESTION_CREATE.UseVisualStyleBackColor = True
-        '
-        'QUESTION_COUNT
-        '
-        Me.QUESTION_COUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.QUESTION_COUNT.AutoSize = True
-        Me.QUESTION_COUNT.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.QUESTION_COUNT.Location = New System.Drawing.Point(1202, 22)
-        Me.QUESTION_COUNT.Name = "QUESTION_COUNT"
-        Me.QUESTION_COUNT.Size = New System.Drawing.Size(76, 82)
-        Me.QUESTION_COUNT.TabIndex = 3
-        Me.QUESTION_COUNT.Text = "2"
-        Me.QUESTION_COUNT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'QUESTION_INPUT
-        '
-        Me.QUESTION_INPUT.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.QUESTION_INPUT.Location = New System.Drawing.Point(58, 248)
-        Me.QUESTION_INPUT.MaxLength = 500
-        Me.QUESTION_INPUT.Name = "QUESTION_INPUT"
-        Me.QUESTION_INPUT.Size = New System.Drawing.Size(762, 244)
-        Me.QUESTION_INPUT.TabIndex = 1
-        Me.QUESTION_INPUT.Text = "3X+5Y-3X+2Y"
-        '
-        'ListBox1
-        '
-        Me.ListBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.ItemHeight = 25
-        Me.ListBox1.Items.AddRange(New Object() {"oolol"})
-        Me.ListBox1.Location = New System.Drawing.Point(18, 46)
-        Me.ListBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(775, 979)
-        Me.ListBox1.TabIndex = 0
+        Me.Q_CONTROL_GROUP_LISTBOX.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Q_CONTROL_GROUP_LISTBOX.FormattingEnabled = True
+        Me.Q_CONTROL_GROUP_LISTBOX.ItemHeight = 25
+        Me.Q_CONTROL_GROUP_LISTBOX.Location = New System.Drawing.Point(18, 46)
+        Me.Q_CONTROL_GROUP_LISTBOX.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Q_CONTROL_GROUP_LISTBOX.Name = "Q_CONTROL_GROUP_LISTBOX"
+        Me.Q_CONTROL_GROUP_LISTBOX.Size = New System.Drawing.Size(775, 979)
+        Me.Q_CONTROL_GROUP_LISTBOX.TabIndex = 0
         '
         'Label4
         '
@@ -383,13 +341,14 @@ Partial Class FORM1
         '
         'Q_CONTROL_GROUP
         '
+        Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_ADD_QUESTION)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Button4)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Button3)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Button2)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Button1)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Label5)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Label4)
-        Me.Q_CONTROL_GROUP.Controls.Add(Me.ListBox1)
+        Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_LISTBOX)
         Me.Q_CONTROL_GROUP.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Q_CONTROL_GROUP.Location = New System.Drawing.Point(0, 0)
         Me.Q_CONTROL_GROUP.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -400,28 +359,202 @@ Partial Class FORM1
         Me.Q_CONTROL_GROUP.TabStop = False
         Me.Q_CONTROL_GROUP.Text = "Question Control"
         '
+        'Q_CONTROL_GROUP_ADD_QUESTION
+        '
+        Me.Q_CONTROL_GROUP_ADD_QUESTION.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Q_CONTROL_GROUP_ADD_QUESTION.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Q_CONTROL_GROUP_ADD_QUESTION.Location = New System.Drawing.Point(826, 423)
+        Me.Q_CONTROL_GROUP_ADD_QUESTION.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Q_CONTROL_GROUP_ADD_QUESTION.Name = "Q_CONTROL_GROUP_ADD_QUESTION"
+        Me.Q_CONTROL_GROUP_ADD_QUESTION.Size = New System.Drawing.Size(452, 83)
+        Me.Q_CONTROL_GROUP_ADD_QUESTION.TabIndex = 7
+        Me.Q_CONTROL_GROUP_ADD_QUESTION.Text = "ADD NEW QUESTION"
+        Me.Q_CONTROL_GROUP_ADD_QUESTION.UseVisualStyleBackColor = True
+        '
+        'QUESTION_CHOOSER
+        '
+        Me.QUESTION_CHOOSER.Controls.Add(Me.QUESTION_CHOOSER_BACK)
+        Me.QUESTION_CHOOSER.Controls.Add(Me.QUESTION_CHOOSER_LIST)
+        Me.QUESTION_CHOOSER.Controls.Add(Me.QUESTION_CHOOSER_CREATE)
+        Me.QUESTION_CHOOSER.Controls.Add(Label8)
+        Me.QUESTION_CHOOSER.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.QUESTION_CHOOSER.Location = New System.Drawing.Point(0, 0)
+        Me.QUESTION_CHOOSER.Name = "QUESTION_CHOOSER"
+        Me.QUESTION_CHOOSER.Size = New System.Drawing.Size(1324, 1062)
+        Me.QUESTION_CHOOSER.TabIndex = 9
+        Me.QUESTION_CHOOSER.TabStop = False
+        Me.QUESTION_CHOOSER.Text = "Question Chooser"
+        '
+        'QUESTION_CHOOSER_BACK
+        '
+        Me.QUESTION_CHOOSER_BACK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.QUESTION_CHOOSER_BACK.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_CHOOSER_BACK.ForeColor = System.Drawing.Color.Maroon
+        Me.QUESTION_CHOOSER_BACK.Location = New System.Drawing.Point(1185, 970)
+        Me.QUESTION_CHOOSER_BACK.Name = "QUESTION_CHOOSER_BACK"
+        Me.QUESTION_CHOOSER_BACK.Size = New System.Drawing.Size(127, 80)
+        Me.QUESTION_CHOOSER_BACK.TabIndex = 8
+        Me.QUESTION_CHOOSER_BACK.Text = "Exit"
+        Me.QUESTION_CHOOSER_BACK.UseVisualStyleBackColor = True
+        '
+        'QUESTION_CHOOSER_CREATE
+        '
+        Me.QUESTION_CHOOSER_CREATE.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.QUESTION_CHOOSER_CREATE.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_CHOOSER_CREATE.ForeColor = System.Drawing.Color.Green
+        Me.QUESTION_CHOOSER_CREATE.Location = New System.Drawing.Point(58, 937)
+        Me.QUESTION_CHOOSER_CREATE.Name = "QUESTION_CHOOSER_CREATE"
+        Me.QUESTION_CHOOSER_CREATE.Size = New System.Drawing.Size(410, 80)
+        Me.QUESTION_CHOOSER_CREATE.TabIndex = 4
+        Me.QUESTION_CHOOSER_CREATE.Text = "Create Question"
+        Me.QUESTION_CHOOSER_CREATE.UseVisualStyleBackColor = True
+        '
+        'QUESTION_INPUT
+        '
+        Me.QUESTION_INPUT.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_INPUT.Location = New System.Drawing.Point(57, 248)
+        Me.QUESTION_INPUT.MaxLength = 500
+        Me.QUESTION_INPUT.Name = "QUESTION_INPUT"
+        Me.QUESTION_INPUT.Size = New System.Drawing.Size(762, 244)
+        Me.QUESTION_INPUT.TabIndex = 1
+        Me.QUESTION_INPUT.Text = "3X+5Y-3X+2Y"
+        '
+        'QUESTION_COUNT
+        '
+        Me.QUESTION_COUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.QUESTION_COUNT.AutoSize = True
+        Me.QUESTION_COUNT.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_COUNT.Location = New System.Drawing.Point(1214, 22)
+        Me.QUESTION_COUNT.Name = "QUESTION_COUNT"
+        Me.QUESTION_COUNT.Size = New System.Drawing.Size(76, 82)
+        Me.QUESTION_COUNT.TabIndex = 3
+        Me.QUESTION_COUNT.Text = "2"
+        Me.QUESTION_COUNT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'QUESTION_CREATE
+        '
+        Me.QUESTION_CREATE.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.QUESTION_CREATE.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_CREATE.ForeColor = System.Drawing.Color.Green
+        Me.QUESTION_CREATE.Location = New System.Drawing.Point(58, 937)
+        Me.QUESTION_CREATE.Name = "QUESTION_CREATE"
+        Me.QUESTION_CREATE.Size = New System.Drawing.Size(410, 80)
+        Me.QUESTION_CREATE.TabIndex = 4
+        Me.QUESTION_CREATE.Text = "Add to list"
+        Me.QUESTION_CREATE.UseVisualStyleBackColor = True
+        '
+        'QUESTION_REMOVE
+        '
+        Me.QUESTION_REMOVE.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.QUESTION_REMOVE.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_REMOVE.ForeColor = System.Drawing.Color.Maroon
+        Me.QUESTION_REMOVE.Location = New System.Drawing.Point(494, 937)
+        Me.QUESTION_REMOVE.Name = "QUESTION_REMOVE"
+        Me.QUESTION_REMOVE.Size = New System.Drawing.Size(410, 80)
+        Me.QUESTION_REMOVE.TabIndex = 5
+        Me.QUESTION_REMOVE.Text = "Remove from list"
+        Me.QUESTION_REMOVE.UseVisualStyleBackColor = True
+        Me.QUESTION_REMOVE.Visible = False
+        '
+        'QUESTION_CREATION_ANSWER
+        '
+        Me.QUESTION_CREATION_ANSWER.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_CREATION_ANSWER.Location = New System.Drawing.Point(58, 614)
+        Me.QUESTION_CREATION_ANSWER.MaxLength = 500
+        Me.QUESTION_CREATION_ANSWER.Name = "QUESTION_CREATION_ANSWER"
+        Me.QUESTION_CREATION_ANSWER.Size = New System.Drawing.Size(762, 244)
+        Me.QUESTION_CREATION_ANSWER.TabIndex = 6
+        Me.QUESTION_CREATION_ANSWER.Text = "7Y"
+        '
+        'QUESTION_INPUT1
+        '
+        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_RECOMPUTE_ANSWER)
+        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_CREATION_EXIT)
+        Me.QUESTION_INPUT1.Controls.Add(Me.Label6)
+        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_CREATION_ANSWER)
+        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_REMOVE)
+        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_CREATE)
+        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_COUNT)
+        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_DISPLAY)
+        Me.QUESTION_INPUT1.Controls.Add(Me.QUESTION_INPUT)
+        Me.QUESTION_INPUT1.Controls.Add(Label3)
+        Me.QUESTION_INPUT1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.QUESTION_INPUT1.Location = New System.Drawing.Point(0, 0)
+        Me.QUESTION_INPUT1.Name = "QUESTION_INPUT1"
+        Me.QUESTION_INPUT1.Size = New System.Drawing.Size(1324, 1062)
+        Me.QUESTION_INPUT1.TabIndex = 6
+        Me.QUESTION_INPUT1.TabStop = False
+        Me.QUESTION_INPUT1.Text = "Question Creation"
+        '
+        'QUESTION_RECOMPUTE_ANSWER
+        '
+        Me.QUESTION_RECOMPUTE_ANSWER.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.QUESTION_RECOMPUTE_ANSWER.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_RECOMPUTE_ANSWER.ForeColor = System.Drawing.Color.Black
+        Me.QUESTION_RECOMPUTE_ANSWER.Location = New System.Drawing.Point(607, 503)
+        Me.QUESTION_RECOMPUTE_ANSWER.Name = "QUESTION_RECOMPUTE_ANSWER"
+        Me.QUESTION_RECOMPUTE_ANSWER.Size = New System.Drawing.Size(212, 58)
+        Me.QUESTION_RECOMPUTE_ANSWER.TabIndex = 10
+        Me.QUESTION_RECOMPUTE_ANSWER.Text = "Recompute"
+        Me.QUESTION_RECOMPUTE_ANSWER.UseVisualStyleBackColor = True
+        '
+        'QUESTION_CREATION_EXIT
+        '
+        Me.QUESTION_CREATION_EXIT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.QUESTION_CREATION_EXIT.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_CREATION_EXIT.ForeColor = System.Drawing.Color.Maroon
+        Me.QUESTION_CREATION_EXIT.Location = New System.Drawing.Point(1185, 970)
+        Me.QUESTION_CREATION_EXIT.Name = "QUESTION_CREATION_EXIT"
+        Me.QUESTION_CREATION_EXIT.Size = New System.Drawing.Size(127, 80)
+        Me.QUESTION_CREATION_EXIT.TabIndex = 9
+        Me.QUESTION_CREATION_EXIT.Text = "Exit"
+        Me.QUESTION_CREATION_EXIT.UseVisualStyleBackColor = True
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(47, 536)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(421, 55)
+        Me.Label6.TabIndex = 7
+        Me.Label6.Text = "Computed Answer"
+        '
+        'QUESTION_DISPLAY
+        '
+        Me.QUESTION_DISPLAY.AutoSize = True
+        Me.QUESTION_DISPLAY.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_DISPLAY.Location = New System.Drawing.Point(47, 165)
+        Me.QUESTION_DISPLAY.Name = "QUESTION_DISPLAY"
+        Me.QUESTION_DISPLAY.Size = New System.Drawing.Size(715, 55)
+        Me.QUESTION_DISPLAY.TabIndex = 2
+        Me.QUESTION_DISPLAY.Text = "Simplify the following expression"
+        '
         'FORM1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1324, 1062)
-        Me.Controls.Add(Me.LOGIN_GROUP)
-        Me.Controls.Add(Me.MODE_GROUP)
         Me.Controls.Add(Me.QUESTION_INPUT1)
         Me.Controls.Add(Me.Q_CONTROL_GROUP)
         Me.Controls.Add(Me.TEACHER_GROUP)
+        Me.Controls.Add(Me.LOGIN_GROUP)
+        Me.Controls.Add(Me.MODE_GROUP)
+        Me.Controls.Add(Me.QUESTION_CHOOSER)
         Me.Name = "FORM1"
         Me.Text = "Form1"
         Me.MODE_GROUP.ResumeLayout(False)
         Me.MODE_GROUP.PerformLayout()
         Me.LOGIN_GROUP.ResumeLayout(False)
         Me.LOGIN_GROUP.PerformLayout()
-        Me.QUESTION_INPUT1.ResumeLayout(False)
-        Me.QUESTION_INPUT1.PerformLayout()
         Me.TEACHER_GROUP.ResumeLayout(False)
         Me.TEACHER_GROUP.PerformLayout()
         Me.Q_CONTROL_GROUP.ResumeLayout(False)
         Me.Q_CONTROL_GROUP.PerformLayout()
+        Me.QUESTION_CHOOSER.ResumeLayout(False)
+        Me.QUESTION_CHOOSER.PerformLayout()
+        Me.QUESTION_INPUT1.ResumeLayout(False)
+        Me.QUESTION_INPUT1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -432,12 +565,6 @@ Partial Class FORM1
     Friend WithEvents LOGIN_GROUP As GroupBox
     Friend WithEvents LOGIN_BUTTON As Button
     Friend WithEvents LOGIN_INPUT As TextBox
-    Friend WithEvents QUESTION_INPUT1 As GroupBox
-    Friend WithEvents QUESTION_COUNT As Label
-    Friend WithEvents QUESTION_CREATE As Button
-    Friend WithEvents QUESTION_INPUT As RichTextBox
-    Friend WithEvents QUESTION_REMOVE As Button
-    Friend WithEvents QUESTION_QUESTION As Label
     Friend WithEvents Q_CONTROL_GROUP As GroupBox
     Friend WithEvents TEACHER_GROUP As GroupBox
     Friend WithEvents TEACHER_MARK_SUBMISSIONS As Button
@@ -448,5 +575,20 @@ Partial Class FORM1
     Friend WithEvents Button1 As Button
     Friend WithEvents Label5 As Label
     Friend WithEvents Label4 As Label
-    Friend WithEvents ListBox1 As ListBox
+    Friend WithEvents Q_CONTROL_GROUP_LISTBOX As ListBox
+    Friend WithEvents QUESTION_CHOOSER As GroupBox
+    Friend WithEvents QUESTION_CHOOSER_CREATE As Button
+    Friend WithEvents Q_CONTROL_GROUP_ADD_QUESTION As Button
+    Friend WithEvents QUESTION_CHOOSER_LIST As ListBox
+    Friend WithEvents QUESTION_CHOOSER_BACK As Button
+    Friend WithEvents QUESTION_INPUT As RichTextBox
+    Friend WithEvents QUESTION_COUNT As Label
+    Friend WithEvents QUESTION_CREATE As Button
+    Friend WithEvents QUESTION_REMOVE As Button
+    Friend WithEvents QUESTION_CREATION_ANSWER As RichTextBox
+    Friend WithEvents QUESTION_INPUT1 As GroupBox
+    Friend WithEvents QUESTION_DISPLAY As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents QUESTION_CREATION_EXIT As Button
+    Friend WithEvents QUESTION_RECOMPUTE_ANSWER As Button
 End Class

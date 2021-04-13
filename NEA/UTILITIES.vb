@@ -110,6 +110,7 @@ Class UTILITIES
         Return IN_ORDER(NEW_NODE, True)
     End Function
 
+
     Public Sub ALTERNATING_TREE_INSERTING(LIST_NODE, NODE)
         ' Adds one to the left, one to the right, and so on.
         ' ~left~right~left~right 

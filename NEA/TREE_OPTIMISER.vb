@@ -7,7 +7,7 @@ Imports System.Runtime.Serialization
     Public LEFT As New List(Of TREE_NODE)
     Public RIGHT As New List(Of TREE_NODE)
 
-    Function CLONE() As TREE_NODE ' The only reason this exists is because of one function.
+    Function CLONE() As TREE_NODE ' A deep clone function.
 
         ' If the object is nil then return nothing
         If (Object.ReferenceEquals(Me, Nothing)) Then Return Nothing
@@ -18,7 +18,7 @@ Imports System.Runtime.Serialization
         FORM.Serialize(STREAM, Me)
         STREAM.Seek(0, SeekOrigin.Begin) ' clones the object... deep.
 
-        Return CType(FORM.Deserialize(STREAM), TREE_NODE) ' Returns the object in proper form.
+        Return CType(FORM.Deserialize(STREAM), TREE_NODE) ' Returns the object in a useful type.
 
     End Function
 End Class

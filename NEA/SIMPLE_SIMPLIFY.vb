@@ -11,13 +11,19 @@ Class SIMPLE_SIMPLIFY : Inherits EXPRESSION_TREE
     Public RESULT As String
     Public OPTIMISER_CLASS As New OPTIMISER
 
-    Sub New(INPUT As String)
+    Sub New(INPUT As String, Optional DIFFERENTIATE As Boolean = False, Optional EXPAND_BRACKETS As Boolean = False)
         MyBase.New(INPUT)
-        CREATE_TREE() ' Creates a tree from the input specified.
+        CREATE_TREE() ' Creates a tree from the input specified.    
         RESULT = OPTIMISER_CLASS.OPTIMISE_TREE(TREE_ROOT)
+        If DIFFERENTIATE Then
+            DIFFERENTIATE_EXPRESSION()
+        End If
+        If EXPAND_BRACKETS Then
+            EXPAND()
+        End If
     End Sub
 
-    Public Sub DIFFERENTIATE() 'Intermediary for the recursive solver.
+    Public Sub DIFFERENTIATE_EXPRESSION() 'Intermediary for the recursive solver.
         RESULT = OPTIMISER_CLASS.DIFFERENTIATE()
     End Sub
     Public Sub EXPAND() 'Intermediary for the recursive solver.

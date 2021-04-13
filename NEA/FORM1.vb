@@ -7,15 +7,13 @@
 
 ' Login enum for the login_mode of the account. 
 ' It is also used to state what mode the account is in (once logged in).
+Imports System.Text.RegularExpressions
 Public Enum LOGIN_MODE
     TEACHER
     STUDENT
 End Enum
 
 ' This enum contains all the available questions
-Public Enum QUESTION_TYPE
-    ALGEBRA_SIMPLIFICATION
-End Enum
 
 ' The class for the form.
 Public Class FORM1
@@ -32,6 +30,7 @@ Public Class FORM1
 
     Dim WithEvents ACCOUNT_OBJECT As New ACCOUNT
     Dim WithEvents NOTIFICATIONS_OBJECT As New NOTIFICATIONS(Me)
+    Dim DATA_HANDLER As DATA_HANDLE
 
     '/////////////////////////////
     ' General Form Subroutines
@@ -46,17 +45,17 @@ Public Class FORM1
         Return True
     End Function
 
-    Public Sub SHOW_LOGIN_SCREEN() Handles ACCOUNT_OBJECT.LOGIN_SCREEN
+    Private Sub SHOW_LOGIN_SCREEN() Handles ACCOUNT_OBJECT.LOGIN_SCREEN
         CLEAR_ALL()
         LOGIN_GROUP.Visible = True
     End Sub
 
-    Public Sub SHOW_MODE_SCREEN() Handles ACCOUNT_OBJECT.MODE_SCREEN
+    Private Sub SHOW_MODE_SCREEN() Handles ACCOUNT_OBJECT.MODE_SCREEN
         CLEAR_ALL()
         MODE_GROUP.Visible = True
     End Sub
 
-    Public Function TOGGLE_CERTAIN_SCREEN(SCREEN, SETTING)
+    Private Function TOGGLE_CERTAIN_SCREEN(SCREEN, SETTING)
         CLEAR_ALL()
         SCREEN.Visible = SETTING
         Return True
@@ -64,6 +63,11 @@ Public Class FORM1
 
 
     ' Account Login Subroutines
+
+    Public Function UPPER_CASE(ByVal Match As Match) As String
+        ' Used for .Replace regex to set a match upper case
+        Return Match.ToString.ToUpper()
+    End Function
 
     Public Sub ATTEMPT_LOGIN() Handles LOGIN_BUTTON.MouseClick ' This fires when the user clicks the login buttonm
         Dim result As Boolean = ACCOUNT_OBJECT.LOGIN(LOGIN_INPUT.Text) ' Calls login method in the account object.
@@ -74,14 +78,34 @@ Public Class FORM1
 
             Else
                 TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
-                AddHandler TEACHER_CREATE_QUESTIONS.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True)
+                AddHandler TEACHER_CREATE_QUESTIONS.Click, Function(sender, e) SETUP_QUESTION_CREATOR()
+                DATA_HANDLER = New DATA_HANDLE(Me)
+
+                ' Update the question chooser with the current available enums.
+                Dim ENUMS As New List(Of QUESTION_TYPE)(System.Enum.GetValues(GetType(QUESTION_TYPE)))
+                ' Setup common events for the teacher.
+                AddHandler Q_CONTROL_GROUP_ADD_QUESTION.Click, Function(sender, e) SETUP_QUESTION_CHOOSER()
+                AddHandler QUESTION_CHOOSER_BACK.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
+
+                AddHandler QUESTION_CHOOSER_CREATE.Click, Function(sender, e) CREATE_QUESTION()
+
+                ' Update the question chooser listview.
+                For Each ENUM_ITEM As QUESTION_TYPE In ENUMS
+                    Dim MODIFIABLE As String = ENUM_ITEM.ToString.ToLower()
+                    Dim SPACE As New Regex("_")
+                    Dim CAPITALISE As New Regex("[ ]\w|(^\w)") ' Gets every first letter.
+                    MODIFIABLE = SPACE.Replace(MODIFIABLE, " ")
+                    MODIFIABLE = CAPITALISE.Replace(MODIFIABLE, New MatchEvaluator(AddressOf UPPER_CASE))
+
+                    QUESTION_CHOOSER_LIST.Items.Add(MODIFIABLE)
+                Next
+
             End If
 
         Else
             NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Wrong Login Info!", Color.Red)
         End If
     End Sub
-
 
     Public Sub MODE_CLICK(sender As Object, e As EventArgs) Handles MODE_STUDENT.MouseClick, MODE_TEACHER.MouseClick
         If sender Is MODE_STUDENT Then ' This means they chose to be a student
@@ -101,37 +125,59 @@ Public Class FORM1
     ' Teacher UI Subroutines.
     '/////////////////////////////
 
+    Private Function SETUP_QUESTION_CREATOR()
+        TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True) ' Shows the question creator screen.
+        Return True
+    End Function
 
-    Private Sub LISTBOX_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles ListBox1.MouseUp
+    Private Function SETUP_QUESTION_CHOOSER()
+        TOGGLE_CERTAIN_SCREEN(QUESTION_CHOOSER, True) ' Shows the question creator chooser screen.
+        Return True
+    End Function
+
+    Private Function CREATE_QUESTION()
+        Debug.WriteLine("fucking works twtwtwtw")
+        If QUESTION_CHOOSER_LIST.SelectedItems.Count = 1 Then
+            Dim NEW_QUESTION As New QUESTION(Me, DATA_HANDLER)
+            NEW_QUESTION.CHOSEN_QUESTION_TO_CREATE()
+            TOGGLE_CERTAIN_SCREEN(QUESTION_INPUT1, True)
+        End If
+    End Function
+
+    Private Function EXIT_QUESTION_CREATOR()
+
+    End Function
+
+    Private Sub LISTBOX_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles Q_CONTROL_GROUP_LISTBOX.MouseUp
         Dim CMS = New ContextMenuStrip
         If E.Button = MouseButtons.Right Then
-            If ListBox1.SelectedItems.Count = 1 Then
-                Dim ITEM1 = CMS.Items.Add("Edit " & ListBox1.SelectedItem.ToString)
+            If Q_CONTROL_GROUP_LISTBOX.SelectedItems.Count = 1 Then
+                Dim ITEM1 = CMS.Items.Add("Edit " & Q_CONTROL_GROUP_LISTBOX.SelectedItem.ToString)
                 ITEM1.Tag = 1
                 AddHandler ITEM1.Click, AddressOf EDIT
-                Dim ITEM2 = CMS.Items.Add("Delete " & ListBox1.SelectedItem.ToString)
+                Dim ITEM2 = CMS.Items.Add("Delete " & Q_CONTROL_GROUP_LISTBOX.SelectedItem.ToString)
                 ITEM2.Tag = 2
                 AddHandler ITEM2.Click, AddressOf DELETE
             End If
             Dim ITEM3 = CMS.Items.Add("Add new question")
             ITEM3.Tag = 3
-            CMS.Show(ListBox1, E.Location)
+            AddHandler ITEM3.Click, AddressOf SETUP_QUESTION_CHOOSER
+            CMS.Show(Q_CONTROL_GROUP_LISTBOX, E.Location)
         End If
     End Sub
 
     Private Sub EDIT()
-
+        DATA_HANDLER.UPDATE_QUESTION_LIST()
     End Sub
 
     Private Sub DELETE()
 
     End Sub
 
-    Private Sub TEACHER_GROUP_Enter(sender As Object, e As EventArgs) Handles TEACHER_GROUP.Enter
+    Private Function ADD()
 
-    End Sub
-
-
+        Return True
+    End Function
 
 
     '/////////////////////////////
