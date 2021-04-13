@@ -141,6 +141,7 @@ Public Class FORM1
             Dim NEW_QUESTION As New QUESTION(Me, DATA_HANDLER)
             NEW_QUESTION.CHOSEN_QUESTION_TO_CREATE()
             TOGGLE_CERTAIN_SCREEN(QUESTION_INPUT1, True)
+            AddHandler QUESTION_CREATION_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
         End If
     End Function
 
