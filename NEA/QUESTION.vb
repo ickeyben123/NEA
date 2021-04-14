@@ -9,22 +9,31 @@ End Enum
 
 Class QUESTION
 
-    Protected TYPE As String
+    Public TYPE As String
     Protected ENABLED As Boolean = True ' Determines if editable.
-    Protected FORM
     Protected DATA_HANDLER As DATA_HANDLE
     Protected ANSWER_CLASS As SIMPLE_SIMPLIFY ' Dynamic answer that can be recomputed.
-    Dim QUESTION_ANSWER_TYPE As QUESTION_TYPE_ANSWER
+    Protected QUESTION_ANSWER_TYPE As QUESTION_TYPE_ANSWER
+
+    Protected QUESTION_TEXT As String ' This is the actual question that is saved in the class.
+    Protected QUESTION_TITLE As String
+
+    Dim RECALC_EVENT As EventHandler = Function(sender, e) RECOMPUTE_CHOSEN_QUESTION()
+    Dim ADDING_EVENT As EventHandler = Function(sender, e) UPDATE_CLASS(False)
+    Dim EDITING_EVENT As EventHandler = Function(sender, e) UPDATE_CLASS(True)
+    Dim REVOKER_EVENT As EventHandler = Function(sender, e) REMOVE_HANDLER()
+
+
+
     Dim ANSWER As String
 
     Public Overridable Sub SUBMIT_ANSWER(INPUT As String) 'Submits answer..
         Me.ANSWER = INPUT
     End Sub
 
-    Sub New(INPUT As Form, ByRef DATA_HANDLE_INPUT As DATA_HANDLE)
-        FORM = INPUT
+    Sub New(ByRef DATA_HANDLE_INPUT As DATA_HANDLE)
         DATA_HANDLER = DATA_HANDLE_INPUT
-        AddHandler FORM1.QUESTION_RECOMPUTE_ANSWER.Click, Function(sender, e) RECOMPUTE_CHOSEN_QUESTION()
+        AddHandler FORM1.QUESTION_RECOMPUTE_ANSWER.Click, RECALC_EVENT
     End Sub
 
     'Public Sub SET_ANSWER_MENU() ' Sets the answer menu's (groupbox) properties.
@@ -41,6 +50,13 @@ Class QUESTION
 
     ' Teacher section of question class.
 
+    Private Function UPDATE_CLASS(Optional EDIT As Boolean = False)
+        QUESTION_TEXT = FORM1.QUESTION_INPUT.Text
+        If Not EDIT Then
+            DATA_HANDLER.ADD(Me)
+        End If
+    End Function
+
     Private Function RECOMPUTE_CHOSEN_QUESTION()
         ' This is for the recomputing whenever the user wants.
 
@@ -55,28 +71,40 @@ Class QUESTION
         ANSWER_CLASS = TO_BE_SOLVED
 
 
+        Return True
+    End Function
 
+    Function REMOVE_HANDLER()
+        RemoveHandler FORM1.QUESTION_RECOMPUTE_ANSWER.Click, RECALC_EVENT
+        RemoveHandler FORM1.QUESTION_CREATE.Click, ADDING_EVENT
+        RemoveHandler FORM1.QUESTION_CREATE.Click, REVOKER_EVENT
+        RemoveHandler FORM1.QUESTION_CREATION_EXIT.Click, REVOKER_EVENT
+        RemoveHandler FORM1.QUESTION_CREATE.Click, EDITING_EVENT
+        Return True
     End Function
 
     Public Function CHOSEN_QUESTION_TO_CREATE()
         ' This functions occurs when the user has selected a template and clicked create.
 
         Dim CHOSEN_QUESTION_TEMPLATE As String = FORM1.QUESTION_CHOOSER_LIST.SelectedItem.ToString
+        TYPE = FORM1.QUESTION_CHOOSER_LIST.SelectedItem.ToString
+        Debug.WriteLine(TYPE)
         Dim TEMPLATE_ITEMS = DATA_HANDLER.QUESTION_DEFINERS.Item(CHOSEN_QUESTION_TEMPLATE)
 
         ' Update the group 'Question Creation'
         FORM1.QUESTION_DISPLAY.Text = TEMPLATE_ITEMS(0) ' The first item is always the string question, like "Calculate the like terms." or whatever.
+        QUESTION_TITLE = TEMPLATE_ITEMS(0)
         ' Calculate the number that this question will have, which is always one more than the current number of created questions.
-        Dim QUESTION_COUNT As Integer = DATA_HANDLER.RETURN_QUESTION().Count() + 1
-        QUESTION_COUNT = QUESTION_COUNT
+        Dim QUESTION_COUNT_NUM As Integer = DATA_HANDLER.RETURN_QUESTIONS().Count() + 1
+        FORM1.QUESTION_COUNT.Text = QUESTION_COUNT_NUM
         ' Get a random question
         Dim RANDOM As New Random
-        Dim QUESTION_INDEX As Integer = RANDOM.Next(1, TEMPLATE_ITEMS.Count - 2) ' The random index for 'Template_items'. Note that its -2 as I ignore the first index (0).
+        Dim QUESTION_INDEX As Integer = RANDOM.Next(1, TEMPLATE_ITEMS.Count) ' The random index for 'Template_items'. Note that its -2 as I ignore the first index (0).
         Dim QUESTION_STRING As String = TEMPLATE_ITEMS(QUESTION_INDEX)
         FORM1.QUESTION_INPUT.Text = QUESTION_STRING
 
         ' Create a 'Simple_Simplify' object that will answer the question. 
-
+        Debug.WriteLine(QUESTION_STRING)
         Dim TO_BE_SOLVED As SIMPLE_SIMPLIFY ' This will simplify the expression without expanding power brackets.
 
         If TEMPLATE_ITEMS(0) = DATA_HANDLER.QUESTION_1 Then ' This is a non differentiation question.
@@ -94,6 +122,24 @@ Class QUESTION
 
         ANSWER_CLASS = TO_BE_SOLVED
 
+        AddHandler FORM1.QUESTION_CREATE.Click, REVOKER_EVENT
+        AddHandler FORM1.QUESTION_CREATION_EXIT.Click, REVOKER_EVENT
+        AddHandler FORM1.QUESTION_CREATE.Click, ADDING_EVENT
 
+        Return True
     End Function
+
+    Public Function EDIT_QUESTION(QUESTION_INDEX As Integer)
+
+        FORM1.QUESTION_INPUT.Text = QUESTION_TEXT
+        FORM1.QUESTION_COUNT.Text = QUESTION_INDEX
+        FORM1.QUESTION_DISPLAY.Text = QUESTION_TITLE
+        RECOMPUTE_CHOSEN_QUESTION()
+
+
+        AddHandler FORM1.QUESTION_RECOMPUTE_ANSWER.Click, RECALC_EVENT
+        AddHandler FORM1.QUESTION_CREATE.Click, REVOKER_EVENT
+        AddHandler FORM1.QUESTION_CREATE.Click, EDITING_EVENT
+    End Function
+
 End Class

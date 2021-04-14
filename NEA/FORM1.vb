@@ -85,9 +85,12 @@ Public Class FORM1
                 Dim ENUMS As New List(Of QUESTION_TYPE)(System.Enum.GetValues(GetType(QUESTION_TYPE)))
                 ' Setup common events for the teacher.
                 AddHandler Q_CONTROL_GROUP_ADD_QUESTION.Click, Function(sender, e) SETUP_QUESTION_CHOOSER()
-                AddHandler QUESTION_CHOOSER_BACK.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
-
+                AddHandler QUESTION_CHOOSER_BACK.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True)
                 AddHandler QUESTION_CHOOSER_CREATE.Click, Function(sender, e) CREATE_QUESTION()
+                AddHandler QUESTION_CREATION_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(QUESTION_CHOOSER, True)
+                AddHandler QUESTION_CREATE.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True)
+                AddHandler Q_CONTROL_GROUP_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
+                AddHandler Q_CONTROL_GROUP_EDIT.Click, Function(SENDER, E) EDIT()
 
                 ' Update the question chooser listview.
                 For Each ENUM_ITEM As QUESTION_TYPE In ENUMS
@@ -96,7 +99,6 @@ Public Class FORM1
                     Dim CAPITALISE As New Regex("[ ]\w|(^\w)") ' Gets every first letter.
                     MODIFIABLE = SPACE.Replace(MODIFIABLE, " ")
                     MODIFIABLE = CAPITALISE.Replace(MODIFIABLE, New MatchEvaluator(AddressOf UPPER_CASE))
-
                     QUESTION_CHOOSER_LIST.Items.Add(MODIFIABLE)
                 Next
 
@@ -136,13 +138,12 @@ Public Class FORM1
     End Function
 
     Private Function CREATE_QUESTION()
-        Debug.WriteLine("fucking works twtwtwtw")
         If QUESTION_CHOOSER_LIST.SelectedItems.Count = 1 Then
-            Dim NEW_QUESTION As New QUESTION(Me, DATA_HANDLER)
+            Dim NEW_QUESTION As New QUESTION(DATA_HANDLER)
             NEW_QUESTION.CHOSEN_QUESTION_TO_CREATE()
             TOGGLE_CERTAIN_SCREEN(QUESTION_INPUT1, True)
-            AddHandler QUESTION_CREATION_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
         End If
+        Return True
     End Function
 
     Private Function EXIT_QUESTION_CREATOR()
@@ -151,25 +152,39 @@ Public Class FORM1
 
     Private Sub LISTBOX_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles Q_CONTROL_GROUP_LISTBOX.MouseUp
         Dim CMS = New ContextMenuStrip
-        If E.Button = MouseButtons.Right Then
-            If Q_CONTROL_GROUP_LISTBOX.SelectedItems.Count = 1 Then
-                Dim ITEM1 = CMS.Items.Add("Edit " & Q_CONTROL_GROUP_LISTBOX.SelectedItem.ToString)
-                ITEM1.Tag = 1
-                AddHandler ITEM1.Click, AddressOf EDIT
-                Dim ITEM2 = CMS.Items.Add("Delete " & Q_CONTROL_GROUP_LISTBOX.SelectedItem.ToString)
-                ITEM2.Tag = 2
-                AddHandler ITEM2.Click, AddressOf DELETE
+        Dim SELECTED_ITEM = Q_CONTROL_GROUP_LISTBOX.SelectedItem
+        If Q_CONTROL_GROUP_LISTBOX.SelectedItems.Count = 1 Then
+            If E.Button = MouseButtons.Right Then
+                If Q_CONTROL_GROUP_LISTBOX.SelectedItems.Count = 1 Then
+                    Dim ITEM1 = CMS.Items.Add("Edit " & SELECTED_ITEM.ToString)
+                    ITEM1.Tag = 1
+                    AddHandler ITEM1.Click, AddressOf EDIT
+                    Dim ITEM2 = CMS.Items.Add("Delete " & SELECTED_ITEM.ToString)
+                    ITEM2.Tag = 2
+                    AddHandler ITEM2.Click, AddressOf DELETE
+                End If
+                Dim ITEM3 = CMS.Items.Add("Add new question")
+                ITEM3.Tag = 3
+                AddHandler ITEM3.Click, AddressOf SETUP_QUESTION_CHOOSER
+                CMS.Show(Q_CONTROL_GROUP_LISTBOX, E.Location)
+            Else
+                Dim INDEX_OF_ITEM = Q_CONTROL_GROUP_LISTBOX.SelectedIndex
+                Debug.WriteLine("lolol" & INDEX_OF_ITEM & SELECTED_ITEM.ToString)
+                QUESTION_TITLE_NUMBER.Text = "QUESTION " & (INDEX_OF_ITEM + 1)
+                QUESTION_TITLE_NAME.Text = DATA_HANDLER.RETURN_QUESTIONS()(INDEX_OF_ITEM).TYPE
             End If
-            Dim ITEM3 = CMS.Items.Add("Add new question")
-            ITEM3.Tag = 3
-            AddHandler ITEM3.Click, AddressOf SETUP_QUESTION_CHOOSER
-            CMS.Show(Q_CONTROL_GROUP_LISTBOX, E.Location)
         End If
     End Sub
 
-    Private Sub EDIT()
-        DATA_HANDLER.UPDATE_QUESTION_LIST()
-    End Sub
+    Private Function EDIT()
+        If Q_CONTROL_GROUP_LISTBOX.SelectedItems.Count = 1 Then ' Edit the selected question item.
+            Dim INDEX_OF_ITEM = Q_CONTROL_GROUP_LISTBOX.SelectedIndex
+            DATA_HANDLER.RETURN_QUESTIONS()(INDEX_OF_ITEM).EDIT_QUESTION(INDEX_OF_ITEM)
+            TOGGLE_CERTAIN_SCREEN(QUESTION_INPUT1, True)
+            Return True
+        End If
+        Return False
+    End Function
 
     Private Sub DELETE()
 

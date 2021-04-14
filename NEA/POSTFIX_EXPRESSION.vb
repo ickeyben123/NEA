@@ -28,7 +28,7 @@ Class POSTFIX_EXPRESSION : Inherits UTILITIES ' defines any expression that is w
                         TEMP_QUEUE = New Queue(Of String) ' Resets the stack.
                     End If
                     If TEMP_STRING_LIST.Count >= 1 Then
-                        If TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1) <> "*" And TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1) <> "(" And TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1) <> "+" And TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1) <> "-" And TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1) <> "/" Then
+                        If TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1) <> "*" And TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1) <> "(" And TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1) <> "+" And TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1) <> "-" And TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1) <> "/" And TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1) <> "^" Then
                             TEMP_STRING_LIST.Add("*")
                             TEMP_STRING_LIST.Add(CHAR_TO_COMBINE) ' Add any numbers or variables to the queue, to be    made as a single entity.
                         Else
@@ -48,7 +48,7 @@ Class POSTFIX_EXPRESSION : Inherits UTILITIES ' defines any expression that is w
                 Else
                     If CHAR_TO_COMBINE = "-" Then
                         If TEMP_STRING_LIST.Count > 0 Then
-                            Dim CHECK As Dictionary(Of String, String) = MATCH_COLLECTION_TO_DICTIONARY(Regex.Matches(TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1), "[*,+,/,-,(,)]"))
+                            Dim CHECK As Dictionary(Of String, String) = MATCH_COLLECTION_TO_DICTIONARY(Regex.Matches(TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1), "[*,+,/,-,(,),^]"))
                             If IsNumeric(TEMP_STRING_LIST(TEMP_STRING_LIST.Count - 1)) Or CHECK.Count = 0 Then
                                 TEMP_STRING_LIST.Add(CHAR_TO_COMBINE)
                             Else
