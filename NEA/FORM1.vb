@@ -8,6 +8,9 @@
 ' Login enum for the login_mode of the account. 
 ' It is also used to state what mode the account is in (once logged in).
 Imports System.Text.RegularExpressions
+Imports System.IO
+Imports System.Text.Json
+Imports System.Text.Json.Serialization
 Public Enum LOGIN_MODE
     TEACHER
     STUDENT
@@ -93,6 +96,7 @@ Public Class FORM1
                 AddHandler Q_CONTROL_GROUP_EDIT.Click, Function(SENDER, E) EDIT()
                 AddHandler Q_CONTROL_GROUP_REMOVE.Click, Function(sender, e) DELETE(Q_CONTROL_GROUP_LISTBOX.SelectedIndex)
                 AddHandler Q_CONTROL_GROUP_CLEAR_ALL.Click, Function(sender, e) DATA_HANDLER.CLEAR_ALL()
+                AddHandler Q_CONTROL_GROUP_EXPORT.Click, Function(sender, e) EXPORT()
 
                 ' Update the question chooser listview.
                 For Each ENUM_ITEM As QUESTION_TYPE In ENUMS
@@ -154,6 +158,7 @@ Public Class FORM1
     End Function
 
     Private Sub LISTBOX_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles Q_CONTROL_GROUP_LISTBOX.MouseUp
+        ' This shows the options when you right click on the question viewer for the teacher.
         Dim CMS = New ContextMenuStrip
         Dim SELECTED_ITEM = Q_CONTROL_GROUP_LISTBOX.SelectedItem
         If E.Button = MouseButtons.Right Then
@@ -169,7 +174,7 @@ Public Class FORM1
             ITEM3.Tag = 3
             AddHandler ITEM3.Click, AddressOf SETUP_QUESTION_CHOOSER
             CMS.Show(Q_CONTROL_GROUP_LISTBOX, E.Location)
-        ElseIf Q_CONTROL_GROUP_LISTBOX.SelectedItems.Count = 1 Then
+        ElseIf Q_CONTROL_GROUP_LISTBOX.SelectedItems.Count = 1 Then ' If they havent selected any question.
             Dim INDEX_OF_ITEM = Q_CONTROL_GROUP_LISTBOX.SelectedIndex
             QUESTION_TITLE_NUMBER.Text = "QUESTION " & (INDEX_OF_ITEM + 1)
             QUESTION_TITLE_NAME.Text = DATA_HANDLER.RETURN_QUESTIONS()(INDEX_OF_ITEM).TYPE
@@ -189,9 +194,33 @@ Public Class FORM1
 
     Private Function DELETE(INDEX As Integer)
         If DATA_HANDLER.RETURN_QUESTIONS().Count >= INDEX And INDEX <> -1 Then
-            Debug.WriteLine("fufufuf")
             DATA_HANDLER.REMOVE(DATA_HANDLER.RETURN_QUESTIONS().Item(INDEX))
             Return True
+        End If
+        Return False
+    End Function
+
+    Private Function EXPORT()
+        If DATA_HANDLER.RETURN_QUESTIONS().Count > 0 Then
+            Dim STREAM As Stream = File.Open(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "Question Export.txt", FileMode.OpenOrCreate) ' The file I will be exporting to.
+
+            ' I aim to create a list of all the data I need.
+
+            Dim DATA_LIST As New List(Of Dictionary(Of String, String))
+
+            For Each QUESTION As QUESTION In DATA_HANDLER.RETURN_QUESTIONS
+                Dim QUESTION_DATA As New Dictionary(Of String, String)
+                QUESTION_DATA.Add("QUESTION", QUESTION.RETURN_QUESTION) ' The question, like 3x+3x
+                QUESTION_DATA.Add("QUESTION TITLE", QUESTION.RETURN_QUESTION_TITLE) ' The title, like "Differentiate with respect to x"
+                QUESTION_DATA.Add("QUESTION TYPE", QUESTION.RETURN_QUESTION_TYPE) ' The type, either differentiation or simplification.
+                DATA_LIST.Add(QUESTION_DATA)
+            Next
+
+            JsonSerializer.SerializeAsync(STREAM, DATA_LIST) ' This converts the list into a string that is then written into my text file.
+
+            STREAM.Close()
+            Process.Start(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "Question Export.txt") 'Opens the text file.
+
         End If
         Return False
     End Function

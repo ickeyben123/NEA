@@ -27,6 +27,7 @@ Partial Class FORM1
         Dim TITLE As System.Windows.Forms.Label
         Dim Label8 As System.Windows.Forms.Label
         Dim Label3 As System.Windows.Forms.Label
+        Dim Label9 As System.Windows.Forms.Label
         Me.QUESTION_CHOOSER_LIST = New System.Windows.Forms.ListBox()
         Me.MODE_STUDENT = New System.Windows.Forms.Button()
         Me.MODE_GROUP = New System.Windows.Forms.GroupBox()
@@ -40,7 +41,7 @@ Partial Class FORM1
         Me.QUESTION_TITLE_NAME = New System.Windows.Forms.Label()
         Me.Q_CONTROL_GROUP_EDIT = New System.Windows.Forms.Button()
         Me.Q_CONTROL_GROUP_REMOVE = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Q_CONTROL_GROUP_EXPORT = New System.Windows.Forms.Button()
         Me.Q_CONTROL_GROUP_CLEAR_ALL = New System.Windows.Forms.Button()
         Me.TEACHER_GROUP = New System.Windows.Forms.GroupBox()
         Me.TEACHER_MARK_SUBMISSIONS = New System.Windows.Forms.Button()
@@ -61,17 +62,27 @@ Partial Class FORM1
         Me.QUESTION_CREATION_EXIT = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.QUESTION_DISPLAY = New System.Windows.Forms.Label()
+        Me.QUESTION_ANSWERER = New System.Windows.Forms.GroupBox()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.RichTextBox2 = New System.Windows.Forms.RichTextBox()
         Label2 = New System.Windows.Forms.Label()
         Label1 = New System.Windows.Forms.Label()
         TITLE = New System.Windows.Forms.Label()
         Label8 = New System.Windows.Forms.Label()
         Label3 = New System.Windows.Forms.Label()
+        Label9 = New System.Windows.Forms.Label()
         Me.MODE_GROUP.SuspendLayout()
         Me.LOGIN_GROUP.SuspendLayout()
         Me.TEACHER_GROUP.SuspendLayout()
         Me.Q_CONTROL_GROUP.SuspendLayout()
         Me.QUESTION_CHOOSER.SuspendLayout()
         Me.QUESTION_INPUT1.SuspendLayout()
+        Me.QUESTION_ANSWERER.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label2
@@ -280,17 +291,17 @@ Partial Class FORM1
         Me.Q_CONTROL_GROUP_REMOVE.Text = "REMOVE"
         Me.Q_CONTROL_GROUP_REMOVE.UseVisualStyleBackColor = True
         '
-        'Button3
+        'Q_CONTROL_GROUP_EXPORT
         '
-        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button3.ForeColor = System.Drawing.Color.Green
-        Me.Button3.Location = New System.Drawing.Point(831, 942)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(180, 83)
-        Me.Button3.TabIndex = 5
-        Me.Button3.Text = "EXPORT"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.Q_CONTROL_GROUP_EXPORT.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Q_CONTROL_GROUP_EXPORT.ForeColor = System.Drawing.Color.Green
+        Me.Q_CONTROL_GROUP_EXPORT.Location = New System.Drawing.Point(831, 942)
+        Me.Q_CONTROL_GROUP_EXPORT.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Q_CONTROL_GROUP_EXPORT.Name = "Q_CONTROL_GROUP_EXPORT"
+        Me.Q_CONTROL_GROUP_EXPORT.Size = New System.Drawing.Size(180, 83)
+        Me.Q_CONTROL_GROUP_EXPORT.TabIndex = 5
+        Me.Q_CONTROL_GROUP_EXPORT.Text = "EXPORT"
+        Me.Q_CONTROL_GROUP_EXPORT.UseVisualStyleBackColor = True
         '
         'Q_CONTROL_GROUP_CLEAR_ALL
         '
@@ -345,7 +356,7 @@ Partial Class FORM1
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_EXIT)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_ADD_QUESTION)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_CLEAR_ALL)
-        Me.Q_CONTROL_GROUP.Controls.Add(Me.Button3)
+        Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_EXPORT)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_REMOVE)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_EDIT)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.QUESTION_TITLE_NAME)
@@ -544,11 +555,117 @@ Partial Class FORM1
         Me.QUESTION_DISPLAY.TabIndex = 2
         Me.QUESTION_DISPLAY.Text = "Simplify the following expression"
         '
+        'QUESTION_ANSWERER
+        '
+        Me.QUESTION_ANSWERER.Controls.Add(Me.Button2)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.Label4)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.RichTextBox1)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.Button4)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.Label5)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.Label7)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.RichTextBox2)
+        Me.QUESTION_ANSWERER.Controls.Add(Label9)
+        Me.QUESTION_ANSWERER.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.QUESTION_ANSWERER.Location = New System.Drawing.Point(0, 0)
+        Me.QUESTION_ANSWERER.Name = "QUESTION_ANSWERER"
+        Me.QUESTION_ANSWERER.Size = New System.Drawing.Size(1324, 1062)
+        Me.QUESTION_ANSWERER.TabIndex = 10
+        Me.QUESTION_ANSWERER.TabStop = False
+        Me.QUESTION_ANSWERER.Text = "Question Creation"
+        '
+        'Button2
+        '
+        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.ForeColor = System.Drawing.Color.Maroon
+        Me.Button2.Location = New System.Drawing.Point(1185, 970)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(127, 80)
+        Me.Button2.TabIndex = 9
+        Me.Button2.Text = "Exit"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(47, 536)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(300, 55)
+        Me.Label4.TabIndex = 7
+        Me.Label4.Text = "Your Answer"
+        '
+        'RichTextBox1
+        '
+        Me.RichTextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RichTextBox1.Location = New System.Drawing.Point(58, 614)
+        Me.RichTextBox1.MaxLength = 500
+        Me.RichTextBox1.Name = "RichTextBox1"
+        Me.RichTextBox1.Size = New System.Drawing.Size(1222, 244)
+        Me.RichTextBox1.TabIndex = 6
+        Me.RichTextBox1.Text = "7Y"
+        '
+        'Button4
+        '
+        Me.Button4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button4.ForeColor = System.Drawing.Color.Green
+        Me.Button4.Location = New System.Drawing.Point(58, 937)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(237, 80)
+        Me.Button4.TabIndex = 4
+        Me.Button4.Text = "Finalise"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Label5
+        '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(1214, 22)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(76, 82)
+        Me.Label5.TabIndex = 3
+        Me.Label5.Text = "2"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(47, 165)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(715, 55)
+        Me.Label7.TabIndex = 2
+        Me.Label7.Text = "Simplify the following expression"
+        '
+        'RichTextBox2
+        '
+        Me.RichTextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RichTextBox2.Location = New System.Drawing.Point(57, 248)
+        Me.RichTextBox2.MaxLength = 500
+        Me.RichTextBox2.Name = "RichTextBox2"
+        Me.RichTextBox2.ReadOnly = True
+        Me.RichTextBox2.Size = New System.Drawing.Size(762, 244)
+        Me.RichTextBox2.TabIndex = 1
+        Me.RichTextBox2.Text = "3X+5Y-3X+2Y"
+        '
+        'Label9
+        '
+        Label9.AutoSize = True
+        Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label9.Location = New System.Drawing.Point(34, 62)
+        Label9.Name = "Label9"
+        Label9.Size = New System.Drawing.Size(353, 82)
+        Label9.TabIndex = 0
+        Label9.Text = "Question:"
+        '
         'FORM1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1324, 1062)
+        Me.Controls.Add(Me.QUESTION_ANSWERER)
         Me.Controls.Add(Me.QUESTION_INPUT1)
         Me.Controls.Add(Me.Q_CONTROL_GROUP)
         Me.Controls.Add(Me.TEACHER_GROUP)
@@ -569,6 +686,8 @@ Partial Class FORM1
         Me.QUESTION_CHOOSER.PerformLayout()
         Me.QUESTION_INPUT1.ResumeLayout(False)
         Me.QUESTION_INPUT1.PerformLayout()
+        Me.QUESTION_ANSWERER.ResumeLayout(False)
+        Me.QUESTION_ANSWERER.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -584,7 +703,7 @@ Partial Class FORM1
     Friend WithEvents TEACHER_MARK_SUBMISSIONS As Button
     Friend WithEvents TEACHER_CREATE_QUESTIONS As Button
     Friend WithEvents Q_CONTROL_GROUP_CLEAR_ALL As Button
-    Friend WithEvents Button3 As Button
+    Friend WithEvents Q_CONTROL_GROUP_EXPORT As Button
     Friend WithEvents Q_CONTROL_GROUP_REMOVE As Button
     Friend WithEvents Q_CONTROL_GROUP_EDIT As Button
     Friend WithEvents QUESTION_TITLE_NAME As Label
@@ -606,4 +725,12 @@ Partial Class FORM1
     Friend WithEvents QUESTION_CREATION_EXIT As Button
     Friend WithEvents QUESTION_RECOMPUTE_ANSWER As Button
     Friend WithEvents Q_CONTROL_GROUP_EXIT As Button
+    Friend WithEvents QUESTION_ANSWERER As GroupBox
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Label4 As Label
+    Friend WithEvents RichTextBox1 As RichTextBox
+    Friend WithEvents Button4 As Button
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents RichTextBox2 As RichTextBox
 End Class

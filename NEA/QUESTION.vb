@@ -10,6 +10,7 @@ End Enum
 Class QUESTION
 
     Public TYPE As String
+
     Protected ENABLED As Boolean = True ' Determines if editable.
     Protected DATA_HANDLER As DATA_HANDLE
     Protected ANSWER_CLASS As SIMPLE_SIMPLIFY ' Dynamic answer that can be recomputed.
@@ -23,7 +24,17 @@ Class QUESTION
     Dim EDITING_EVENT As EventHandler = Function(sender, e) UPDATE_CLASS(True)
     Dim REVOKER_EVENT As EventHandler = Function(sender, e) REMOVE_HANDLER()
 
+    Public Function RETURN_QUESTION()
+        Return QUESTION_TEXT
+    End Function
 
+    Public Function RETURN_QUESTION_TYPE()
+        Return QUESTION_ANSWER_TYPE.ToString()
+    End Function
+
+    Public Function RETURN_QUESTION_TITLE()
+        Return QUESTION_TITLE
+    End Function
 
     Dim ANSWER As String
 
@@ -87,10 +98,8 @@ Class QUESTION
         ' This functions occurs when the user has selected a template and clicked create.
 
         Dim CHOSEN_QUESTION_TEMPLATE As String = FORM1.QUESTION_CHOOSER_LIST.SelectedItem.ToString
-        TYPE = FORM1.QUESTION_CHOOSER_LIST.SelectedItem.ToString
-        Debug.WriteLine(TYPE)
         Dim TEMPLATE_ITEMS = DATA_HANDLER.QUESTION_DEFINERS.Item(CHOSEN_QUESTION_TEMPLATE)
-
+        TYPE = FORM1.QUESTION_CHOOSER_LIST.SelectedItem.ToString
         ' Update the group 'Question Creation'
         FORM1.QUESTION_DISPLAY.Text = TEMPLATE_ITEMS(0) ' The first item is always the string question, like "Calculate the like terms." or whatever.
         QUESTION_TITLE = TEMPLATE_ITEMS(0)
