@@ -39,9 +39,9 @@ Partial Class FORM1
         Me.QUESTION_TITLE_NUMBER = New System.Windows.Forms.Label()
         Me.QUESTION_TITLE_NAME = New System.Windows.Forms.Label()
         Me.Q_CONTROL_GROUP_EDIT = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Q_CONTROL_GROUP_REMOVE = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Q_CONTROL_GROUP_CLEAR_ALL = New System.Windows.Forms.Button()
         Me.TEACHER_GROUP = New System.Windows.Forms.GroupBox()
         Me.TEACHER_MARK_SUBMISSIONS = New System.Windows.Forms.Button()
         Me.TEACHER_CREATE_QUESTIONS = New System.Windows.Forms.Button()
@@ -268,17 +268,17 @@ Partial Class FORM1
         Me.Q_CONTROL_GROUP_EDIT.Text = "EDIT"
         Me.Q_CONTROL_GROUP_EDIT.UseVisualStyleBackColor = True
         '
-        'Button2
+        'Q_CONTROL_GROUP_REMOVE
         '
-        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Button2.Location = New System.Drawing.Point(828, 309)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(452, 83)
-        Me.Button2.TabIndex = 4
-        Me.Button2.Text = "REMOVE"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.Q_CONTROL_GROUP_REMOVE.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Q_CONTROL_GROUP_REMOVE.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Q_CONTROL_GROUP_REMOVE.Location = New System.Drawing.Point(828, 309)
+        Me.Q_CONTROL_GROUP_REMOVE.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Q_CONTROL_GROUP_REMOVE.Name = "Q_CONTROL_GROUP_REMOVE"
+        Me.Q_CONTROL_GROUP_REMOVE.Size = New System.Drawing.Size(452, 83)
+        Me.Q_CONTROL_GROUP_REMOVE.TabIndex = 4
+        Me.Q_CONTROL_GROUP_REMOVE.Text = "REMOVE"
+        Me.Q_CONTROL_GROUP_REMOVE.UseVisualStyleBackColor = True
         '
         'Button3
         '
@@ -292,19 +292,19 @@ Partial Class FORM1
         Me.Button3.Text = "EXPORT"
         Me.Button3.UseVisualStyleBackColor = True
         '
-        'Button4
+        'Q_CONTROL_GROUP_CLEAR_ALL
         '
-        Me.Button4.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.ForeColor = System.Drawing.Color.White
-        Me.Button4.Location = New System.Drawing.Point(831, 776)
-        Me.Button4.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(462, 126)
-        Me.Button4.TabIndex = 6
-        Me.Button4.Text = "CLEAR ALL"
-        Me.Button4.UseVisualStyleBackColor = False
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.ForeColor = System.Drawing.Color.White
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.Location = New System.Drawing.Point(831, 776)
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.Name = "Q_CONTROL_GROUP_CLEAR_ALL"
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.Size = New System.Drawing.Size(462, 126)
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.TabIndex = 6
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.Text = "CLEAR ALL"
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.UseVisualStyleBackColor = False
         '
         'TEACHER_GROUP
         '
@@ -344,9 +344,9 @@ Partial Class FORM1
         '
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_EXIT)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_ADD_QUESTION)
-        Me.Q_CONTROL_GROUP.Controls.Add(Me.Button4)
+        Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_CLEAR_ALL)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Button3)
-        Me.Q_CONTROL_GROUP.Controls.Add(Me.Button2)
+        Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_REMOVE)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.Q_CONTROL_GROUP_EDIT)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.QUESTION_TITLE_NAME)
         Me.Q_CONTROL_GROUP.Controls.Add(Me.QUESTION_TITLE_NUMBER)
@@ -583,9 +583,9 @@ Partial Class FORM1
     Friend WithEvents TEACHER_GROUP As GroupBox
     Friend WithEvents TEACHER_MARK_SUBMISSIONS As Button
     Friend WithEvents TEACHER_CREATE_QUESTIONS As Button
-    Friend WithEvents Button4 As Button
+    Friend WithEvents Q_CONTROL_GROUP_CLEAR_ALL As Button
     Friend WithEvents Button3 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents Q_CONTROL_GROUP_REMOVE As Button
     Friend WithEvents Q_CONTROL_GROUP_EDIT As Button
     Friend WithEvents QUESTION_TITLE_NAME As Label
     Friend WithEvents QUESTION_TITLE_NUMBER As Label

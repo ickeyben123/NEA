@@ -56,6 +56,11 @@ Class DATA_HANDLE
         Return True
     End Function
 
+    Function CLEAR_ALL()
+        QUESTIONS = New List(Of QUESTION)
+        RaiseEvent QUESTION_LIST_CHANGE()
+    End Function
+
     Function ADD(QUESTION_OBJECT As QUESTION)
         QUESTIONS.Add(QUESTION_OBJECT)
         RaiseEvent QUESTION_LIST_CHANGE()

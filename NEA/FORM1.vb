@@ -91,6 +91,8 @@ Public Class FORM1
                 AddHandler QUESTION_CREATE.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True)
                 AddHandler Q_CONTROL_GROUP_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
                 AddHandler Q_CONTROL_GROUP_EDIT.Click, Function(SENDER, E) EDIT()
+                AddHandler Q_CONTROL_GROUP_REMOVE.Click, Function(sender, e) DELETE(Q_CONTROL_GROUP_LISTBOX.SelectedIndex)
+                AddHandler Q_CONTROL_GROUP_CLEAR_ALL.Click, Function(sender, e) DATA_HANDLER.CLEAR_ALL()
 
                 ' Update the question chooser listview.
                 For Each ENUM_ITEM As QUESTION_TYPE In ENUMS
@@ -142,6 +144,7 @@ Public Class FORM1
             Dim NEW_QUESTION As New QUESTION(DATA_HANDLER)
             NEW_QUESTION.CHOSEN_QUESTION_TO_CREATE()
             TOGGLE_CERTAIN_SCREEN(QUESTION_INPUT1, True)
+            QUESTION_CREATION_EXIT.Visible = True
         End If
         Return True
     End Function
@@ -153,26 +156,23 @@ Public Class FORM1
     Private Sub LISTBOX_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles Q_CONTROL_GROUP_LISTBOX.MouseUp
         Dim CMS = New ContextMenuStrip
         Dim SELECTED_ITEM = Q_CONTROL_GROUP_LISTBOX.SelectedItem
-        If Q_CONTROL_GROUP_LISTBOX.SelectedItems.Count = 1 Then
-            If E.Button = MouseButtons.Right Then
-                If Q_CONTROL_GROUP_LISTBOX.SelectedItems.Count = 1 Then
-                    Dim ITEM1 = CMS.Items.Add("Edit " & SELECTED_ITEM.ToString)
-                    ITEM1.Tag = 1
-                    AddHandler ITEM1.Click, AddressOf EDIT
-                    Dim ITEM2 = CMS.Items.Add("Delete " & SELECTED_ITEM.ToString)
-                    ITEM2.Tag = 2
-                    AddHandler ITEM2.Click, AddressOf DELETE
-                End If
-                Dim ITEM3 = CMS.Items.Add("Add new question")
-                ITEM3.Tag = 3
-                AddHandler ITEM3.Click, AddressOf SETUP_QUESTION_CHOOSER
-                CMS.Show(Q_CONTROL_GROUP_LISTBOX, E.Location)
-            Else
-                Dim INDEX_OF_ITEM = Q_CONTROL_GROUP_LISTBOX.SelectedIndex
-                Debug.WriteLine("lolol" & INDEX_OF_ITEM & SELECTED_ITEM.ToString)
-                QUESTION_TITLE_NUMBER.Text = "QUESTION " & (INDEX_OF_ITEM + 1)
-                QUESTION_TITLE_NAME.Text = DATA_HANDLER.RETURN_QUESTIONS()(INDEX_OF_ITEM).TYPE
+        If E.Button = MouseButtons.Right Then
+            If Q_CONTROL_GROUP_LISTBOX.SelectedItems.Count = 1 Then
+                Dim ITEM1 = CMS.Items.Add("Edit " & SELECTED_ITEM.ToString)
+                ITEM1.Tag = 1
+                AddHandler ITEM1.Click, AddressOf EDIT
+                Dim ITEM2 = CMS.Items.Add("Delete " & SELECTED_ITEM.ToString)
+                ITEM2.Tag = 2
+                AddHandler ITEM2.Click, Function(s, ev) DELETE(Q_CONTROL_GROUP_LISTBOX.SelectedIndex)
             End If
+            Dim ITEM3 = CMS.Items.Add("Add new question")
+            ITEM3.Tag = 3
+            AddHandler ITEM3.Click, AddressOf SETUP_QUESTION_CHOOSER
+            CMS.Show(Q_CONTROL_GROUP_LISTBOX, E.Location)
+        ElseIf Q_CONTROL_GROUP_LISTBOX.SelectedItems.Count = 1 Then
+            Dim INDEX_OF_ITEM = Q_CONTROL_GROUP_LISTBOX.SelectedIndex
+            QUESTION_TITLE_NUMBER.Text = "QUESTION " & (INDEX_OF_ITEM + 1)
+            QUESTION_TITLE_NAME.Text = DATA_HANDLER.RETURN_QUESTIONS()(INDEX_OF_ITEM).TYPE
         End If
     End Sub
 
@@ -181,20 +181,20 @@ Public Class FORM1
             Dim INDEX_OF_ITEM = Q_CONTROL_GROUP_LISTBOX.SelectedIndex
             DATA_HANDLER.RETURN_QUESTIONS()(INDEX_OF_ITEM).EDIT_QUESTION(INDEX_OF_ITEM)
             TOGGLE_CERTAIN_SCREEN(QUESTION_INPUT1, True)
+            QUESTION_CREATION_EXIT.Visible = False
             Return True
         End If
         Return False
     End Function
 
-    Private Sub DELETE()
-
-    End Sub
-
-    Private Function ADD()
-
-        Return True
+    Private Function DELETE(INDEX As Integer)
+        If DATA_HANDLER.RETURN_QUESTIONS().Count >= INDEX And INDEX <> -1 Then
+            Debug.WriteLine("fufufuf")
+            DATA_HANDLER.REMOVE(DATA_HANDLER.RETURN_QUESTIONS().Item(INDEX))
+            Return True
+        End If
+        Return False
     End Function
-
 
     '/////////////////////////////
     ' END
