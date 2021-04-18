@@ -29,10 +29,13 @@ Class DATA_HANDLE
     Public QUESTION_1 = "Simplify the following expression."
     Public QUESTION_2 = "Calculate the derivative as a ratio over x."
 
-    Sub New(ByRef FORM_INPUT As Form)
-        Me.Form = FORM_INPUT ' So that I can access the form stuff without doing a back and forth.
-        AddHandler QUESTION_LIST_CHANGE, AddressOf UPDATE_QUESTION_LIST
+    Public DESCRIPTION As String = ""
+    Public NAME As String = ""
 
+    Sub New(Optional STUDENT As Boolean = False)
+        If Not STUDENT Then
+            AddHandler QUESTION_LIST_CHANGE, AddressOf UPDATE_QUESTION_LIST
+        End If
         ' A bit of data for the templates.Some of it is pretty dumb, like the question identifiers. But I have 2 hours before this must be done :).
         QUESTION_DEFINERS = New Dictionary(Of String, List(Of String)) From {{"Collecting Like Terms", New List(Of String)({QUESTION_1, "3x+9z-10x^2+9y+10x-2y", "24z-10u+3y^2-4u+23", "99x^2-6*9x+33y"})},
             {"Hard Collecting Like Terms", New List(Of String)({QUESTION_1, "33yx^2+99y^(x-3)+2yx^2", "27zx^(x^2-3x)+99zx^2-23y", "37x^(x^2-3x)+99x^2-23y"})},
@@ -71,6 +74,13 @@ Class DATA_HANDLE
         FORM1.Q_CONTROL_GROUP_LISTBOX.Items.Clear()
         For Each QUESTION As QUESTION In QUESTIONS
             FORM1.Q_CONTROL_GROUP_LISTBOX.Items.Add(QUESTION.TYPE)
+        Next
+    End Sub
+
+    Sub UPDATE_TEST_LIST()
+        FORM1.TEST_VIEWER_QUESTION_LIST.Items.Clear()
+        For Each QUESTION As QUESTION In QUESTIONS
+            FORM1.TEST_VIEWER_QUESTION_LIST.Items.Add(QUESTION.TYPE)
         Next
     End Sub
 

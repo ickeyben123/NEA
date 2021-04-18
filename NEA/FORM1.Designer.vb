@@ -28,6 +28,11 @@ Partial Class FORM1
         Dim Label8 As System.Windows.Forms.Label
         Dim Label3 As System.Windows.Forms.Label
         Dim Label9 As System.Windows.Forms.Label
+        Dim Label12 As System.Windows.Forms.Label
+        Dim Label13 As System.Windows.Forms.Label
+        Dim Label14 As System.Windows.Forms.Label
+        Dim Label5 As System.Windows.Forms.Label
+        Dim Label7 As System.Windows.Forms.Label
         Me.QUESTION_CHOOSER_LIST = New System.Windows.Forms.ListBox()
         Me.MODE_STUDENT = New System.Windows.Forms.Button()
         Me.MODE_GROUP = New System.Windows.Forms.GroupBox()
@@ -63,19 +68,45 @@ Partial Class FORM1
         Me.Label6 = New System.Windows.Forms.Label()
         Me.QUESTION_DISPLAY = New System.Windows.Forms.Label()
         Me.QUESTION_ANSWERER = New System.Windows.Forms.GroupBox()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.QUESTION_ANSWERER_RIGHT = New System.Windows.Forms.Button()
+        Me.QUESTION_ANSWERER_LEFT = New System.Windows.Forms.Button()
+        Me.QUESTION_ANSWERER_EXIT = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.RichTextBox2 = New System.Windows.Forms.RichTextBox()
+        Me.QUESTION_ANSWERER_ANSWER = New System.Windows.Forms.RichTextBox()
+        Me.QUESTION_ANSWERER_NUMBER = New System.Windows.Forms.Label()
+        Me.QUESTION_ANSWERER_TITLE = New System.Windows.Forms.Label()
+        Me.QUESTION_ANSWERER_QUESTION = New System.Windows.Forms.RichTextBox()
+        Me.TEST_AREA = New System.Windows.Forms.GroupBox()
+        Me.TESTS_AREA_ADD_NEW_TEST = New System.Windows.Forms.Button()
+        Me.TESTS_AREA_CLEAR_ALL = New System.Windows.Forms.Button()
+        Me.TESTS_AREA_EXPORT_TEST = New System.Windows.Forms.Button()
+        Me.TESTS_AREA_REMOVE_TEST = New System.Windows.Forms.Button()
+        Me.TESTS_AREA_VIEW_TEST = New System.Windows.Forms.Button()
+        Me.TESTS_AREA_TEST_DESCRIPTION = New System.Windows.Forms.Label()
+        Me.TESTS_AREA_TEST_TITLE = New System.Windows.Forms.Label()
+        Me.TEST_AREA_LIST = New System.Windows.Forms.ListBox()
+        Me.TEST_VIEWER = New System.Windows.Forms.GroupBox()
+        Me.TEST_VIEWER_PREVIEW_ANSWER = New System.Windows.Forms.RichTextBox()
+        Me.TEST_VIEWER_PREVIEW_QUESTION = New System.Windows.Forms.RichTextBox()
+        Me.TEST_VIEWER_EXIT = New System.Windows.Forms.Button()
+        Me.TEST_VIEWER_QUESTION_LIST = New System.Windows.Forms.ListBox()
+        Me.TEST_VIEWER_ANSWER_SELECTED_QUESTION = New System.Windows.Forms.Button()
+        Me.TEST_EXPORT = New System.Windows.Forms.GroupBox()
+        Me.TEST_EXPORT_DESC = New System.Windows.Forms.RichTextBox()
+        Me.TEST_EXPORT_EXPORT = New System.Windows.Forms.Button()
+        Me.TEST_EXPORT_EXIT = New System.Windows.Forms.Button()
+        Me.TEST_EXPORT_NAME = New System.Windows.Forms.RichTextBox()
         Label2 = New System.Windows.Forms.Label()
         Label1 = New System.Windows.Forms.Label()
         TITLE = New System.Windows.Forms.Label()
         Label8 = New System.Windows.Forms.Label()
         Label3 = New System.Windows.Forms.Label()
         Label9 = New System.Windows.Forms.Label()
+        Label12 = New System.Windows.Forms.Label()
+        Label13 = New System.Windows.Forms.Label()
+        Label14 = New System.Windows.Forms.Label()
+        Label5 = New System.Windows.Forms.Label()
+        Label7 = New System.Windows.Forms.Label()
         Me.MODE_GROUP.SuspendLayout()
         Me.LOGIN_GROUP.SuspendLayout()
         Me.TEACHER_GROUP.SuspendLayout()
@@ -83,6 +114,9 @@ Partial Class FORM1
         Me.QUESTION_CHOOSER.SuspendLayout()
         Me.QUESTION_INPUT1.SuspendLayout()
         Me.QUESTION_ANSWERER.SuspendLayout()
+        Me.TEST_AREA.SuspendLayout()
+        Me.TEST_VIEWER.SuspendLayout()
+        Me.TEST_EXPORT.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label2
@@ -124,9 +158,9 @@ Partial Class FORM1
         Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Label8.Location = New System.Drawing.Point(34, 62)
         Label8.Name = "Label8"
-        Label8.Size = New System.Drawing.Size(1080, 82)
+        Label8.Size = New System.Drawing.Size(1043, 82)
         Label8.TabIndex = 0
-        Label8.Text = "Available Questions Templates."
+        Label8.Text = "Available Question Templates."
         '
         'Label3
         '
@@ -137,6 +171,66 @@ Partial Class FORM1
         Label3.Size = New System.Drawing.Size(353, 82)
         Label3.TabIndex = 0
         Label3.Text = "Question:"
+        '
+        'Label9
+        '
+        Label9.AutoSize = True
+        Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label9.Location = New System.Drawing.Point(34, 62)
+        Label9.Name = "Label9"
+        Label9.Size = New System.Drawing.Size(353, 82)
+        Label9.TabIndex = 0
+        Label9.Text = "Question:"
+        '
+        'Label12
+        '
+        Label12.AutoSize = True
+        Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label12.Location = New System.Drawing.Point(34, 62)
+        Label12.Name = "Label12"
+        Label12.Size = New System.Drawing.Size(369, 82)
+        Label12.TabIndex = 0
+        Label12.Text = "Questions"
+        '
+        'Label13
+        '
+        Label13.AutoSize = True
+        Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label13.Location = New System.Drawing.Point(741, 165)
+        Label13.Name = "Label13"
+        Label13.Size = New System.Drawing.Size(216, 55)
+        Label13.TabIndex = 9
+        Label13.Text = "Question"
+        '
+        'Label14
+        '
+        Label14.AutoSize = True
+        Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label14.Location = New System.Drawing.Point(741, 522)
+        Label14.Name = "Label14"
+        Label14.Size = New System.Drawing.Size(185, 55)
+        Label14.TabIndex = 11
+        Label14.Text = "Answer"
+        '
+        'Label5
+        '
+        Label5.AutoSize = True
+        Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label5.Location = New System.Drawing.Point(34, 69)
+        Label5.Name = "Label5"
+        Label5.Size = New System.Drawing.Size(231, 82)
+        Label5.TabIndex = 0
+        Label5.Text = "Name"
+        '
+        'Label7
+        '
+        Label7.AutoSize = True
+        Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label7.Location = New System.Drawing.Point(34, 325)
+        Label7.Name = "Label7"
+        Label7.Size = New System.Drawing.Size(408, 82)
+        Label7.TabIndex = 11
+        Label7.Text = "Description"
         '
         'QUESTION_CHOOSER_LIST
         '
@@ -295,10 +389,10 @@ Partial Class FORM1
         '
         Me.Q_CONTROL_GROUP_EXPORT.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Q_CONTROL_GROUP_EXPORT.ForeColor = System.Drawing.Color.Green
-        Me.Q_CONTROL_GROUP_EXPORT.Location = New System.Drawing.Point(831, 942)
+        Me.Q_CONTROL_GROUP_EXPORT.Location = New System.Drawing.Point(826, 924)
         Me.Q_CONTROL_GROUP_EXPORT.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Q_CONTROL_GROUP_EXPORT.Name = "Q_CONTROL_GROUP_EXPORT"
-        Me.Q_CONTROL_GROUP_EXPORT.Size = New System.Drawing.Size(180, 83)
+        Me.Q_CONTROL_GROUP_EXPORT.Size = New System.Drawing.Size(185, 83)
         Me.Q_CONTROL_GROUP_EXPORT.TabIndex = 5
         Me.Q_CONTROL_GROUP_EXPORT.Text = "EXPORT"
         Me.Q_CONTROL_GROUP_EXPORT.UseVisualStyleBackColor = True
@@ -309,10 +403,10 @@ Partial Class FORM1
         Me.Q_CONTROL_GROUP_CLEAR_ALL.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Q_CONTROL_GROUP_CLEAR_ALL.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Q_CONTROL_GROUP_CLEAR_ALL.ForeColor = System.Drawing.Color.White
-        Me.Q_CONTROL_GROUP_CLEAR_ALL.Location = New System.Drawing.Point(831, 776)
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.Location = New System.Drawing.Point(826, 766)
         Me.Q_CONTROL_GROUP_CLEAR_ALL.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Q_CONTROL_GROUP_CLEAR_ALL.Name = "Q_CONTROL_GROUP_CLEAR_ALL"
-        Me.Q_CONTROL_GROUP_CLEAR_ALL.Size = New System.Drawing.Size(462, 126)
+        Me.Q_CONTROL_GROUP_CLEAR_ALL.Size = New System.Drawing.Size(454, 126)
         Me.Q_CONTROL_GROUP_CLEAR_ALL.TabIndex = 6
         Me.Q_CONTROL_GROUP_CLEAR_ALL.Text = "CLEAR ALL"
         Me.Q_CONTROL_GROUP_CLEAR_ALL.UseVisualStyleBackColor = False
@@ -557,13 +651,14 @@ Partial Class FORM1
         '
         'QUESTION_ANSWERER
         '
-        Me.QUESTION_ANSWERER.Controls.Add(Me.Button2)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.QUESTION_ANSWERER_RIGHT)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.QUESTION_ANSWERER_LEFT)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.QUESTION_ANSWERER_EXIT)
         Me.QUESTION_ANSWERER.Controls.Add(Me.Label4)
-        Me.QUESTION_ANSWERER.Controls.Add(Me.RichTextBox1)
-        Me.QUESTION_ANSWERER.Controls.Add(Me.Button4)
-        Me.QUESTION_ANSWERER.Controls.Add(Me.Label5)
-        Me.QUESTION_ANSWERER.Controls.Add(Me.Label7)
-        Me.QUESTION_ANSWERER.Controls.Add(Me.RichTextBox2)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.QUESTION_ANSWERER_ANSWER)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.QUESTION_ANSWERER_NUMBER)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.QUESTION_ANSWERER_TITLE)
+        Me.QUESTION_ANSWERER.Controls.Add(Me.QUESTION_ANSWERER_QUESTION)
         Me.QUESTION_ANSWERER.Controls.Add(Label9)
         Me.QUESTION_ANSWERER.Dock = System.Windows.Forms.DockStyle.Fill
         Me.QUESTION_ANSWERER.Location = New System.Drawing.Point(0, 0)
@@ -571,19 +666,43 @@ Partial Class FORM1
         Me.QUESTION_ANSWERER.Size = New System.Drawing.Size(1324, 1062)
         Me.QUESTION_ANSWERER.TabIndex = 10
         Me.QUESTION_ANSWERER.TabStop = False
-        Me.QUESTION_ANSWERER.Text = "Question Creation"
+        Me.QUESTION_ANSWERER.Text = "Question Answerer"
         '
-        'Button2
+        'QUESTION_ANSWERER_RIGHT
         '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.ForeColor = System.Drawing.Color.Maroon
-        Me.Button2.Location = New System.Drawing.Point(1185, 970)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(127, 80)
-        Me.Button2.TabIndex = 9
-        Me.Button2.Text = "Exit"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.QUESTION_ANSWERER_RIGHT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.QUESTION_ANSWERER_RIGHT.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_ANSWERER_RIGHT.ForeColor = System.Drawing.Color.Black
+        Me.QUESTION_ANSWERER_RIGHT.Location = New System.Drawing.Point(162, 937)
+        Me.QUESTION_ANSWERER_RIGHT.Name = "QUESTION_ANSWERER_RIGHT"
+        Me.QUESTION_ANSWERER_RIGHT.Size = New System.Drawing.Size(85, 80)
+        Me.QUESTION_ANSWERER_RIGHT.TabIndex = 11
+        Me.QUESTION_ANSWERER_RIGHT.Text = ">"
+        Me.QUESTION_ANSWERER_RIGHT.UseVisualStyleBackColor = True
+        '
+        'QUESTION_ANSWERER_LEFT
+        '
+        Me.QUESTION_ANSWERER_LEFT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.QUESTION_ANSWERER_LEFT.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_ANSWERER_LEFT.ForeColor = System.Drawing.Color.Black
+        Me.QUESTION_ANSWERER_LEFT.Location = New System.Drawing.Point(58, 937)
+        Me.QUESTION_ANSWERER_LEFT.Name = "QUESTION_ANSWERER_LEFT"
+        Me.QUESTION_ANSWERER_LEFT.Size = New System.Drawing.Size(85, 80)
+        Me.QUESTION_ANSWERER_LEFT.TabIndex = 10
+        Me.QUESTION_ANSWERER_LEFT.Text = "<"
+        Me.QUESTION_ANSWERER_LEFT.UseVisualStyleBackColor = True
+        '
+        'QUESTION_ANSWERER_EXIT
+        '
+        Me.QUESTION_ANSWERER_EXIT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.QUESTION_ANSWERER_EXIT.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_ANSWERER_EXIT.ForeColor = System.Drawing.Color.Maroon
+        Me.QUESTION_ANSWERER_EXIT.Location = New System.Drawing.Point(1185, 970)
+        Me.QUESTION_ANSWERER_EXIT.Name = "QUESTION_ANSWERER_EXIT"
+        Me.QUESTION_ANSWERER_EXIT.Size = New System.Drawing.Size(127, 80)
+        Me.QUESTION_ANSWERER_EXIT.TabIndex = 9
+        Me.QUESTION_ANSWERER_EXIT.Text = "Exit"
+        Me.QUESTION_ANSWERER_EXIT.UseVisualStyleBackColor = True
         '
         'Label4
         '
@@ -595,83 +714,310 @@ Partial Class FORM1
         Me.Label4.TabIndex = 7
         Me.Label4.Text = "Your Answer"
         '
-        'RichTextBox1
+        'QUESTION_ANSWERER_ANSWER
         '
-        Me.RichTextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RichTextBox1.Location = New System.Drawing.Point(58, 614)
-        Me.RichTextBox1.MaxLength = 500
-        Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(1222, 244)
-        Me.RichTextBox1.TabIndex = 6
-        Me.RichTextBox1.Text = "7Y"
+        Me.QUESTION_ANSWERER_ANSWER.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_ANSWERER_ANSWER.Location = New System.Drawing.Point(58, 614)
+        Me.QUESTION_ANSWERER_ANSWER.MaxLength = 500
+        Me.QUESTION_ANSWERER_ANSWER.Name = "QUESTION_ANSWERER_ANSWER"
+        Me.QUESTION_ANSWERER_ANSWER.Size = New System.Drawing.Size(1222, 244)
+        Me.QUESTION_ANSWERER_ANSWER.TabIndex = 6
+        Me.QUESTION_ANSWERER_ANSWER.Text = "7Y"
         '
-        'Button4
+        'QUESTION_ANSWERER_NUMBER
         '
-        Me.Button4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.ForeColor = System.Drawing.Color.Green
-        Me.Button4.Location = New System.Drawing.Point(58, 937)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(237, 80)
-        Me.Button4.TabIndex = 4
-        Me.Button4.Text = "Finalise"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.QUESTION_ANSWERER_NUMBER.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.QUESTION_ANSWERER_NUMBER.AutoSize = True
+        Me.QUESTION_ANSWERER_NUMBER.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_ANSWERER_NUMBER.Location = New System.Drawing.Point(1214, 22)
+        Me.QUESTION_ANSWERER_NUMBER.Name = "QUESTION_ANSWERER_NUMBER"
+        Me.QUESTION_ANSWERER_NUMBER.Size = New System.Drawing.Size(76, 82)
+        Me.QUESTION_ANSWERER_NUMBER.TabIndex = 3
+        Me.QUESTION_ANSWERER_NUMBER.Text = "2"
+        Me.QUESTION_ANSWERER_NUMBER.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label5
+        'QUESTION_ANSWERER_TITLE
         '
-        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(1214, 22)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(76, 82)
-        Me.Label5.TabIndex = 3
-        Me.Label5.Text = "2"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.QUESTION_ANSWERER_TITLE.AutoSize = True
+        Me.QUESTION_ANSWERER_TITLE.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_ANSWERER_TITLE.Location = New System.Drawing.Point(47, 165)
+        Me.QUESTION_ANSWERER_TITLE.Name = "QUESTION_ANSWERER_TITLE"
+        Me.QUESTION_ANSWERER_TITLE.Size = New System.Drawing.Size(715, 55)
+        Me.QUESTION_ANSWERER_TITLE.TabIndex = 2
+        Me.QUESTION_ANSWERER_TITLE.Text = "Simplify the following expression"
         '
-        'Label7
+        'QUESTION_ANSWERER_QUESTION
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(47, 165)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(715, 55)
-        Me.Label7.TabIndex = 2
-        Me.Label7.Text = "Simplify the following expression"
+        Me.QUESTION_ANSWERER_QUESTION.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QUESTION_ANSWERER_QUESTION.Location = New System.Drawing.Point(57, 248)
+        Me.QUESTION_ANSWERER_QUESTION.MaxLength = 500
+        Me.QUESTION_ANSWERER_QUESTION.Name = "QUESTION_ANSWERER_QUESTION"
+        Me.QUESTION_ANSWERER_QUESTION.ReadOnly = True
+        Me.QUESTION_ANSWERER_QUESTION.Size = New System.Drawing.Size(762, 244)
+        Me.QUESTION_ANSWERER_QUESTION.TabIndex = 1
+        Me.QUESTION_ANSWERER_QUESTION.Text = "5Y+2Y"
         '
-        'RichTextBox2
+        'TEST_AREA
         '
-        Me.RichTextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RichTextBox2.Location = New System.Drawing.Point(57, 248)
-        Me.RichTextBox2.MaxLength = 500
-        Me.RichTextBox2.Name = "RichTextBox2"
-        Me.RichTextBox2.ReadOnly = True
-        Me.RichTextBox2.Size = New System.Drawing.Size(762, 244)
-        Me.RichTextBox2.TabIndex = 1
-        Me.RichTextBox2.Text = "3X+5Y-3X+2Y"
+        Me.TEST_AREA.Controls.Add(Me.TESTS_AREA_ADD_NEW_TEST)
+        Me.TEST_AREA.Controls.Add(Me.TESTS_AREA_CLEAR_ALL)
+        Me.TEST_AREA.Controls.Add(Me.TESTS_AREA_EXPORT_TEST)
+        Me.TEST_AREA.Controls.Add(Me.TESTS_AREA_REMOVE_TEST)
+        Me.TEST_AREA.Controls.Add(Me.TESTS_AREA_VIEW_TEST)
+        Me.TEST_AREA.Controls.Add(Me.TESTS_AREA_TEST_DESCRIPTION)
+        Me.TEST_AREA.Controls.Add(Me.TESTS_AREA_TEST_TITLE)
+        Me.TEST_AREA.Controls.Add(Me.TEST_AREA_LIST)
+        Me.TEST_AREA.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TEST_AREA.Location = New System.Drawing.Point(0, 0)
+        Me.TEST_AREA.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.TEST_AREA.Name = "TEST_AREA"
+        Me.TEST_AREA.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.TEST_AREA.Size = New System.Drawing.Size(1324, 1062)
+        Me.TEST_AREA.TabIndex = 11
+        Me.TEST_AREA.TabStop = False
+        Me.TEST_AREA.Text = "Tests"
         '
-        'Label9
+        'TESTS_AREA_ADD_NEW_TEST
         '
-        Label9.AutoSize = True
-        Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Label9.Location = New System.Drawing.Point(34, 62)
-        Label9.Name = "Label9"
-        Label9.Size = New System.Drawing.Size(353, 82)
-        Label9.TabIndex = 0
-        Label9.Text = "Question:"
+        Me.TESTS_AREA_ADD_NEW_TEST.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TESTS_AREA_ADD_NEW_TEST.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.TESTS_AREA_ADD_NEW_TEST.Location = New System.Drawing.Point(826, 423)
+        Me.TESTS_AREA_ADD_NEW_TEST.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.TESTS_AREA_ADD_NEW_TEST.Name = "TESTS_AREA_ADD_NEW_TEST"
+        Me.TESTS_AREA_ADD_NEW_TEST.Size = New System.Drawing.Size(452, 83)
+        Me.TESTS_AREA_ADD_NEW_TEST.TabIndex = 7
+        Me.TESTS_AREA_ADD_NEW_TEST.Text = "ADD NEW TEST"
+        Me.TESTS_AREA_ADD_NEW_TEST.UseVisualStyleBackColor = True
+        '
+        'TESTS_AREA_CLEAR_ALL
+        '
+        Me.TESTS_AREA_CLEAR_ALL.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.TESTS_AREA_CLEAR_ALL.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.TESTS_AREA_CLEAR_ALL.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TESTS_AREA_CLEAR_ALL.ForeColor = System.Drawing.Color.White
+        Me.TESTS_AREA_CLEAR_ALL.Location = New System.Drawing.Point(831, 766)
+        Me.TESTS_AREA_CLEAR_ALL.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.TESTS_AREA_CLEAR_ALL.Name = "TESTS_AREA_CLEAR_ALL"
+        Me.TESTS_AREA_CLEAR_ALL.Size = New System.Drawing.Size(462, 126)
+        Me.TESTS_AREA_CLEAR_ALL.TabIndex = 6
+        Me.TESTS_AREA_CLEAR_ALL.Text = "CLEAR ALL"
+        Me.TESTS_AREA_CLEAR_ALL.UseVisualStyleBackColor = False
+        '
+        'TESTS_AREA_EXPORT_TEST
+        '
+        Me.TESTS_AREA_EXPORT_TEST.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TESTS_AREA_EXPORT_TEST.ForeColor = System.Drawing.Color.Green
+        Me.TESTS_AREA_EXPORT_TEST.Location = New System.Drawing.Point(829, 924)
+        Me.TESTS_AREA_EXPORT_TEST.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.TESTS_AREA_EXPORT_TEST.Name = "TESTS_AREA_EXPORT_TEST"
+        Me.TESTS_AREA_EXPORT_TEST.Size = New System.Drawing.Size(180, 83)
+        Me.TESTS_AREA_EXPORT_TEST.TabIndex = 5
+        Me.TESTS_AREA_EXPORT_TEST.Text = "EXPORT"
+        Me.TESTS_AREA_EXPORT_TEST.UseVisualStyleBackColor = True
+        '
+        'TESTS_AREA_REMOVE_TEST
+        '
+        Me.TESTS_AREA_REMOVE_TEST.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TESTS_AREA_REMOVE_TEST.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.TESTS_AREA_REMOVE_TEST.Location = New System.Drawing.Point(828, 309)
+        Me.TESTS_AREA_REMOVE_TEST.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.TESTS_AREA_REMOVE_TEST.Name = "TESTS_AREA_REMOVE_TEST"
+        Me.TESTS_AREA_REMOVE_TEST.Size = New System.Drawing.Size(452, 83)
+        Me.TESTS_AREA_REMOVE_TEST.TabIndex = 4
+        Me.TESTS_AREA_REMOVE_TEST.Text = "REMOVE"
+        Me.TESTS_AREA_REMOVE_TEST.UseVisualStyleBackColor = True
+        '
+        'TESTS_AREA_VIEW_TEST
+        '
+        Me.TESTS_AREA_VIEW_TEST.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TESTS_AREA_VIEW_TEST.Location = New System.Drawing.Point(828, 200)
+        Me.TESTS_AREA_VIEW_TEST.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.TESTS_AREA_VIEW_TEST.Name = "TESTS_AREA_VIEW_TEST"
+        Me.TESTS_AREA_VIEW_TEST.Size = New System.Drawing.Size(452, 83)
+        Me.TESTS_AREA_VIEW_TEST.TabIndex = 3
+        Me.TESTS_AREA_VIEW_TEST.Text = "VIEW TEST"
+        Me.TESTS_AREA_VIEW_TEST.UseVisualStyleBackColor = True
+        '
+        'TESTS_AREA_TEST_DESCRIPTION
+        '
+        Me.TESTS_AREA_TEST_DESCRIPTION.AutoSize = True
+        Me.TESTS_AREA_TEST_DESCRIPTION.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TESTS_AREA_TEST_DESCRIPTION.Location = New System.Drawing.Point(822, 117)
+        Me.TESTS_AREA_TEST_DESCRIPTION.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.TESTS_AREA_TEST_DESCRIPTION.Name = "TESTS_AREA_TEST_DESCRIPTION"
+        Me.TESTS_AREA_TEST_DESCRIPTION.Size = New System.Drawing.Size(247, 29)
+        Me.TESTS_AREA_TEST_DESCRIPTION.TabIndex = 2
+        Me.TESTS_AREA_TEST_DESCRIPTION.Text = "Algebra Simplification"
+        '
+        'TESTS_AREA_TEST_TITLE
+        '
+        Me.TESTS_AREA_TEST_TITLE.AutoSize = True
+        Me.TESTS_AREA_TEST_TITLE.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TESTS_AREA_TEST_TITLE.Location = New System.Drawing.Point(818, 46)
+        Me.TESTS_AREA_TEST_TITLE.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.TESTS_AREA_TEST_TITLE.Name = "TESTS_AREA_TEST_TITLE"
+        Me.TESTS_AREA_TEST_TITLE.Size = New System.Drawing.Size(210, 61)
+        Me.TESTS_AREA_TEST_TITLE.TabIndex = 1
+        Me.TESTS_AREA_TEST_TITLE.Text = "TEST 1"
+        '
+        'TEST_AREA_LIST
+        '
+        Me.TEST_AREA_LIST.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TEST_AREA_LIST.FormattingEnabled = True
+        Me.TEST_AREA_LIST.ItemHeight = 29
+        Me.TEST_AREA_LIST.Location = New System.Drawing.Point(18, 46)
+        Me.TEST_AREA_LIST.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.TEST_AREA_LIST.Name = "TEST_AREA_LIST"
+        Me.TEST_AREA_LIST.Size = New System.Drawing.Size(775, 961)
+        Me.TEST_AREA_LIST.TabIndex = 0
+        '
+        'TEST_VIEWER
+        '
+        Me.TEST_VIEWER.Controls.Add(Me.TEST_VIEWER_PREVIEW_ANSWER)
+        Me.TEST_VIEWER.Controls.Add(Label14)
+        Me.TEST_VIEWER.Controls.Add(Me.TEST_VIEWER_PREVIEW_QUESTION)
+        Me.TEST_VIEWER.Controls.Add(Label13)
+        Me.TEST_VIEWER.Controls.Add(Me.TEST_VIEWER_EXIT)
+        Me.TEST_VIEWER.Controls.Add(Me.TEST_VIEWER_QUESTION_LIST)
+        Me.TEST_VIEWER.Controls.Add(Me.TEST_VIEWER_ANSWER_SELECTED_QUESTION)
+        Me.TEST_VIEWER.Controls.Add(Label12)
+        Me.TEST_VIEWER.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TEST_VIEWER.Location = New System.Drawing.Point(0, 0)
+        Me.TEST_VIEWER.Name = "TEST_VIEWER"
+        Me.TEST_VIEWER.Size = New System.Drawing.Size(1324, 1062)
+        Me.TEST_VIEWER.TabIndex = 12
+        Me.TEST_VIEWER.TabStop = False
+        Me.TEST_VIEWER.Text = "Test Viewer"
+        '
+        'TEST_VIEWER_PREVIEW_ANSWER
+        '
+        Me.TEST_VIEWER_PREVIEW_ANSWER.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TEST_VIEWER_PREVIEW_ANSWER.Location = New System.Drawing.Point(751, 595)
+        Me.TEST_VIEWER_PREVIEW_ANSWER.Name = "TEST_VIEWER_PREVIEW_ANSWER"
+        Me.TEST_VIEWER_PREVIEW_ANSWER.ReadOnly = True
+        Me.TEST_VIEWER_PREVIEW_ANSWER.Size = New System.Drawing.Size(469, 246)
+        Me.TEST_VIEWER_PREVIEW_ANSWER.TabIndex = 12
+        Me.TEST_VIEWER_PREVIEW_ANSWER.Text = ""
+        '
+        'TEST_VIEWER_PREVIEW_QUESTION
+        '
+        Me.TEST_VIEWER_PREVIEW_QUESTION.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TEST_VIEWER_PREVIEW_QUESTION.Location = New System.Drawing.Point(751, 246)
+        Me.TEST_VIEWER_PREVIEW_QUESTION.Name = "TEST_VIEWER_PREVIEW_QUESTION"
+        Me.TEST_VIEWER_PREVIEW_QUESTION.ReadOnly = True
+        Me.TEST_VIEWER_PREVIEW_QUESTION.Size = New System.Drawing.Size(469, 251)
+        Me.TEST_VIEWER_PREVIEW_QUESTION.TabIndex = 10
+        Me.TEST_VIEWER_PREVIEW_QUESTION.Text = ""
+        '
+        'TEST_VIEWER_EXIT
+        '
+        Me.TEST_VIEWER_EXIT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TEST_VIEWER_EXIT.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TEST_VIEWER_EXIT.ForeColor = System.Drawing.Color.Maroon
+        Me.TEST_VIEWER_EXIT.Location = New System.Drawing.Point(1185, 970)
+        Me.TEST_VIEWER_EXIT.Name = "TEST_VIEWER_EXIT"
+        Me.TEST_VIEWER_EXIT.Size = New System.Drawing.Size(127, 80)
+        Me.TEST_VIEWER_EXIT.TabIndex = 8
+        Me.TEST_VIEWER_EXIT.Text = "Exit"
+        Me.TEST_VIEWER_EXIT.UseVisualStyleBackColor = True
+        '
+        'TEST_VIEWER_QUESTION_LIST
+        '
+        Me.TEST_VIEWER_QUESTION_LIST.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TEST_VIEWER_QUESTION_LIST.FormattingEnabled = True
+        Me.TEST_VIEWER_QUESTION_LIST.ItemHeight = 32
+        Me.TEST_VIEWER_QUESTION_LIST.Location = New System.Drawing.Point(48, 165)
+        Me.TEST_VIEWER_QUESTION_LIST.Name = "TEST_VIEWER_QUESTION_LIST"
+        Me.TEST_VIEWER_QUESTION_LIST.Size = New System.Drawing.Size(678, 676)
+        Me.TEST_VIEWER_QUESTION_LIST.TabIndex = 7
+        '
+        'TEST_VIEWER_ANSWER_SELECTED_QUESTION
+        '
+        Me.TEST_VIEWER_ANSWER_SELECTED_QUESTION.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.TEST_VIEWER_ANSWER_SELECTED_QUESTION.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TEST_VIEWER_ANSWER_SELECTED_QUESTION.ForeColor = System.Drawing.Color.Green
+        Me.TEST_VIEWER_ANSWER_SELECTED_QUESTION.Location = New System.Drawing.Point(48, 864)
+        Me.TEST_VIEWER_ANSWER_SELECTED_QUESTION.Name = "TEST_VIEWER_ANSWER_SELECTED_QUESTION"
+        Me.TEST_VIEWER_ANSWER_SELECTED_QUESTION.Size = New System.Drawing.Size(410, 80)
+        Me.TEST_VIEWER_ANSWER_SELECTED_QUESTION.TabIndex = 4
+        Me.TEST_VIEWER_ANSWER_SELECTED_QUESTION.Text = "Answer Question"
+        Me.TEST_VIEWER_ANSWER_SELECTED_QUESTION.UseVisualStyleBackColor = True
+        '
+        'TEST_EXPORT
+        '
+        Me.TEST_EXPORT.Controls.Add(Me.TEST_EXPORT_DESC)
+        Me.TEST_EXPORT.Controls.Add(Label7)
+        Me.TEST_EXPORT.Controls.Add(Me.TEST_EXPORT_EXPORT)
+        Me.TEST_EXPORT.Controls.Add(Me.TEST_EXPORT_EXIT)
+        Me.TEST_EXPORT.Controls.Add(Me.TEST_EXPORT_NAME)
+        Me.TEST_EXPORT.Controls.Add(Label5)
+        Me.TEST_EXPORT.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TEST_EXPORT.Location = New System.Drawing.Point(0, 0)
+        Me.TEST_EXPORT.Name = "TEST_EXPORT"
+        Me.TEST_EXPORT.Size = New System.Drawing.Size(1324, 1062)
+        Me.TEST_EXPORT.TabIndex = 14
+        Me.TEST_EXPORT.TabStop = False
+        Me.TEST_EXPORT.Text = "Export Test"
+        '
+        'TEST_EXPORT_DESC
+        '
+        Me.TEST_EXPORT_DESC.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TEST_EXPORT_DESC.Location = New System.Drawing.Point(48, 437)
+        Me.TEST_EXPORT_DESC.MaxLength = 500
+        Me.TEST_EXPORT_DESC.Name = "TEST_EXPORT_DESC"
+        Me.TEST_EXPORT_DESC.Size = New System.Drawing.Size(1222, 280)
+        Me.TEST_EXPORT_DESC.TabIndex = 12
+        Me.TEST_EXPORT_DESC.Text = ""
+        '
+        'TEST_EXPORT_EXPORT
+        '
+        Me.TEST_EXPORT_EXPORT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TEST_EXPORT_EXPORT.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TEST_EXPORT_EXPORT.ForeColor = System.Drawing.Color.Green
+        Me.TEST_EXPORT_EXPORT.Location = New System.Drawing.Point(48, 766)
+        Me.TEST_EXPORT_EXPORT.Name = "TEST_EXPORT_EXPORT"
+        Me.TEST_EXPORT_EXPORT.Size = New System.Drawing.Size(222, 80)
+        Me.TEST_EXPORT_EXPORT.TabIndex = 10
+        Me.TEST_EXPORT_EXPORT.Text = "Export"
+        Me.TEST_EXPORT_EXPORT.UseVisualStyleBackColor = True
+        '
+        'TEST_EXPORT_EXIT
+        '
+        Me.TEST_EXPORT_EXIT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TEST_EXPORT_EXIT.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TEST_EXPORT_EXIT.ForeColor = System.Drawing.Color.Maroon
+        Me.TEST_EXPORT_EXIT.Location = New System.Drawing.Point(1185, 970)
+        Me.TEST_EXPORT_EXIT.Name = "TEST_EXPORT_EXIT"
+        Me.TEST_EXPORT_EXIT.Size = New System.Drawing.Size(127, 80)
+        Me.TEST_EXPORT_EXIT.TabIndex = 9
+        Me.TEST_EXPORT_EXIT.Text = "Exit"
+        Me.TEST_EXPORT_EXIT.UseVisualStyleBackColor = True
+        '
+        'TEST_EXPORT_NAME
+        '
+        Me.TEST_EXPORT_NAME.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TEST_EXPORT_NAME.Location = New System.Drawing.Point(48, 180)
+        Me.TEST_EXPORT_NAME.MaxLength = 500
+        Me.TEST_EXPORT_NAME.Name = "TEST_EXPORT_NAME"
+        Me.TEST_EXPORT_NAME.Size = New System.Drawing.Size(1222, 121)
+        Me.TEST_EXPORT_NAME.TabIndex = 6
+        Me.TEST_EXPORT_NAME.Text = ""
         '
         'FORM1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1324, 1062)
-        Me.Controls.Add(Me.QUESTION_ANSWERER)
-        Me.Controls.Add(Me.QUESTION_INPUT1)
+        Me.Controls.Add(Me.TEST_AREA)
         Me.Controls.Add(Me.Q_CONTROL_GROUP)
         Me.Controls.Add(Me.TEACHER_GROUP)
         Me.Controls.Add(Me.LOGIN_GROUP)
         Me.Controls.Add(Me.MODE_GROUP)
+        Me.Controls.Add(Me.TEST_VIEWER)
         Me.Controls.Add(Me.QUESTION_CHOOSER)
+        Me.Controls.Add(Me.TEST_EXPORT)
+        Me.Controls.Add(Me.QUESTION_ANSWERER)
+        Me.Controls.Add(Me.QUESTION_INPUT1)
         Me.Name = "FORM1"
         Me.Text = "Form1"
         Me.MODE_GROUP.ResumeLayout(False)
@@ -688,6 +1034,12 @@ Partial Class FORM1
         Me.QUESTION_INPUT1.PerformLayout()
         Me.QUESTION_ANSWERER.ResumeLayout(False)
         Me.QUESTION_ANSWERER.PerformLayout()
+        Me.TEST_AREA.ResumeLayout(False)
+        Me.TEST_AREA.PerformLayout()
+        Me.TEST_VIEWER.ResumeLayout(False)
+        Me.TEST_VIEWER.PerformLayout()
+        Me.TEST_EXPORT.ResumeLayout(False)
+        Me.TEST_EXPORT.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -726,11 +1078,32 @@ Partial Class FORM1
     Friend WithEvents QUESTION_RECOMPUTE_ANSWER As Button
     Friend WithEvents Q_CONTROL_GROUP_EXIT As Button
     Friend WithEvents QUESTION_ANSWERER As GroupBox
-    Friend WithEvents Button2 As Button
+    Friend WithEvents QUESTION_ANSWERER_EXIT As Button
     Friend WithEvents Label4 As Label
-    Friend WithEvents RichTextBox1 As RichTextBox
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label7 As Label
-    Friend WithEvents RichTextBox2 As RichTextBox
+    Friend WithEvents QUESTION_ANSWERER_ANSWER As RichTextBox
+    Friend WithEvents QUESTION_ANSWERER_NUMBER As Label
+    Friend WithEvents QUESTION_ANSWERER_TITLE As Label
+    Friend WithEvents QUESTION_ANSWERER_QUESTION As RichTextBox
+    Friend WithEvents QUESTION_ANSWERER_RIGHT As Button
+    Friend WithEvents QUESTION_ANSWERER_LEFT As Button
+    Friend WithEvents TEST_AREA As GroupBox
+    Friend WithEvents TESTS_AREA_ADD_NEW_TEST As Button
+    Friend WithEvents TESTS_AREA_CLEAR_ALL As Button
+    Friend WithEvents TESTS_AREA_EXPORT_TEST As Button
+    Friend WithEvents TESTS_AREA_REMOVE_TEST As Button
+    Friend WithEvents TESTS_AREA_VIEW_TEST As Button
+    Friend WithEvents TEST_AREA_LIST As ListBox
+    Friend WithEvents TEST_VIEWER As GroupBox
+    Friend WithEvents TEST_VIEWER_PREVIEW_ANSWER As RichTextBox
+    Friend WithEvents TEST_VIEWER_PREVIEW_QUESTION As RichTextBox
+    Friend WithEvents TEST_VIEWER_EXIT As Button
+    Friend WithEvents TEST_VIEWER_QUESTION_LIST As ListBox
+    Friend WithEvents TEST_VIEWER_ANSWER_SELECTED_QUESTION As Button
+    Friend WithEvents TESTS_AREA_TEST_TITLE As Label
+    Friend WithEvents TESTS_AREA_TEST_DESCRIPTION As Label
+    Friend WithEvents TEST_EXPORT As GroupBox
+    Friend WithEvents TEST_EXPORT_DESC As RichTextBox
+    Friend WithEvents TEST_EXPORT_EXPORT As Button
+    Friend WithEvents TEST_EXPORT_EXIT As Button
+    Friend WithEvents TEST_EXPORT_NAME As RichTextBox
 End Class

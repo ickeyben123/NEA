@@ -14,10 +14,10 @@ Class QUESTION
     Protected ENABLED As Boolean = True ' Determines if editable.
     Protected DATA_HANDLER As DATA_HANDLE
     Protected ANSWER_CLASS As SIMPLE_SIMPLIFY ' Dynamic answer that can be recomputed.
-    Protected QUESTION_ANSWER_TYPE As QUESTION_TYPE_ANSWER
+    Public QUESTION_ANSWER_TYPE As QUESTION_TYPE_ANSWER
 
-    Protected QUESTION_TEXT As String ' This is the actual question that is saved in the class.
-    Protected QUESTION_TITLE As String
+    Public QUESTION_TEXT As String ' This is the actual question that is saved in the class.
+    Public QUESTION_TITLE As String
 
     Dim RECALC_EVENT As EventHandler = Function(sender, e) RECOMPUTE_CHOSEN_QUESTION()
     Dim ADDING_EVENT As EventHandler = Function(sender, e) UPDATE_CLASS(False)
@@ -36,7 +36,11 @@ Class QUESTION
         Return QUESTION_TITLE
     End Function
 
-    Dim ANSWER As String
+    Protected ANSWER As String = ""
+
+    Public Function RETURN_ANSWER()
+        Return ANSWER
+    End Function
 
     Public Overridable Sub SUBMIT_ANSWER(INPUT As String) 'Submits answer..
         Me.ANSWER = INPUT
@@ -108,7 +112,7 @@ Class QUESTION
         FORM1.QUESTION_COUNT.Text = QUESTION_COUNT_NUM
         ' Get a random question
         Dim RANDOM As New Random
-        Dim QUESTION_INDEX As Integer = RANDOM.Next(1, TEMPLATE_ITEMS.Count) ' The random index for 'Template_items'. Note that its -2 as I ignore the first index (0).
+        Dim QUESTION_INDEX As Integer = RANDOM.Next(1, TEMPLATE_ITEMS.Count) ' The random index for 'Template_items'.
         Dim QUESTION_STRING As String = TEMPLATE_ITEMS(QUESTION_INDEX)
         FORM1.QUESTION_INPUT.Text = QUESTION_STRING
 
@@ -149,6 +153,7 @@ Class QUESTION
         AddHandler FORM1.QUESTION_RECOMPUTE_ANSWER.Click, RECALC_EVENT
         AddHandler FORM1.QUESTION_CREATE.Click, REVOKER_EVENT
         AddHandler FORM1.QUESTION_CREATE.Click, EDITING_EVENT
+        Return True
     End Function
 
 End Class
