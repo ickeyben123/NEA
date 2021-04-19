@@ -1008,6 +1008,8 @@ Partial Class FORM1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1324, 1062)
+        Me.Controls.Add(Me.QUESTION_ANSWERER)
+        Me.Controls.Add(Me.QUESTION_INPUT1)
         Me.Controls.Add(Me.TEST_AREA)
         Me.Controls.Add(Me.Q_CONTROL_GROUP)
         Me.Controls.Add(Me.TEACHER_GROUP)
@@ -1016,8 +1018,6 @@ Partial Class FORM1
         Me.Controls.Add(Me.TEST_VIEWER)
         Me.Controls.Add(Me.QUESTION_CHOOSER)
         Me.Controls.Add(Me.TEST_EXPORT)
-        Me.Controls.Add(Me.QUESTION_ANSWERER)
-        Me.Controls.Add(Me.QUESTION_INPUT1)
         Me.Name = "FORM1"
         Me.Text = "Form1"
         Me.MODE_GROUP.ResumeLayout(False)

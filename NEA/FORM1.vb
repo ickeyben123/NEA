@@ -89,6 +89,7 @@ Public Class FORM1
                 AddHandler TEST_VIEWER_ANSWER_SELECTED_QUESTION.Click, Function(sender, e) DISPLAY_ANSWER_QUESTION()
                 AddHandler QUESTION_ANSWERER_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEST_VIEWER, True)
                 AddHandler QUESTION_ANSWERER_EXIT.Click, Function(sender, e) ANSWER_QUESTION() ' This is easier trust me :L
+                AddHandler QUESTION_ANSWERER_EXIT.Click, Function(sender, e) TEST_QUESTION_LIST_MOUSE_UP()
 
             Else
                 TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
@@ -147,6 +148,20 @@ Public Class FORM1
 
     Dim SELECTED_TEST As Integer = 0
 
+    Private Sub EXPORT_ANSWERS(sender As Object, e As EventArgs) Handles TESTS_AREA_EXPORT_TEST.Click
+
+        ' I will be using much of the same method for exporting the answers of the student.
+        If TEST_AREA_LIST.SelectedItems.Count = 1 Then '  
+            Dim SELECTED_TEST As DATA_HANDLE = TESTS(TEST_AREA_LIST.SelectedIndex)
+            EXPORT(sender, e, SELECTED_TEST, "\Answers.json") ' The export function that I modified to accomodate for custom data_handle object inputs.
+        End If
+    End Sub
+
+    Private Sub CLEAR_ALL(sender As Object, e As EventArgs) Handles TESTS_AREA_CLEAR_ALL.Click
+        TESTS.RemoveRange(0, TESTS.Count)
+        TEST_LIST_UPDATE()
+    End Sub
+
     Private Sub TEST_LIST_UPDATE() ' Updates the test list.
         TEST_AREA_LIST.Items.Clear()
         For Each TEST As DATA_HANDLE In TESTS
@@ -169,7 +184,6 @@ Public Class FORM1
             '   Dim TO_BE_CONVERTED As String = TEST_INPUT_DATA_TEXT.Text
             '  Debug.WriteLine(TEST_INPUT_DATA_TEXT.Text)
 
-            Debug.WriteLine("fuckcuck")
             Dim DIALOG As New OpenFileDialog()
             DIALOG.Filter = "Json Files|*.json"
             If DialogResult.OK = DIALOG.ShowDialog Then
@@ -191,15 +205,18 @@ Public Class FORM1
                         NEW_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.SIMPLIFICATION
                     End If
                     NEW_QUESTION.TYPE = QUESTION.Item("TYPE")
+                    If QUESTION.ContainsKey("ANSWER") Then ' If the user is adding their answer document back in, then they go back to where they were.
+                        NEW_QUESTION.SUBMIT_ANSWER(QUESTION.Item("ANSWER"))
+                    End If
                     NEW_TEST.ADD(NEW_QUESTION)
                 Next
                 TESTS.Add(NEW_TEST)
                 TEST_LIST_UPDATE()
                 TOGGLE_CERTAIN_SCREEN(TEST_AREA, True)
-
             End If
 
         End If
+        Return True
     End Function
 
     Private Function MOVE_LEFT_QUESTION() Handles QUESTION_ANSWERER_LEFT.Click ' This is for moving left in the test.
@@ -243,7 +260,7 @@ Public Class FORM1
         Return False
     End Function
 
-    Private Sub TEST_QUESTION_LIST_MOUSE_UP(Optional ByVal SENDER As Object = Nothing, Optional ByVal E As System.Windows.Forms.MouseEventArgs = Nothing) Handles TEST_VIEWER_QUESTION_LIST.MouseUp
+    Private Function TEST_QUESTION_LIST_MOUSE_UP(Optional ByVal SENDER As Object = Nothing, Optional ByVal E As System.Windows.Forms.MouseEventArgs = Nothing) Handles TEST_VIEWER_QUESTION_LIST.MouseUp
         ' This shows the options when you right click on the question viewer for the teacher.
         Dim SELECTED_TEST = TEST_AREA_LIST.SelectedIndex
         Dim SELECTED_TEST_QUESTION = TEST_VIEWER_QUESTION_LIST.SelectedIndex  ' The question within the test.
@@ -252,7 +269,8 @@ Public Class FORM1
             TEST_VIEWER_PREVIEW_QUESTION.Text = TESTS(SELECTED_TEST).RETURN_QUESTIONS()(SELECTED_TEST_QUESTION).RETURN_QUESTION ' Sets the preview of the question and answer.
             TEST_VIEWER_PREVIEW_ANSWER.Text = TESTS(SELECTED_TEST).RETURN_QUESTIONS()(SELECTED_TEST_QUESTION).RETURN_ANSWER
         End If
-    End Sub
+        Return True
+    End Function
     Private Sub STUDENT_LISTBOX_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles TEST_AREA_LIST.MouseUp
         ' This shows the options when you right click on the question viewer for the teacher.
         Dim CMS = New ContextMenuStrip
@@ -354,24 +372,35 @@ Public Class FORM1
         Return False
     End Function
 
-    Private Function EXPORT(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles TEST_EXPORT_EXPORT.Click
-        If DATA_HANDLER.RETURN_QUESTIONS().Count > 0 And E.Button = MouseButtons.Left Then
-            Dim STREAM As Stream = File.Open(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "Question Export.json", FileMode.OpenOrCreate) ' The file I will be exporting to.
+    Private Function EXPORT(SENDER As Object, E As EventArgs, Optional TEST As DATA_HANDLE = Nothing, Optional TEST_NAME As String = "\Question Export.json") Handles TEST_EXPORT_EXPORT.Click
+
+        Dim CHOSEN_TO_EXPORT = DATA_HANDLER
+        Dim NAME = TEST_EXPORT_NAME.Text
+        Dim DESCRIPTION = TEST_EXPORT_DESC.Text
+        If Not TEST Is Nothing Then ' As the function is largely the same for exporting the student answers, I will just modify this to accomodate for it :P.
+            CHOSEN_TO_EXPORT = TEST
+            NAME = CHOSEN_TO_EXPORT.NAME
+            DESCRIPTION = CHOSEN_TO_EXPORT.DESCRIPTION
+        End If
+
+        If CHOSEN_TO_EXPORT.RETURN_QUESTIONS().Count > 0 Then
 
             ' I aim to create a list of all the data I need.
+            Dim STREAM As Stream = File.Open(My.Computer.FileSystem.SpecialDirectories.MyDocuments & TEST_NAME, FileMode.OpenOrCreate) ' The file I will be exporting to.
 
             Dim DATA_LIST As New List(Of Dictionary(Of String, String))
 
             Dim META_DATA As New Dictionary(Of String, String) ' The name and description of the test.
-            META_DATA.Add("NAME", TEST_EXPORT_NAME.Text)
-            META_DATA.Add("DESCRIPTION", TEST_EXPORT_DESC.Text)
+            META_DATA.Add("NAME", NAME)
+            META_DATA.Add("DESCRIPTION", DESCRIPTION)
             DATA_LIST.Add(META_DATA)
 
-            For Each QUESTION As QUESTION In DATA_HANDLER.RETURN_QUESTIONS
+            For Each QUESTION As QUESTION In CHOSEN_TO_EXPORT.RETURN_QUESTIONS
                 Dim QUESTION_DATA As New Dictionary(Of String, String)
                 QUESTION_DATA.Add("QUESTION", QUESTION.RETURN_QUESTION) ' The question, like 3x+3x
                 QUESTION_DATA.Add("QUESTION TITLE", QUESTION.RETURN_QUESTION_TITLE) ' The title, like "Differentiate with respect to x"
                 QUESTION_DATA.Add("QUESTION TYPE", QUESTION.RETURN_QUESTION_TYPE) ' The type, either differentiation or simplification.
+                QUESTION_DATA.Add("ANSWER", QUESTION.RETURN_ANSWER) ' The answer the user set.
                 QUESTION_DATA.Add("TYPE", QUESTION.TYPE) ' The type, either differentiation or simplification.
                 DATA_LIST.Add(QUESTION_DATA)
             Next
@@ -379,15 +408,13 @@ Public Class FORM1
             JsonSerializer.SerializeAsync(STREAM, DATA_LIST) ' This converts the list into a string that is then written into my text file.
             Debug.WriteLine(JsonSerializer.Serialize(DATA_LIST))
             STREAM.Close()
-            Shell("explorer /select," & My.Computer.FileSystem.SpecialDirectories.MyDocuments & "Question Export.json", AppWinStyle.NormalFocus)
-            TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True)
+            Shell("explorer /select," & My.Computer.FileSystem.SpecialDirectories.MyDocuments & TEST_NAME, AppWinStyle.NormalFocus)
+            If TEST_NAME = "\QUESTION Export.json" Then
+                TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True)
+            End If
         End If
-        Return False
+            Return False
     End Function
-
-    Private Sub TESTS_AREA_TEST_DESCRIPTION_Click(sender As Object, e As EventArgs) Handles TESTS_AREA_TEST_DESCRIPTION.Click
-
-    End Sub
 
     '/////////////////////////////
     ' END
