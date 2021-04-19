@@ -425,6 +425,10 @@ Public Class FORM1
         Return False
     End Function
 
+    Private Sub ADD_TEST(sender As Object, e As EventArgs) Handles TESTS_AREA_ADD_NEW_TEST.Click
+
+    End Sub
+
 
     '/////////////////////////////
     ' END

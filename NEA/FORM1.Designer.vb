@@ -108,6 +108,15 @@ Partial Class FORM1
         Me.EXPORT_ANSWERS_EXPORT = New System.Windows.Forms.Button()
         Me.EXIT_EXPORT_ANSWERS = New System.Windows.Forms.Button()
         Me.EXPORT_ANSWERS_NAME = New System.Windows.Forms.RichTextBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Button7 = New System.Windows.Forms.Button()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.ListBox1 = New System.Windows.Forms.ListBox()
         Label2 = New System.Windows.Forms.Label()
         Label1 = New System.Windows.Forms.Label()
         TITLE = New System.Windows.Forms.Label()
@@ -134,6 +143,7 @@ Partial Class FORM1
         Me.TEST_EXPORT.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.EXPORT_ANSWERS_GROUP.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label2
@@ -248,6 +258,36 @@ Partial Class FORM1
         Label7.Size = New System.Drawing.Size(408, 82)
         Label7.TabIndex = 11
         Label7.Text = "Description"
+        '
+        'Label10
+        '
+        Label10.AutoSize = True
+        Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label10.Location = New System.Drawing.Point(34, 325)
+        Label10.Name = "Label10"
+        Label10.Size = New System.Drawing.Size(408, 82)
+        Label10.TabIndex = 11
+        Label10.Text = "Description"
+        '
+        'Label11
+        '
+        Label11.AutoSize = True
+        Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label11.Location = New System.Drawing.Point(34, 69)
+        Label11.Name = "Label11"
+        Label11.Size = New System.Drawing.Size(231, 82)
+        Label11.TabIndex = 0
+        Label11.Text = "Name"
+        '
+        'Label16
+        '
+        Label16.AutoSize = True
+        Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label16.Location = New System.Drawing.Point(34, 69)
+        Label16.Name = "Label16"
+        Label16.Size = New System.Drawing.Size(407, 82)
+        Label16.TabIndex = 0
+        Label16.Text = "Your Name"
         '
         'QUESTION_CHOOSER_LIST
         '
@@ -1046,16 +1086,6 @@ Partial Class FORM1
         Me.RichTextBox1.TabIndex = 12
         Me.RichTextBox1.Text = ""
         '
-        'Label10
-        '
-        Label10.AutoSize = True
-        Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Label10.Location = New System.Drawing.Point(34, 325)
-        Label10.Name = "Label10"
-        Label10.Size = New System.Drawing.Size(408, 82)
-        Label10.TabIndex = 11
-        Label10.Text = "Description"
-        '
         'Button1
         '
         Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1089,16 +1119,6 @@ Partial Class FORM1
         Me.RichTextBox2.Size = New System.Drawing.Size(1222, 121)
         Me.RichTextBox2.TabIndex = 6
         Me.RichTextBox2.Text = ""
-        '
-        'Label11
-        '
-        Label11.AutoSize = True
-        Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Label11.Location = New System.Drawing.Point(34, 69)
-        Label11.Name = "Label11"
-        Label11.Size = New System.Drawing.Size(231, 82)
-        Label11.TabIndex = 0
-        Label11.Text = "Name"
         '
         'EXPORT_ANSWERS_GROUP
         '
@@ -1148,26 +1168,126 @@ Partial Class FORM1
         Me.EXPORT_ANSWERS_NAME.TabIndex = 6
         Me.EXPORT_ANSWERS_NAME.Text = ""
         '
-        'Label16
+        'GroupBox2
         '
-        Label16.AutoSize = True
-        Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Label16.Location = New System.Drawing.Point(34, 69)
-        Label16.Name = "Label16"
-        Label16.Size = New System.Drawing.Size(407, 82)
-        Label16.TabIndex = 0
-        Label16.Text = "Your Name"
+        Me.GroupBox2.Controls.Add(Me.Button3)
+        Me.GroupBox2.Controls.Add(Me.Button4)
+        Me.GroupBox2.Controls.Add(Me.Button5)
+        Me.GroupBox2.Controls.Add(Me.Button6)
+        Me.GroupBox2.Controls.Add(Me.Button7)
+        Me.GroupBox2.Controls.Add(Me.Label15)
+        Me.GroupBox2.Controls.Add(Me.Label17)
+        Me.GroupBox2.Controls.Add(Me.ListBox1)
+        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox2.Size = New System.Drawing.Size(1324, 1062)
+        Me.GroupBox2.TabIndex = 17
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Submissions"
+        '
+        'Button3
+        '
+        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Button3.Location = New System.Drawing.Point(826, 423)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(452, 83)
+        Me.Button3.TabIndex = 7
+        Me.Button3.Text = "ADD NEW SUBMISSION"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button4
+        '
+        Me.Button4.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button4.ForeColor = System.Drawing.Color.White
+        Me.Button4.Location = New System.Drawing.Point(831, 766)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(462, 126)
+        Me.Button4.TabIndex = 6
+        Me.Button4.Text = "CLEAR ALL"
+        Me.Button4.UseVisualStyleBackColor = False
+        '
+        'Button5
+        '
+        Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button5.ForeColor = System.Drawing.Color.Green
+        Me.Button5.Location = New System.Drawing.Point(829, 924)
+        Me.Button5.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(180, 83)
+        Me.Button5.TabIndex = 5
+        Me.Button5.Text = "EXPORT"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'Button6
+        '
+        Me.Button6.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Button6.Location = New System.Drawing.Point(828, 309)
+        Me.Button6.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(452, 83)
+        Me.Button6.TabIndex = 4
+        Me.Button6.Text = "REMOVE"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'Button7
+        '
+        Me.Button7.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button7.Location = New System.Drawing.Point(828, 200)
+        Me.Button7.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button7.Name = "Button7"
+        Me.Button7.Size = New System.Drawing.Size(452, 83)
+        Me.Button7.TabIndex = 3
+        Me.Button7.Text = "VIEW SUBMISSION"
+        Me.Button7.UseVisualStyleBackColor = True
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(822, 117)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(247, 29)
+        Me.Label15.TabIndex = 2
+        Me.Label15.Text = "Algebra Simplification"
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Location = New System.Drawing.Point(818, 46)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(210, 61)
+        Me.Label17.TabIndex = 1
+        Me.Label17.Text = "TEST 1"
+        '
+        'ListBox1
+        '
+        Me.ListBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ListBox1.FormattingEnabled = True
+        Me.ListBox1.ItemHeight = 29
+        Me.ListBox1.Location = New System.Drawing.Point(18, 46)
+        Me.ListBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.ListBox1.Name = "ListBox1"
+        Me.ListBox1.Size = New System.Drawing.Size(775, 961)
+        Me.ListBox1.TabIndex = 0
         '
         'FORM1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1324, 1062)
-        Me.Controls.Add(Me.EXPORT_ANSWERS_GROUP)
-        Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.TEST_EXPORT)
-        Me.Controls.Add(Me.QUESTION_ANSWERER)
-        Me.Controls.Add(Me.QUESTION_INPUT1)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.TEST_AREA)
         Me.Controls.Add(Me.Q_CONTROL_GROUP)
         Me.Controls.Add(Me.TEACHER_GROUP)
@@ -1175,6 +1295,11 @@ Partial Class FORM1
         Me.Controls.Add(Me.MODE_GROUP)
         Me.Controls.Add(Me.TEST_VIEWER)
         Me.Controls.Add(Me.QUESTION_CHOOSER)
+        Me.Controls.Add(Me.EXPORT_ANSWERS_GROUP)
+        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.TEST_EXPORT)
+        Me.Controls.Add(Me.QUESTION_ANSWERER)
+        Me.Controls.Add(Me.QUESTION_INPUT1)
         Me.Name = "FORM1"
         Me.Text = "Form1"
         Me.MODE_GROUP.ResumeLayout(False)
@@ -1201,6 +1326,8 @@ Partial Class FORM1
         Me.GroupBox1.PerformLayout()
         Me.EXPORT_ANSWERS_GROUP.ResumeLayout(False)
         Me.EXPORT_ANSWERS_GROUP.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1276,4 +1403,13 @@ Partial Class FORM1
     Friend WithEvents EXPORT_ANSWERS_EXPORT As Button
     Friend WithEvents EXIT_EXPORT_ANSWERS As Button
     Friend WithEvents EXPORT_ANSWERS_NAME As RichTextBox
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents Button3 As Button
+    Friend WithEvents Button4 As Button
+    Friend WithEvents Button5 As Button
+    Friend WithEvents Button6 As Button
+    Friend WithEvents Button7 As Button
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label17 As Label
+    Friend WithEvents ListBox1 As ListBox
 End Class
