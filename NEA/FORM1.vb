@@ -90,7 +90,8 @@ Public Class FORM1
                 AddHandler QUESTION_ANSWERER_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEST_VIEWER, True)
                 AddHandler QUESTION_ANSWERER_EXIT.Click, Function(sender, e) ANSWER_QUESTION() ' This is easier trust me :L
                 AddHandler QUESTION_ANSWERER_EXIT.Click, Function(sender, e) TEST_QUESTION_LIST_MOUSE_UP()
-
+                AddHandler EXPORT_ANSWERS_EXPORT.Click, Function(sender, e) EXPORT(sender, e, TESTS(TEST_AREA_LIST.SelectedIndex), "\Answers.json", EXPORT_ANSWERS_NAME.Text) ' The export function that I modified to accomodate for custom data_handle object inputs.
+                AddHandler EXIT_EXPORT_ANSWERS.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEST_AREA, True)
             Else
                 TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
                 AddHandler TEACHER_CREATE_QUESTIONS.Click, Function(sender, e) SETUP_QUESTION_CREATOR()
@@ -152,8 +153,7 @@ Public Class FORM1
 
         ' I will be using much of the same method for exporting the answers of the student.
         If TEST_AREA_LIST.SelectedItems.Count = 1 Then '  
-            Dim SELECTED_TEST As DATA_HANDLE = TESTS(TEST_AREA_LIST.SelectedIndex)
-            EXPORT(sender, e, SELECTED_TEST, "\Answers.json") ' The export function that I modified to accomodate for custom data_handle object inputs.
+            TOGGLE_CERTAIN_SCREEN(EXPORT_ANSWERS_GROUP, True)
         End If
     End Sub
 
@@ -213,6 +213,7 @@ Public Class FORM1
                 TESTS.Add(NEW_TEST)
                 TEST_LIST_UPDATE()
                 TOGGLE_CERTAIN_SCREEN(TEST_AREA, True)
+                NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Test " & NEW_TEST.NAME & " has been successfully added.", Color.Orange)
             End If
 
         End If
@@ -253,8 +254,10 @@ Public Class FORM1
     End Function
     Private Function TEST_DELETE()
         If TESTS.Count >= TEST_AREA_LIST.SelectedIndex And TEST_AREA_LIST.SelectedIndex <> -1 Then
+            Dim SELECTED As Integer = TEST_AREA_LIST.SelectedIndex
             TESTS.RemoveAt(TEST_AREA_LIST.SelectedIndex)
             TEST_LIST_UPDATE()
+            NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Test " & SELECTED + 1 & " Deleted.", Color.Red)
             Return True
         End If
         Return False
@@ -321,6 +324,7 @@ Public Class FORM1
             NEW_QUESTION.CHOSEN_QUESTION_TO_CREATE()
             TOGGLE_CERTAIN_SCREEN(QUESTION_INPUT1, True)
             QUESTION_CREATION_EXIT.Visible = True
+            NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Question successfully created.", Color.Green)
         End If
         Return True
     End Function
@@ -367,12 +371,13 @@ Public Class FORM1
     Private Function DELETE(INDEX As Integer)
         If DATA_HANDLER.RETURN_QUESTIONS().Count >= INDEX And INDEX <> -1 Then
             DATA_HANDLER.REMOVE(DATA_HANDLER.RETURN_QUESTIONS().Item(INDEX))
+            NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Question " & INDEX + 1 & " Deleted.", Color.Red)
             Return True
         End If
         Return False
     End Function
 
-    Private Function EXPORT(SENDER As Object, E As EventArgs, Optional TEST As DATA_HANDLE = Nothing, Optional TEST_NAME As String = "\Question Export.json") Handles TEST_EXPORT_EXPORT.Click
+    Private Function EXPORT(SENDER As Object, E As EventArgs, Optional TEST As DATA_HANDLE = Nothing, Optional TEST_NAME As String = "\Question Export.json", Optional STUDENT_NAME As String = Nothing) Handles TEST_EXPORT_EXPORT.Click
 
         Dim CHOSEN_TO_EXPORT = DATA_HANDLER
         Dim NAME = TEST_EXPORT_NAME.Text
@@ -393,6 +398,9 @@ Public Class FORM1
             Dim META_DATA As New Dictionary(Of String, String) ' The name and description of the test.
             META_DATA.Add("NAME", NAME)
             META_DATA.Add("DESCRIPTION", DESCRIPTION)
+            If Not STUDENT_NAME Is Nothing Then
+                META_DATA.Add("STUDENT NAME", STUDENT_NAME)
+            End If
             DATA_LIST.Add(META_DATA)
 
             For Each QUESTION As QUESTION In CHOSEN_TO_EXPORT.RETURN_QUESTIONS
@@ -412,9 +420,11 @@ Public Class FORM1
             If TEST_NAME = "\QUESTION Export.json" Then
                 TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True)
             End If
+            NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Successfully exported", Color.Green)
         End If
-            Return False
+        Return False
     End Function
+
 
     '/////////////////////////////
     ' END
