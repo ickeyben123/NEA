@@ -71,6 +71,59 @@ Class OPTIMISER : Inherits UTILITIES
         Return IN_ORDER(TREE_TO_MODIFY, True)
     End Function
 
+
+    Private OPERATORS = New Dictionary(Of String, Func(Of Double, Double, Double))() From { ' An operator dictionary.
+    {"+", Function(x, y) x + y},
+    {"-", Function(x, y) x - y},
+    {"/", Function(x, y) x / y},
+    {"*", Function(x, y) x * y},
+    {"^", Function(x, y) x ^ y}
+}
+
+    Public Function OUTPUT_VALUE_WRAP(VALUE As Integer)
+        Return OUTPUT_VALUE(TREE_TO_MODIFY, VALUE)
+    End Function
+    Public Function OUTPUT_VALUE(NODE As TREE_NODE, VALUE As Integer) As Double
+        ' This is a simple algorithm that will set every variable to the input parameter 'VALUE'.
+        ' The output will then be returned.
+
+        ' This only exists to compare functions easily, as even if two functions are equal, their form can be different.
+        ' This will be primarially used in the homework submission area.
+
+        ' The general idea will be to compute the lowest left node, then return this value, and go up to the root, and through the right. 
+        ' Ie I calculate the left dependent on the root, then I 'go to the root' and calculate the right node with the computed left node as the starting point.
+        ' Normally this would be a binary tree, so I would actually 'go to the root' by calculating the left and right, but as trees can have more than one in the left and right, I must first calculate their stuff.
+
+        ' The values of each node will be calulated much the same, so by virtue of this algorithm I go from the bottom to the top.
+        Dim COMPUTED As Double
+        If NODE.VALUE = "*" Or NODE.VALUE = "/" Or NODE.VALUE = "^" Then
+            COMPUTED = 1 'This will be the starting integer I will go off.
+        ElseIf NODE.VALUE = "+" Or NODE.VALUE = "-" Then
+            COMPUTED = 0 ' Obviously + nodes will start from 0.
+        ElseIf IsNumeric(NODE.VALUE) Then
+            COMPUTED = NODE.VALUE
+        Else
+            ' This is probably a variable, like an x, so I return 1. I don't need to waste time as it won't have anything as its children.
+            Return VALUE
+        End If
+
+        If Not NODE.LEFT Is Nothing Then
+            For Each NODE_ELEMENT As TREE_NODE In NODE.LEFT
+                Dim OPERATION As Func(Of Double, Double, Double) = OPERATORS(NODE.VALUE)
+                COMPUTED = OPERATION(COMPUTED, OUTPUT_VALUE(NODE_ELEMENT, VALUE)) ' This will calculate the resultant.
+            Next
+        End If
+
+        If Not NODE.RIGHT Is Nothing Then
+            For Each NODE_ELEMENT As TREE_NODE In NODE.RIGHT
+                Dim OPERATION As Func(Of Double, Double, Double) = OPERATORS(NODE.VALUE) ' The same deal for the right.
+                COMPUTED = OPERATION(COMPUTED, OUTPUT_VALUE(NODE_ELEMENT, VALUE))
+            Next
+        End If
+
+        Return COMPUTED
+    End Function
+
     Public Sub BRACKET_POWER_EXPANDER(NODE As TREE_NODE)
         'u^3=u*u*u
 

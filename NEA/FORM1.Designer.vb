@@ -36,6 +36,10 @@ Partial Class FORM1
         Dim Label10 As System.Windows.Forms.Label
         Dim Label11 As System.Windows.Forms.Label
         Dim Label16 As System.Windows.Forms.Label
+        Dim Label18 As System.Windows.Forms.Label
+        Dim Label19 As System.Windows.Forms.Label
+        Dim Label20 As System.Windows.Forms.Label
+        Dim MARK_QUESTION_QUESTION As System.Windows.Forms.RichTextBox
         Me.QUESTION_CHOOSER_LIST = New System.Windows.Forms.ListBox()
         Me.MODE_STUDENT = New System.Windows.Forms.Button()
         Me.MODE_GROUP = New System.Windows.Forms.GroupBox()
@@ -100,23 +104,43 @@ Partial Class FORM1
         Me.TEST_EXPORT_EXIT = New System.Windows.Forms.Button()
         Me.TEST_EXPORT_NAME = New System.Windows.Forms.RichTextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.RichTextBox2 = New System.Windows.Forms.RichTextBox()
+        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.EXPORT_ANSWERS_GROUP = New System.Windows.Forms.GroupBox()
         Me.EXPORT_ANSWERS_EXPORT = New System.Windows.Forms.Button()
         Me.EXIT_EXPORT_ANSWERS = New System.Windows.Forms.Button()
         Me.EXPORT_ANSWERS_NAME = New System.Windows.Forms.RichTextBox()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
-        Me.Button7 = New System.Windows.Forms.Button()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.SUBMISSIONS = New System.Windows.Forms.GroupBox()
+        Me.SUBMISSIONS_ADD = New System.Windows.Forms.Button()
+        Me.SUBMISSIONS_CLEAR_ALL = New System.Windows.Forms.Button()
+        Me.SUBMISSIONS_EXPORT = New System.Windows.Forms.Button()
+        Me.SUBMISSIONS_REMOVE = New System.Windows.Forms.Button()
+        Me.SUBMISSIONS_VIEW = New System.Windows.Forms.Button()
+        Me.SUBMISSIONS_DESCRIPTION = New System.Windows.Forms.Label()
+        Me.SUBMISSION_TITLE = New System.Windows.Forms.Label()
+        Me.SUBMISSIONS_LIST = New System.Windows.Forms.ListBox()
+        Me.VIEW_SUBMISSION = New System.Windows.Forms.GroupBox()
+        Me.VIEW_SUBMISSION_ANSWER = New System.Windows.Forms.RichTextBox()
+        Me.VIEW_SUBMISSION_QUESTION = New System.Windows.Forms.RichTextBox()
+        Me.VIEW_SUBMISSION_EXIT = New System.Windows.Forms.Button()
+        Me.VIEW_SUBMISSION_COLLECTION = New System.Windows.Forms.ListBox()
+        Me.Button9 = New System.Windows.Forms.Button()
+        Me.MARK_QUESTION = New System.Windows.Forms.GroupBox()
+        Me.MARK_QUESTION_DEEMED_REASON = New System.Windows.Forms.RichTextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.MARK_QUESTION_DEEMED_VALIDITY = New System.Windows.Forms.RichTextBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.MARK_QUESTION_COMPUTED_ANSWER = New System.Windows.Forms.RichTextBox()
+        Me.MARK_QUESTION_INCORRECT = New System.Windows.Forms.Button()
+        Me.MARK_QUESTION_CORRECT = New System.Windows.Forms.Button()
+        Me.Button11 = New System.Windows.Forms.Button()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.MARK_QUESTION_STUDENTS_ANSWER = New System.Windows.Forms.RichTextBox()
+        Me.MARK_QUESTION_NUMBER = New System.Windows.Forms.Label()
+        Me.MARK_QUESTION_TITLE = New System.Windows.Forms.Label()
         Label2 = New System.Windows.Forms.Label()
         Label1 = New System.Windows.Forms.Label()
         TITLE = New System.Windows.Forms.Label()
@@ -131,6 +155,10 @@ Partial Class FORM1
         Label10 = New System.Windows.Forms.Label()
         Label11 = New System.Windows.Forms.Label()
         Label16 = New System.Windows.Forms.Label()
+        Label18 = New System.Windows.Forms.Label()
+        Label19 = New System.Windows.Forms.Label()
+        Label20 = New System.Windows.Forms.Label()
+        MARK_QUESTION_QUESTION = New System.Windows.Forms.RichTextBox()
         Me.MODE_GROUP.SuspendLayout()
         Me.LOGIN_GROUP.SuspendLayout()
         Me.TEACHER_GROUP.SuspendLayout()
@@ -143,7 +171,9 @@ Partial Class FORM1
         Me.TEST_EXPORT.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.EXPORT_ANSWERS_GROUP.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.SUBMISSIONS.SuspendLayout()
+        Me.VIEW_SUBMISSION.SuspendLayout()
+        Me.MARK_QUESTION.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label2
@@ -288,6 +318,47 @@ Partial Class FORM1
         Label16.Size = New System.Drawing.Size(407, 82)
         Label16.TabIndex = 0
         Label16.Text = "Your Name"
+        '
+        'Label18
+        '
+        Label18.AutoSize = True
+        Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label18.Location = New System.Drawing.Point(741, 522)
+        Label18.Name = "Label18"
+        Label18.Size = New System.Drawing.Size(185, 55)
+        Label18.TabIndex = 11
+        Label18.Text = "Answer"
+        '
+        'Label19
+        '
+        Label19.AutoSize = True
+        Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label19.Location = New System.Drawing.Point(741, 165)
+        Label19.Name = "Label19"
+        Label19.Size = New System.Drawing.Size(216, 55)
+        Label19.TabIndex = 9
+        Label19.Text = "Question"
+        '
+        'Label20
+        '
+        Label20.AutoSize = True
+        Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Label20.Location = New System.Drawing.Point(34, 62)
+        Label20.Name = "Label20"
+        Label20.Size = New System.Drawing.Size(369, 82)
+        Label20.TabIndex = 0
+        Label20.Text = "Questions"
+        '
+        'MARK_QUESTION_QUESTION
+        '
+        MARK_QUESTION_QUESTION.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        MARK_QUESTION_QUESTION.Location = New System.Drawing.Point(48, 127)
+        MARK_QUESTION_QUESTION.MaxLength = 500
+        MARK_QUESTION_QUESTION.Name = "MARK_QUESTION_QUESTION"
+        MARK_QUESTION_QUESTION.ReadOnly = True
+        MARK_QUESTION_QUESTION.Size = New System.Drawing.Size(608, 388)
+        MARK_QUESTION_QUESTION.TabIndex = 1
+        MARK_QUESTION_QUESTION.Text = "5Y+2Y"
         '
         'QUESTION_CHOOSER_LIST
         '
@@ -980,6 +1051,7 @@ Partial Class FORM1
         '
         'TEST_VIEWER_QUESTION_LIST
         '
+        Me.TEST_VIEWER_QUESTION_LIST.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.TEST_VIEWER_QUESTION_LIST.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TEST_VIEWER_QUESTION_LIST.FormattingEnabled = True
         Me.TEST_VIEWER_QUESTION_LIST.ItemHeight = 32
@@ -1062,12 +1134,12 @@ Partial Class FORM1
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.RichTextBox1)
         Me.GroupBox1.Controls.Add(Label10)
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.Button2)
         Me.GroupBox1.Controls.Add(Me.RichTextBox2)
         Me.GroupBox1.Controls.Add(Label11)
+        Me.GroupBox1.Controls.Add(Me.RichTextBox1)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
@@ -1075,16 +1147,6 @@ Partial Class FORM1
         Me.GroupBox1.TabIndex = 15
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Export Test"
-        '
-        'RichTextBox1
-        '
-        Me.RichTextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RichTextBox1.Location = New System.Drawing.Point(48, 437)
-        Me.RichTextBox1.MaxLength = 500
-        Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(1222, 280)
-        Me.RichTextBox1.TabIndex = 12
-        Me.RichTextBox1.Text = ""
         '
         'Button1
         '
@@ -1119,6 +1181,16 @@ Partial Class FORM1
         Me.RichTextBox2.Size = New System.Drawing.Size(1222, 121)
         Me.RichTextBox2.TabIndex = 6
         Me.RichTextBox2.Text = ""
+        '
+        'RichTextBox1
+        '
+        Me.RichTextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RichTextBox1.Location = New System.Drawing.Point(48, 437)
+        Me.RichTextBox1.MaxLength = 500
+        Me.RichTextBox1.Name = "RichTextBox1"
+        Me.RichTextBox1.Size = New System.Drawing.Size(1222, 280)
+        Me.RichTextBox1.TabIndex = 12
+        Me.RichTextBox1.Text = ""
         '
         'EXPORT_ANSWERS_GROUP
         '
@@ -1168,138 +1240,389 @@ Partial Class FORM1
         Me.EXPORT_ANSWERS_NAME.TabIndex = 6
         Me.EXPORT_ANSWERS_NAME.Text = ""
         '
-        'GroupBox2
+        'SUBMISSIONS
         '
-        Me.GroupBox2.Controls.Add(Me.Button3)
-        Me.GroupBox2.Controls.Add(Me.Button4)
-        Me.GroupBox2.Controls.Add(Me.Button5)
-        Me.GroupBox2.Controls.Add(Me.Button6)
-        Me.GroupBox2.Controls.Add(Me.Button7)
-        Me.GroupBox2.Controls.Add(Me.Label15)
-        Me.GroupBox2.Controls.Add(Me.Label17)
-        Me.GroupBox2.Controls.Add(Me.ListBox1)
-        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.GroupBox2.Size = New System.Drawing.Size(1324, 1062)
-        Me.GroupBox2.TabIndex = 17
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Submissions"
+        Me.SUBMISSIONS.Controls.Add(Me.SUBMISSIONS_ADD)
+        Me.SUBMISSIONS.Controls.Add(Me.SUBMISSIONS_CLEAR_ALL)
+        Me.SUBMISSIONS.Controls.Add(Me.SUBMISSIONS_EXPORT)
+        Me.SUBMISSIONS.Controls.Add(Me.SUBMISSIONS_REMOVE)
+        Me.SUBMISSIONS.Controls.Add(Me.SUBMISSIONS_VIEW)
+        Me.SUBMISSIONS.Controls.Add(Me.SUBMISSIONS_DESCRIPTION)
+        Me.SUBMISSIONS.Controls.Add(Me.SUBMISSION_TITLE)
+        Me.SUBMISSIONS.Controls.Add(Me.SUBMISSIONS_LIST)
+        Me.SUBMISSIONS.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SUBMISSIONS.Location = New System.Drawing.Point(0, 0)
+        Me.SUBMISSIONS.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.SUBMISSIONS.Name = "SUBMISSIONS"
+        Me.SUBMISSIONS.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.SUBMISSIONS.Size = New System.Drawing.Size(1324, 1062)
+        Me.SUBMISSIONS.TabIndex = 17
+        Me.SUBMISSIONS.TabStop = False
+        Me.SUBMISSIONS.Text = "Submissions"
         '
-        'Button3
+        'SUBMISSIONS_ADD
         '
-        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Button3.Location = New System.Drawing.Point(826, 423)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(452, 83)
-        Me.Button3.TabIndex = 7
-        Me.Button3.Text = "ADD NEW SUBMISSION"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.SUBMISSIONS_ADD.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SUBMISSIONS_ADD.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.SUBMISSIONS_ADD.Location = New System.Drawing.Point(826, 423)
+        Me.SUBMISSIONS_ADD.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.SUBMISSIONS_ADD.Name = "SUBMISSIONS_ADD"
+        Me.SUBMISSIONS_ADD.Size = New System.Drawing.Size(452, 83)
+        Me.SUBMISSIONS_ADD.TabIndex = 7
+        Me.SUBMISSIONS_ADD.Text = "ADD NEW SUBMISSION"
+        Me.SUBMISSIONS_ADD.UseVisualStyleBackColor = True
         '
-        'Button4
+        'SUBMISSIONS_CLEAR_ALL
         '
-        Me.Button4.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.ForeColor = System.Drawing.Color.White
-        Me.Button4.Location = New System.Drawing.Point(831, 766)
-        Me.Button4.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(462, 126)
-        Me.Button4.TabIndex = 6
-        Me.Button4.Text = "CLEAR ALL"
-        Me.Button4.UseVisualStyleBackColor = False
+        Me.SUBMISSIONS_CLEAR_ALL.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.SUBMISSIONS_CLEAR_ALL.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.SUBMISSIONS_CLEAR_ALL.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SUBMISSIONS_CLEAR_ALL.ForeColor = System.Drawing.Color.White
+        Me.SUBMISSIONS_CLEAR_ALL.Location = New System.Drawing.Point(831, 766)
+        Me.SUBMISSIONS_CLEAR_ALL.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.SUBMISSIONS_CLEAR_ALL.Name = "SUBMISSIONS_CLEAR_ALL"
+        Me.SUBMISSIONS_CLEAR_ALL.Size = New System.Drawing.Size(462, 126)
+        Me.SUBMISSIONS_CLEAR_ALL.TabIndex = 6
+        Me.SUBMISSIONS_CLEAR_ALL.Text = "CLEAR ALL"
+        Me.SUBMISSIONS_CLEAR_ALL.UseVisualStyleBackColor = False
         '
-        'Button5
+        'SUBMISSIONS_EXPORT
         '
-        Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button5.ForeColor = System.Drawing.Color.Green
-        Me.Button5.Location = New System.Drawing.Point(829, 924)
-        Me.Button5.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(180, 83)
-        Me.Button5.TabIndex = 5
-        Me.Button5.Text = "EXPORT"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.SUBMISSIONS_EXPORT.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SUBMISSIONS_EXPORT.ForeColor = System.Drawing.Color.Green
+        Me.SUBMISSIONS_EXPORT.Location = New System.Drawing.Point(829, 924)
+        Me.SUBMISSIONS_EXPORT.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.SUBMISSIONS_EXPORT.Name = "SUBMISSIONS_EXPORT"
+        Me.SUBMISSIONS_EXPORT.Size = New System.Drawing.Size(180, 83)
+        Me.SUBMISSIONS_EXPORT.TabIndex = 5
+        Me.SUBMISSIONS_EXPORT.Text = "EXPORT"
+        Me.SUBMISSIONS_EXPORT.UseVisualStyleBackColor = True
         '
-        'Button6
+        'SUBMISSIONS_REMOVE
         '
-        Me.Button6.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Button6.Location = New System.Drawing.Point(828, 309)
-        Me.Button6.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(452, 83)
-        Me.Button6.TabIndex = 4
-        Me.Button6.Text = "REMOVE"
-        Me.Button6.UseVisualStyleBackColor = True
+        Me.SUBMISSIONS_REMOVE.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SUBMISSIONS_REMOVE.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.SUBMISSIONS_REMOVE.Location = New System.Drawing.Point(828, 309)
+        Me.SUBMISSIONS_REMOVE.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.SUBMISSIONS_REMOVE.Name = "SUBMISSIONS_REMOVE"
+        Me.SUBMISSIONS_REMOVE.Size = New System.Drawing.Size(452, 83)
+        Me.SUBMISSIONS_REMOVE.TabIndex = 4
+        Me.SUBMISSIONS_REMOVE.Text = "REMOVE"
+        Me.SUBMISSIONS_REMOVE.UseVisualStyleBackColor = True
         '
-        'Button7
+        'SUBMISSIONS_VIEW
         '
-        Me.Button7.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button7.Location = New System.Drawing.Point(828, 200)
-        Me.Button7.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(452, 83)
-        Me.Button7.TabIndex = 3
-        Me.Button7.Text = "VIEW SUBMISSION"
-        Me.Button7.UseVisualStyleBackColor = True
+        Me.SUBMISSIONS_VIEW.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SUBMISSIONS_VIEW.Location = New System.Drawing.Point(828, 200)
+        Me.SUBMISSIONS_VIEW.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.SUBMISSIONS_VIEW.Name = "SUBMISSIONS_VIEW"
+        Me.SUBMISSIONS_VIEW.Size = New System.Drawing.Size(452, 83)
+        Me.SUBMISSIONS_VIEW.TabIndex = 3
+        Me.SUBMISSIONS_VIEW.Text = "VIEW SUBMISSION"
+        Me.SUBMISSIONS_VIEW.UseVisualStyleBackColor = True
         '
-        'Label15
+        'SUBMISSIONS_DESCRIPTION
         '
-        Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(822, 117)
-        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(247, 29)
-        Me.Label15.TabIndex = 2
-        Me.Label15.Text = "Algebra Simplification"
+        Me.SUBMISSIONS_DESCRIPTION.AutoSize = True
+        Me.SUBMISSIONS_DESCRIPTION.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SUBMISSIONS_DESCRIPTION.Location = New System.Drawing.Point(822, 117)
+        Me.SUBMISSIONS_DESCRIPTION.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.SUBMISSIONS_DESCRIPTION.Name = "SUBMISSIONS_DESCRIPTION"
+        Me.SUBMISSIONS_DESCRIPTION.Size = New System.Drawing.Size(225, 29)
+        Me.SUBMISSIONS_DESCRIPTION.TabIndex = 2
+        Me.SUBMISSIONS_DESCRIPTION.Text = "Differentiate the test"
+        Me.SUBMISSIONS_DESCRIPTION.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Label17
+        'SUBMISSION_TITLE
         '
-        Me.Label17.AutoSize = True
-        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(818, 46)
-        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(210, 61)
-        Me.Label17.TabIndex = 1
-        Me.Label17.Text = "TEST 1"
+        Me.SUBMISSION_TITLE.AutoSize = True
+        Me.SUBMISSION_TITLE.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SUBMISSION_TITLE.Location = New System.Drawing.Point(818, 46)
+        Me.SUBMISSION_TITLE.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.SUBMISSION_TITLE.Name = "SUBMISSION_TITLE"
+        Me.SUBMISSION_TITLE.Size = New System.Drawing.Size(345, 61)
+        Me.SUBMISSION_TITLE.TabIndex = 1
+        Me.SUBMISSION_TITLE.Text = "ANSWERS 1"
         '
-        'ListBox1
+        'SUBMISSIONS_LIST
         '
-        Me.ListBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.ItemHeight = 29
-        Me.ListBox1.Location = New System.Drawing.Point(18, 46)
-        Me.ListBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(775, 961)
-        Me.ListBox1.TabIndex = 0
+        Me.SUBMISSIONS_LIST.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SUBMISSIONS_LIST.FormattingEnabled = True
+        Me.SUBMISSIONS_LIST.ItemHeight = 29
+        Me.SUBMISSIONS_LIST.Location = New System.Drawing.Point(18, 46)
+        Me.SUBMISSIONS_LIST.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.SUBMISSIONS_LIST.Name = "SUBMISSIONS_LIST"
+        Me.SUBMISSIONS_LIST.Size = New System.Drawing.Size(775, 961)
+        Me.SUBMISSIONS_LIST.TabIndex = 0
+        '
+        'VIEW_SUBMISSION
+        '
+        Me.VIEW_SUBMISSION.Controls.Add(Me.VIEW_SUBMISSION_ANSWER)
+        Me.VIEW_SUBMISSION.Controls.Add(Label18)
+        Me.VIEW_SUBMISSION.Controls.Add(Me.VIEW_SUBMISSION_QUESTION)
+        Me.VIEW_SUBMISSION.Controls.Add(Label19)
+        Me.VIEW_SUBMISSION.Controls.Add(Me.VIEW_SUBMISSION_EXIT)
+        Me.VIEW_SUBMISSION.Controls.Add(Me.VIEW_SUBMISSION_COLLECTION)
+        Me.VIEW_SUBMISSION.Controls.Add(Me.Button9)
+        Me.VIEW_SUBMISSION.Controls.Add(Label20)
+        Me.VIEW_SUBMISSION.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.VIEW_SUBMISSION.Location = New System.Drawing.Point(0, 0)
+        Me.VIEW_SUBMISSION.Name = "VIEW_SUBMISSION"
+        Me.VIEW_SUBMISSION.Size = New System.Drawing.Size(1324, 1062)
+        Me.VIEW_SUBMISSION.TabIndex = 18
+        Me.VIEW_SUBMISSION.TabStop = False
+        Me.VIEW_SUBMISSION.Text = "View Submission"
+        '
+        'VIEW_SUBMISSION_ANSWER
+        '
+        Me.VIEW_SUBMISSION_ANSWER.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.VIEW_SUBMISSION_ANSWER.Location = New System.Drawing.Point(751, 595)
+        Me.VIEW_SUBMISSION_ANSWER.Name = "VIEW_SUBMISSION_ANSWER"
+        Me.VIEW_SUBMISSION_ANSWER.ReadOnly = True
+        Me.VIEW_SUBMISSION_ANSWER.Size = New System.Drawing.Size(469, 246)
+        Me.VIEW_SUBMISSION_ANSWER.TabIndex = 12
+        Me.VIEW_SUBMISSION_ANSWER.Text = ""
+        '
+        'VIEW_SUBMISSION_QUESTION
+        '
+        Me.VIEW_SUBMISSION_QUESTION.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.VIEW_SUBMISSION_QUESTION.Location = New System.Drawing.Point(751, 246)
+        Me.VIEW_SUBMISSION_QUESTION.Name = "VIEW_SUBMISSION_QUESTION"
+        Me.VIEW_SUBMISSION_QUESTION.ReadOnly = True
+        Me.VIEW_SUBMISSION_QUESTION.Size = New System.Drawing.Size(469, 251)
+        Me.VIEW_SUBMISSION_QUESTION.TabIndex = 10
+        Me.VIEW_SUBMISSION_QUESTION.Text = ""
+        '
+        'VIEW_SUBMISSION_EXIT
+        '
+        Me.VIEW_SUBMISSION_EXIT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.VIEW_SUBMISSION_EXIT.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.VIEW_SUBMISSION_EXIT.ForeColor = System.Drawing.Color.Maroon
+        Me.VIEW_SUBMISSION_EXIT.Location = New System.Drawing.Point(1185, 970)
+        Me.VIEW_SUBMISSION_EXIT.Name = "VIEW_SUBMISSION_EXIT"
+        Me.VIEW_SUBMISSION_EXIT.Size = New System.Drawing.Size(127, 80)
+        Me.VIEW_SUBMISSION_EXIT.TabIndex = 8
+        Me.VIEW_SUBMISSION_EXIT.Text = "Exit"
+        Me.VIEW_SUBMISSION_EXIT.UseVisualStyleBackColor = True
+        '
+        'VIEW_SUBMISSION_COLLECTION
+        '
+        Me.VIEW_SUBMISSION_COLLECTION.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.VIEW_SUBMISSION_COLLECTION.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.VIEW_SUBMISSION_COLLECTION.FormattingEnabled = True
+        Me.VIEW_SUBMISSION_COLLECTION.ItemHeight = 32
+        Me.VIEW_SUBMISSION_COLLECTION.Location = New System.Drawing.Point(48, 165)
+        Me.VIEW_SUBMISSION_COLLECTION.Name = "VIEW_SUBMISSION_COLLECTION"
+        Me.VIEW_SUBMISSION_COLLECTION.Size = New System.Drawing.Size(678, 676)
+        Me.VIEW_SUBMISSION_COLLECTION.TabIndex = 7
+        '
+        'Button9
+        '
+        Me.Button9.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Button9.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button9.ForeColor = System.Drawing.Color.Green
+        Me.Button9.Location = New System.Drawing.Point(48, 864)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Size = New System.Drawing.Size(299, 80)
+        Me.Button9.TabIndex = 4
+        Me.Button9.Text = "Override Marking"
+        Me.Button9.UseVisualStyleBackColor = True
+        '
+        'MARK_QUESTION
+        '
+        Me.MARK_QUESTION.Controls.Add(Me.MARK_QUESTION_DEEMED_REASON)
+        Me.MARK_QUESTION.Controls.Add(Me.Label26)
+        Me.MARK_QUESTION.Controls.Add(Me.MARK_QUESTION_DEEMED_VALIDITY)
+        Me.MARK_QUESTION.Controls.Add(Me.Label25)
+        Me.MARK_QUESTION.Controls.Add(Me.Label24)
+        Me.MARK_QUESTION.Controls.Add(Me.MARK_QUESTION_COMPUTED_ANSWER)
+        Me.MARK_QUESTION.Controls.Add(Me.MARK_QUESTION_INCORRECT)
+        Me.MARK_QUESTION.Controls.Add(Me.MARK_QUESTION_CORRECT)
+        Me.MARK_QUESTION.Controls.Add(Me.Button11)
+        Me.MARK_QUESTION.Controls.Add(Me.Label21)
+        Me.MARK_QUESTION.Controls.Add(Me.MARK_QUESTION_STUDENTS_ANSWER)
+        Me.MARK_QUESTION.Controls.Add(Me.MARK_QUESTION_NUMBER)
+        Me.MARK_QUESTION.Controls.Add(Me.MARK_QUESTION_TITLE)
+        Me.MARK_QUESTION.Controls.Add(MARK_QUESTION_QUESTION)
+        Me.MARK_QUESTION.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MARK_QUESTION.Location = New System.Drawing.Point(0, 0)
+        Me.MARK_QUESTION.Name = "MARK_QUESTION"
+        Me.MARK_QUESTION.Size = New System.Drawing.Size(1324, 1062)
+        Me.MARK_QUESTION.TabIndex = 19
+        Me.MARK_QUESTION.TabStop = False
+        Me.MARK_QUESTION.Text = "Mark Question"
+        '
+        'MARK_QUESTION_DEEMED_REASON
+        '
+        Me.MARK_QUESTION_DEEMED_REASON.BackColor = System.Drawing.Color.White
+        Me.MARK_QUESTION_DEEMED_REASON.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MARK_QUESTION_DEEMED_REASON.ForeColor = System.Drawing.Color.Black
+        Me.MARK_QUESTION_DEEMED_REASON.Location = New System.Drawing.Point(685, 703)
+        Me.MARK_QUESTION_DEEMED_REASON.MaxLength = 500
+        Me.MARK_QUESTION_DEEMED_REASON.Name = "MARK_QUESTION_DEEMED_REASON"
+        Me.MARK_QUESTION_DEEMED_REASON.ReadOnly = True
+        Me.MARK_QUESTION_DEEMED_REASON.Size = New System.Drawing.Size(585, 189)
+        Me.MARK_QUESTION_DEEMED_REASON.TabIndex = 17
+        Me.MARK_QUESTION_DEEMED_REASON.Text = "Automated check deemed that the calculated answer does not procure the same value" &
+    " as the students." & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label26.Location = New System.Drawing.Point(678, 653)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(227, 32)
+        Me.Label26.TabIndex = 16
+        Me.Label26.Text = "Deemed Reason"
+        '
+        'MARK_QUESTION_DEEMED_VALIDITY
+        '
+        Me.MARK_QUESTION_DEEMED_VALIDITY.BackColor = System.Drawing.Color.White
+        Me.MARK_QUESTION_DEEMED_VALIDITY.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MARK_QUESTION_DEEMED_VALIDITY.ForeColor = System.Drawing.Color.Black
+        Me.MARK_QUESTION_DEEMED_VALIDITY.Location = New System.Drawing.Point(685, 585)
+        Me.MARK_QUESTION_DEEMED_VALIDITY.MaxLength = 500
+        Me.MARK_QUESTION_DEEMED_VALIDITY.Name = "MARK_QUESTION_DEEMED_VALIDITY"
+        Me.MARK_QUESTION_DEEMED_VALIDITY.ReadOnly = True
+        Me.MARK_QUESTION_DEEMED_VALIDITY.Size = New System.Drawing.Size(585, 55)
+        Me.MARK_QUESTION_DEEMED_VALIDITY.TabIndex = 15
+        Me.MARK_QUESTION_DEEMED_VALIDITY.Text = "Marked Wrong"
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label25.Location = New System.Drawing.Point(678, 540)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(223, 32)
+        Me.Label25.TabIndex = 14
+        Me.Label25.Text = "Deemed Validity"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Location = New System.Drawing.Point(678, 85)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(247, 32)
+        Me.Label24.TabIndex = 13
+        Me.Label24.Text = "Computed Answer"
+        '
+        'MARK_QUESTION_COMPUTED_ANSWER
+        '
+        Me.MARK_QUESTION_COMPUTED_ANSWER.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.MARK_QUESTION_COMPUTED_ANSWER.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MARK_QUESTION_COMPUTED_ANSWER.Location = New System.Drawing.Point(684, 127)
+        Me.MARK_QUESTION_COMPUTED_ANSWER.MaxLength = 500
+        Me.MARK_QUESTION_COMPUTED_ANSWER.Name = "MARK_QUESTION_COMPUTED_ANSWER"
+        Me.MARK_QUESTION_COMPUTED_ANSWER.ReadOnly = True
+        Me.MARK_QUESTION_COMPUTED_ANSWER.Size = New System.Drawing.Size(586, 388)
+        Me.MARK_QUESTION_COMPUTED_ANSWER.TabIndex = 12
+        Me.MARK_QUESTION_COMPUTED_ANSWER.Text = "7Y"
+        '
+        'MARK_QUESTION_INCORRECT
+        '
+        Me.MARK_QUESTION_INCORRECT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.MARK_QUESTION_INCORRECT.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MARK_QUESTION_INCORRECT.ForeColor = System.Drawing.Color.Maroon
+        Me.MARK_QUESTION_INCORRECT.Location = New System.Drawing.Point(341, 937)
+        Me.MARK_QUESTION_INCORRECT.Name = "MARK_QUESTION_INCORRECT"
+        Me.MARK_QUESTION_INCORRECT.Size = New System.Drawing.Size(315, 80)
+        Me.MARK_QUESTION_INCORRECT.TabIndex = 11
+        Me.MARK_QUESTION_INCORRECT.Text = "Mark Incorrect"
+        Me.MARK_QUESTION_INCORRECT.UseVisualStyleBackColor = True
+        '
+        'MARK_QUESTION_CORRECT
+        '
+        Me.MARK_QUESTION_CORRECT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.MARK_QUESTION_CORRECT.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MARK_QUESTION_CORRECT.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.MARK_QUESTION_CORRECT.ImageAlign = System.Drawing.ContentAlignment.BottomLeft
+        Me.MARK_QUESTION_CORRECT.Location = New System.Drawing.Point(48, 937)
+        Me.MARK_QUESTION_CORRECT.Name = "MARK_QUESTION_CORRECT"
+        Me.MARK_QUESTION_CORRECT.Size = New System.Drawing.Size(278, 80)
+        Me.MARK_QUESTION_CORRECT.TabIndex = 10
+        Me.MARK_QUESTION_CORRECT.Text = "Mark Correct"
+        Me.MARK_QUESTION_CORRECT.UseVisualStyleBackColor = True
+        '
+        'Button11
+        '
+        Me.Button11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button11.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button11.ForeColor = System.Drawing.Color.Maroon
+        Me.Button11.Location = New System.Drawing.Point(1185, 970)
+        Me.Button11.Name = "Button11"
+        Me.Button11.Size = New System.Drawing.Size(127, 80)
+        Me.Button11.TabIndex = 9
+        Me.Button11.Text = "Exit"
+        Me.Button11.UseVisualStyleBackColor = True
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label21.Location = New System.Drawing.Point(47, 536)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(181, 32)
+        Me.Label21.TabIndex = 7
+        Me.Label21.Text = "Their Answer"
+        '
+        'MARK_QUESTION_STUDENTS_ANSWER
+        '
+        Me.MARK_QUESTION_STUDENTS_ANSWER.BackColor = System.Drawing.Color.White
+        Me.MARK_QUESTION_STUDENTS_ANSWER.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MARK_QUESTION_STUDENTS_ANSWER.ForeColor = System.Drawing.Color.Black
+        Me.MARK_QUESTION_STUDENTS_ANSWER.Location = New System.Drawing.Point(48, 585)
+        Me.MARK_QUESTION_STUDENTS_ANSWER.MaxLength = 500
+        Me.MARK_QUESTION_STUDENTS_ANSWER.Name = "MARK_QUESTION_STUDENTS_ANSWER"
+        Me.MARK_QUESTION_STUDENTS_ANSWER.ReadOnly = True
+        Me.MARK_QUESTION_STUDENTS_ANSWER.Size = New System.Drawing.Size(608, 307)
+        Me.MARK_QUESTION_STUDENTS_ANSWER.TabIndex = 6
+        Me.MARK_QUESTION_STUDENTS_ANSWER.Text = "6Y"
+        '
+        'MARK_QUESTION_NUMBER
+        '
+        Me.MARK_QUESTION_NUMBER.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.MARK_QUESTION_NUMBER.AutoSize = True
+        Me.MARK_QUESTION_NUMBER.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MARK_QUESTION_NUMBER.Location = New System.Drawing.Point(1214, 22)
+        Me.MARK_QUESTION_NUMBER.Name = "MARK_QUESTION_NUMBER"
+        Me.MARK_QUESTION_NUMBER.Size = New System.Drawing.Size(76, 82)
+        Me.MARK_QUESTION_NUMBER.TabIndex = 3
+        Me.MARK_QUESTION_NUMBER.Text = "2"
+        Me.MARK_QUESTION_NUMBER.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'MARK_QUESTION_TITLE
+        '
+        Me.MARK_QUESTION_TITLE.AutoSize = True
+        Me.MARK_QUESTION_TITLE.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MARK_QUESTION_TITLE.Location = New System.Drawing.Point(42, 85)
+        Me.MARK_QUESTION_TITLE.Name = "MARK_QUESTION_TITLE"
+        Me.MARK_QUESTION_TITLE.Size = New System.Drawing.Size(428, 32)
+        Me.MARK_QUESTION_TITLE.TabIndex = 2
+        Me.MARK_QUESTION_TITLE.Text = "Simplify the following expression"
         '
         'FORM1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1324, 1062)
-        Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.TEST_AREA)
-        Me.Controls.Add(Me.Q_CONTROL_GROUP)
-        Me.Controls.Add(Me.TEACHER_GROUP)
-        Me.Controls.Add(Me.LOGIN_GROUP)
-        Me.Controls.Add(Me.MODE_GROUP)
+        Me.Controls.Add(Me.VIEW_SUBMISSION)
         Me.Controls.Add(Me.TEST_VIEWER)
         Me.Controls.Add(Me.QUESTION_CHOOSER)
         Me.Controls.Add(Me.EXPORT_ANSWERS_GROUP)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TEST_EXPORT)
+        Me.Controls.Add(Me.MARK_QUESTION)
         Me.Controls.Add(Me.QUESTION_ANSWERER)
         Me.Controls.Add(Me.QUESTION_INPUT1)
+        Me.Controls.Add(Me.SUBMISSIONS)
+        Me.Controls.Add(Me.TEST_AREA)
+        Me.Controls.Add(Me.Q_CONTROL_GROUP)
+        Me.Controls.Add(Me.TEACHER_GROUP)
+        Me.Controls.Add(Me.LOGIN_GROUP)
+        Me.Controls.Add(Me.MODE_GROUP)
         Me.Name = "FORM1"
         Me.Text = "Form1"
         Me.MODE_GROUP.ResumeLayout(False)
@@ -1326,8 +1649,12 @@ Partial Class FORM1
         Me.GroupBox1.PerformLayout()
         Me.EXPORT_ANSWERS_GROUP.ResumeLayout(False)
         Me.EXPORT_ANSWERS_GROUP.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.SUBMISSIONS.ResumeLayout(False)
+        Me.SUBMISSIONS.PerformLayout()
+        Me.VIEW_SUBMISSION.ResumeLayout(False)
+        Me.VIEW_SUBMISSION.PerformLayout()
+        Me.MARK_QUESTION.ResumeLayout(False)
+        Me.MARK_QUESTION.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1403,13 +1730,33 @@ Partial Class FORM1
     Friend WithEvents EXPORT_ANSWERS_EXPORT As Button
     Friend WithEvents EXIT_EXPORT_ANSWERS As Button
     Friend WithEvents EXPORT_ANSWERS_NAME As RichTextBox
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button5 As Button
-    Friend WithEvents Button6 As Button
-    Friend WithEvents Button7 As Button
-    Friend WithEvents Label15 As Label
-    Friend WithEvents Label17 As Label
-    Friend WithEvents ListBox1 As ListBox
+    Friend WithEvents SUBMISSIONS As GroupBox
+    Friend WithEvents SUBMISSIONS_ADD As Button
+    Friend WithEvents SUBMISSIONS_CLEAR_ALL As Button
+    Friend WithEvents SUBMISSIONS_EXPORT As Button
+    Friend WithEvents SUBMISSIONS_REMOVE As Button
+    Friend WithEvents SUBMISSIONS_VIEW As Button
+    Friend WithEvents SUBMISSIONS_DESCRIPTION As Label
+    Friend WithEvents SUBMISSION_TITLE As Label
+    Friend WithEvents SUBMISSIONS_LIST As ListBox
+    Friend WithEvents VIEW_SUBMISSION As GroupBox
+    Friend WithEvents VIEW_SUBMISSION_ANSWER As RichTextBox
+    Friend WithEvents VIEW_SUBMISSION_QUESTION As RichTextBox
+    Friend WithEvents VIEW_SUBMISSION_EXIT As Button
+    Friend WithEvents VIEW_SUBMISSION_COLLECTION As ListBox
+    Friend WithEvents Button9 As Button
+    Friend WithEvents MARK_QUESTION As GroupBox
+    Friend WithEvents MARK_QUESTION_DEEMED_REASON As RichTextBox
+    Friend WithEvents Label26 As Label
+    Friend WithEvents MARK_QUESTION_DEEMED_VALIDITY As RichTextBox
+    Friend WithEvents Label25 As Label
+    Friend WithEvents Label24 As Label
+    Friend WithEvents MARK_QUESTION_COMPUTED_ANSWER As RichTextBox
+    Friend WithEvents MARK_QUESTION_INCORRECT As Button
+    Friend WithEvents MARK_QUESTION_CORRECT As Button
+    Friend WithEvents Button11 As Button
+    Friend WithEvents Label21 As Label
+    Friend WithEvents MARK_QUESTION_STUDENTS_ANSWER As RichTextBox
+    Friend WithEvents MARK_QUESTION_NUMBER As Label
+    Friend WithEvents MARK_QUESTION_TITLE As Label
 End Class

@@ -18,14 +18,17 @@ End Enum
 
 
 
-
+Class DATA_HANDLE_TEACHER : Inherits DATA_HANDLE ' For Teachers.
+    Public QUESTIONS As New List(Of TEACHER_QUESTION)
+End Class
 Class DATA_HANDLE
 
-    Protected QUESTIONS As New List(Of QUESTION)
+    Shadows QUESTIONS As New List(Of QUESTION)
     Protected Event QUESTION_LIST_CHANGE()
     Protected Form As Form
     Public QUESTION_DEFINERS As Dictionary(Of String, List(Of String))
 
+    Public STUDENT_NAME As String = ""
     Public QUESTION_1 = "Simplify the following expression."
     Public QUESTION_2 = "Calculate the derivative as a ratio over x."
 

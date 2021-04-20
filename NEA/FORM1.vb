@@ -33,7 +33,7 @@ Public Class FORM1
 
     Dim WithEvents ACCOUNT_OBJECT As New ACCOUNT
     Dim WithEvents NOTIFICATIONS_OBJECT As New NOTIFICATIONS(Me)
-    Dim DATA_HANDLER As DATA_HANDLE
+    Dim DATA_HANDLER
     Dim TESTS As New List(Of DATA_HANDLE)
     Dim QUESTION_POINTER As Integer = 0
 
@@ -95,7 +95,7 @@ Public Class FORM1
             Else
                 TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
                 AddHandler TEACHER_CREATE_QUESTIONS.Click, Function(sender, e) SETUP_QUESTION_CREATOR()
-                DATA_HANDLER = New DATA_HANDLE()
+                DATA_HANDLER = New DATA_HANDLE_TEACHER()
 
                 ' Update the question chooser with the current available enums.
                 Dim ENUMS As New List(Of QUESTION_TYPE)(System.Enum.GetValues(GetType(QUESTION_TYPE)))
@@ -111,6 +111,9 @@ Public Class FORM1
                 AddHandler Q_CONTROL_GROUP_CLEAR_ALL.Click, Function(sender, e) DATA_HANDLER.CLEAR_ALL()
                 AddHandler Q_CONTROL_GROUP_EXPORT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEST_EXPORT, True)
                 AddHandler TEST_EXPORT_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True)
+
+                ' Answer Submissions section
+                AddHandler SUBMISSIONS_REMOVE.Click, Function(sender, e) TEST_DELETE(SUBMISSIONS_LIST.SelectedIndex) ' As there are a number of simularities between this and the student area I will recycle some functions.
 
                 ' Update the question chooser listview.
                 For Each ENUM_ITEM As QUESTION_TYPE In ENUMS
@@ -148,7 +151,6 @@ Public Class FORM1
     '/////////////////////////////
 
     Dim SELECTED_TEST As Integer = 0
-
     Private Sub EXPORT_ANSWERS(sender As Object, e As EventArgs) Handles TESTS_AREA_EXPORT_TEST.Click
 
         ' I will be using much of the same method for exporting the answers of the student.
@@ -179,43 +181,45 @@ Public Class FORM1
         Return False
     End Function
 
-    Private Function ADD_TEST(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles TESTS_AREA_ADD_NEW_TEST.Click
-        If E.Button = MouseButtons.Left Then
-            '   Dim TO_BE_CONVERTED As String = TEST_INPUT_DATA_TEXT.Text
-            '  Debug.WriteLine(TEST_INPUT_DATA_TEXT.Text)
+    Private Function ADD_TEST(ByVal SENDER As Object, ByVal E As EventArgs, Optional REVOKE_EXTRAS As Boolean = False) Handles TESTS_AREA_ADD_NEW_TEST.Click
+        '   Dim TO_BE_CONVERTED As String = TEST_INPUT_DATA_TEXT.Text
+        '  Debug.WriteLine(TEST_INPUT_DATA_TEXT.Text)
 
-            Dim DIALOG As New OpenFileDialog()
-            DIALOG.Filter = "Json Files|*.json"
-            If DialogResult.OK = DIALOG.ShowDialog Then
-                Dim JSON_STRING As String = File.ReadAllText(DIALOG.FileName)
-                Dim QUESTION_LIST As List(Of Dictionary(Of String, String)) = JsonSerializer.Deserialize(Of List(Of Dictionary(Of String, String)))(JSON_STRING)  ' Decserialiszes the data yeahhhh!!!
-                Dim NEW_TEST As New DATA_HANDLE(True)
+        Dim DIALOG As New OpenFileDialog()
+        DIALOG.Filter = "Json Files|*.json"
+        If DialogResult.OK = DIALOG.ShowDialog Then
+            Dim JSON_STRING As String = File.ReadAllText(DIALOG.FileName)
+            Dim QUESTION_LIST As List(Of Dictionary(Of String, String)) = JsonSerializer.Deserialize(Of List(Of Dictionary(Of String, String)))(JSON_STRING)  ' Decserialiszes the data yeahhhh!!!
+            Dim NEW_TEST As New DATA_HANDLE(True)
 
-                NEW_TEST.NAME = QUESTION_LIST(0).Item("NAME") ' Adds the metadata for the test.
-                NEW_TEST.DESCRIPTION = QUESTION_LIST(0).Item("DESCRIPTION")
-                QUESTION_LIST.RemoveAt(0) ' Removes the metadata
+            NEW_TEST.NAME = QUESTION_LIST(0).Item("NAME") ' Adds the metadata for the test.
+            NEW_TEST.DESCRIPTION = QUESTION_LIST(0).Item("DESCRIPTION")
+            If QUESTION_LIST(0).ContainsKey("STUDENT NAME") Then
+                NEW_TEST.STUDENT_NAME = QUESTION_LIST(0).Item("STUDENT NAME")
+            End If
+            QUESTION_LIST.RemoveAt(0) ' Removes the metadata
 
-                For Each QUESTION As Dictionary(Of String, String) In QUESTION_LIST
-                    Dim NEW_QUESTION As New QUESTION(NEW_TEST)
-                    NEW_QUESTION.QUESTION_TEXT = QUESTION.Item("QUESTION")
-                    NEW_QUESTION.QUESTION_TITLE = QUESTION.Item("QUESTION TITLE")
-                    If QUESTION.Item("QUESTION TYPE") = "DIFFERENTIATION" Then
-                        NEW_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.DIFFERENTIATION
-                    Else
-                        NEW_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.SIMPLIFICATION
-                    End If
-                    NEW_QUESTION.TYPE = QUESTION.Item("TYPE")
-                    If QUESTION.ContainsKey("ANSWER") Then ' If the user is adding their answer document back in, then they go back to where they were.
-                        NEW_QUESTION.SUBMIT_ANSWER(QUESTION.Item("ANSWER"))
-                    End If
-                    NEW_TEST.ADD(NEW_QUESTION)
-                Next
-                TESTS.Add(NEW_TEST)
+            For Each QUESTION As Dictionary(Of String, String) In QUESTION_LIST
+                Dim NEW_QUESTION As New QUESTION()
+                NEW_QUESTION.QUESTION_TEXT = QUESTION.Item("QUESTION")
+                NEW_QUESTION.QUESTION_TITLE = QUESTION.Item("QUESTION TITLE")
+                If QUESTION.Item("QUESTION TYPE") = "DIFFERENTIATION" Then
+                    NEW_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.DIFFERENTIATION
+                Else
+                    NEW_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.SIMPLIFICATION
+                End If
+                NEW_QUESTION.TYPE = QUESTION.Item("TYPE")
+                If QUESTION.ContainsKey("ANSWER") Then ' If the user is adding their answer document back in, then they go back to where they were.
+                    NEW_QUESTION.SUBMIT_ANSWER(QUESTION.Item("ANSWER"))
+                End If
+                NEW_TEST.ADD(NEW_QUESTION)
+            Next
+            TESTS.Add(NEW_TEST)
+            If Not REVOKE_EXTRAS Then
                 TEST_LIST_UPDATE()
                 TOGGLE_CERTAIN_SCREEN(TEST_AREA, True)
                 NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Test " & NEW_TEST.NAME & " has been successfully added.", Color.Orange)
             End If
-
         End If
         Return True
     End Function
@@ -252,11 +256,15 @@ Public Class FORM1
         'TEST_QUESTION_LIST_MOUSE_UP()
         Return True
     End Function
-    Private Function TEST_DELETE()
-        If TESTS.Count >= TEST_AREA_LIST.SelectedIndex And TEST_AREA_LIST.SelectedIndex <> -1 Then
-            Dim SELECTED As Integer = TEST_AREA_LIST.SelectedIndex
-            TESTS.RemoveAt(TEST_AREA_LIST.SelectedIndex)
+    Private Function TEST_DELETE(Optional INDEX As Integer = -1)
+        If INDEX = -1 Then
+            INDEX = TEST_AREA_LIST.SelectedIndex
+        End If
+        If TESTS.Count >= INDEX And INDEX <> -1 Then
+            Dim SELECTED As Integer = INDEX
+            TESTS.RemoveAt(INDEX)
             TEST_LIST_UPDATE()
+            SUBMISSIONS_LIST_UPDATE()
             NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Test " & SELECTED + 1 & " Deleted.", Color.Red)
             Return True
         End If
@@ -308,6 +316,84 @@ Public Class FORM1
     ' Teacher UI Subroutines.
     '/////////////////////////////
 
+    Private Function ADD_SUBMISSION(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles SUBMISSIONS_ADD.Click
+        ADD_TEST(SENDER, E, True) ' Adds a selected test through deserialisation.
+        SUBMISSIONS_LIST_UPDATE()
+        Dim ADDED_TEST As DATA_HANDLE_TEACHER = TESTS(TESTS.Count - 1)
+
+        For Each SELECTED_QUESTION In ADDED_TEST.QUESTIONS
+            Dim BASELINE As Double = SELECTED_QUESTION.RETURN_ANSWER_FUNCTION_OUTPUT(3)
+            Dim NEW_QUESTION As New SIMPLE_SIMPLIFY(SELECTED_QUESTION.RETURN_ANSWER)
+            Dim TO_COMPARE As Double = NEW_QUESTION.GET_OUTPUT(3)
+            If BASELINE = TO_COMPARE And SELECTED_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.DIFFERENTIATION Then
+                ' I am only checking that the functions output the same values.
+                ' For differentiation where form doesn't matter, this is good enough.
+                SELECTED_QUESTION.STATUS = QUESTION_STATUS.CORRECT
+            ElseIf BASELINE <> TO_COMPARE Then
+                ' This will always mean that it is wrong.
+                SELECTED_QUESTION.STATUS = QUESTION_STATUS.WRONG
+            ElseIf BASELINE = TO_COMPARE And SELECTED_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.SIMPLIFICATION Then
+                ' As 3x+2x = 5x, and substituting 3 for each will yield the same result, I cannot say it is correct, as the user can change nothing and it will still say baseline = to_compare.
+                SELECTED_QUESTION.STATUS = QUESTION_STATUS.INDETERMINED
+                ' This must be checked by the teacher.
+
+            End If
+        Next
+
+        Return True
+    End Function
+
+    Public Function VIEW_SUBMISSION_EVENT(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles SUBMISSIONS_VIEW.Click
+
+    End Function
+    Private Sub SUBMISSIONS_LIST_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles SUBMISSIONS_LIST.MouseUp
+        ' This shows the options when you right click on the question viewer for the teacher.
+        Dim CMS = New ContextMenuStrip
+        Dim SELECTED_ITEM = SUBMISSIONS_LIST.SelectedItem
+        If E.Button = MouseButtons.Right Then
+            If SUBMISSIONS_LIST.SelectedItems.Count = 1 Then
+                Dim ITEM1 = CMS.Items.Add("View " & SELECTED_ITEM.ToString)
+                ITEM1.Tag = 1
+                AddHandler ITEM1.Click, AddressOf EDIT
+                Dim ITEM2 = CMS.Items.Add("Delete " & SELECTED_ITEM.ToString)
+                ITEM2.Tag = 2
+                AddHandler ITEM2.Click, Function(s, ev) TEST_DELETE(SUBMISSIONS_LIST.SelectedIndex)
+            End If
+            Dim ITEM3 = CMS.Items.Add("Add new submission")
+            ITEM3.Tag = 3
+            AddHandler ITEM3.Click, Function(s, ev) ADD_SUBMISSION(SENDER, E)
+            CMS.Show(SUBMISSIONS_LIST, E.Location)
+        ElseIf SUBMISSIONS_LIST.SelectedItems.Count = 1 Then ' If they havent selected any question.
+            Dim INDEX_OF_ITEM = SUBMISSIONS_LIST.SelectedIndex
+            SUBMISSION_TITLE.Text = "ANSWER " & (INDEX_OF_ITEM + 1)
+            SUBMISSIONS_DESCRIPTION.Text = TESTS(INDEX_OF_ITEM).DESCRIPTION
+        End If
+    End Sub
+
+    'Private Sub ListBox1_DrawItem(sender As System.Object, e As System.Windows.Forms.DrawItemEventArgs) Handles SUBMISSIONS_LIST.DrawItem
+    '    e.DrawBackground()
+    '    If SUBMISSIONS_LIST.Items(e.Index).ToString().Contains("?") Then
+    '        e.Graphics.FillRectangle(Brushes.DarkOrange, e.Bounds)
+    '    ElseIf SUBMISSIONS_LIST.Items(e.Index).ToString().Contains("✓") Then
+    '        e.Graphics.FillRectangle(Brushes.DarkGreen, e.Bounds)
+    '    ElseIf SUBMISSIONS_LIST.Items(e.Index).ToString().Contains("x") Then
+    '        e.Graphics.FillRectangle(Brushes.Magenta, e.Bounds)
+    '    End If
+    '    e.Graphics.DrawString(SUBMISSIONS_LIST.Items(e.Index).ToString(), e.Font, Brushes.Black, New System.Drawing.PointF(e.Bounds.X, e.Bounds.Y))
+    '    e.DrawFocusRectangle()
+    'End Sub
+    Private Function SELECTED_SUBMISSION_QUESTION_UPDATE() ' Updates the SUBMISSION list.
+        SUBMISSIONS_LIST.Items.Clear()
+        For Each TEST As DATA_HANDLE In TESTS
+            SUBMISSIONS_LIST.Items.Add(TEST.NAME & " | " & TEST.STUDENT_NAME)
+        Next
+    End Function
+    Private Function SUBMISSIONS_LIST_UPDATE() ' Updates the SUBMISSION list.
+        SUBMISSIONS_LIST.Items.Clear()
+        For Each TEST As DATA_HANDLE In TESTS
+            SUBMISSIONS_LIST.Items.Add(TEST.NAME & " | " & TEST.STUDENT_NAME)
+        Next
+    End Function
     Private Function SETUP_QUESTION_CREATOR()
         TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True) ' Shows the question creator screen.
         Return True
@@ -320,7 +406,7 @@ Public Class FORM1
 
     Private Function CREATE_QUESTION()
         If QUESTION_CHOOSER_LIST.SelectedItems.Count = 1 Then
-            Dim NEW_QUESTION As New QUESTION(DATA_HANDLER)
+            Dim NEW_QUESTION As New TEACHER_QUESTION(DATA_HANDLER)
             NEW_QUESTION.CHOSEN_QUESTION_TO_CREATE()
             TOGGLE_CERTAIN_SCREEN(QUESTION_INPUT1, True)
             QUESTION_CREATION_EXIT.Visible = True
@@ -329,8 +415,11 @@ Public Class FORM1
         Return True
     End Function
 
-    Private Function EXIT_QUESTION_CREATOR()
-
+    Private Function ENTER_SUBMISSION_AREA(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles TEACHER_MARK_SUBMISSIONS.MouseUp
+        If E.Button = MouseButtons.Left Then
+            TESTS = New List(Of DATA_HANDLE)
+            TOGGLE_CERTAIN_SCREEN(SUBMISSIONS, True)
+        End If
     End Function
 
     Private Sub LISTBOX_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles Q_CONTROL_GROUP_LISTBOX.MouseUp
@@ -424,10 +513,6 @@ Public Class FORM1
         End If
         Return False
     End Function
-
-    Private Sub ADD_TEST(sender As Object, e As EventArgs) Handles TESTS_AREA_ADD_NEW_TEST.Click
-
-    End Sub
 
 
     '/////////////////////////////

@@ -30,6 +30,10 @@ Class SIMPLE_SIMPLIFY : Inherits EXPRESSION_TREE
         RESULT = OPTIMISER_CLASS.EXPAND_BRACKETS()
     End Sub
 
+    Public Function GET_OUTPUT(VALUE As Integer)
+        Return OPTIMISER_CLASS.OUTPUT_VALUE_WRAP(VALUE)
+    End Function
+
     Private Function ZERO_TO_NEGATIVE(NUMBER As Integer)
         If NUMBER = 0 Then
             Return -1

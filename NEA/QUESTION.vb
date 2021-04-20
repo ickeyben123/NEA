@@ -6,64 +6,24 @@ Enum QUESTION_TYPE_ANSWER
     SIMPLIFICATION
 End Enum
 
+Enum QUESTION_STATUS
+    CORRECT
+    INDETERMINED
+    WRONG
+End Enum
 
-Class QUESTION
-
-    Public TYPE As String
-
-    Protected ENABLED As Boolean = True ' Determines if editable.
-    Protected DATA_HANDLER As DATA_HANDLE
-    Protected ANSWER_CLASS As SIMPLE_SIMPLIFY ' Dynamic answer that can be recomputed.
-    Public QUESTION_ANSWER_TYPE As QUESTION_TYPE_ANSWER
-
-    Public QUESTION_TEXT As String ' This is the actual question that is saved in the class.
-    Public QUESTION_TITLE As String
-
-    Dim RECALC_EVENT As EventHandler = Function(sender, e) RECOMPUTE_CHOSEN_QUESTION()
-    Dim ADDING_EVENT As EventHandler = Function(sender, e) UPDATE_CLASS(False)
-    Dim EDITING_EVENT As EventHandler = Function(sender, e) UPDATE_CLASS(True)
-    Dim REVOKER_EVENT As EventHandler = Function(sender, e) REMOVE_HANDLER()
-
-    Public Function RETURN_QUESTION()
-        Return QUESTION_TEXT
-    End Function
-
-    Public Function RETURN_QUESTION_TYPE()
-        Return QUESTION_ANSWER_TYPE.ToString()
-    End Function
-
-    Public Function RETURN_QUESTION_TITLE()
-        Return QUESTION_TITLE
-    End Function
-
-    Protected ANSWER As String = ""
-
-    Public Function RETURN_ANSWER()
-        Return ANSWER
-    End Function
-
-    Public Overridable Sub SUBMIT_ANSWER(INPUT As String) 'Submits answer..
-        Me.ANSWER = INPUT
-    End Sub
+Class TEACHER_QUESTION : Inherits QUESTION
 
     Sub New(ByRef DATA_HANDLE_INPUT As DATA_HANDLE)
         DATA_HANDLER = DATA_HANDLE_INPUT
         AddHandler FORM1.QUESTION_RECOMPUTE_ANSWER.Click, RECALC_EVENT
     End Sub
 
-    'Public Sub SET_ANSWER_MENU() ' Sets the answer menu's (groupbox) properties.
-    '    For Each IARRAY As Array In Properties ' Loop through the properties list
-    '        If ANSWER_MENU.Controls.ContainsKey(IARRAY(0)) Then
-    '            Dim LOCAL_CONTROL As Array = ANSWER_MENU.Controls.Find(IARRAY(0), True)
-    '            For Each ICONTROL As Control In LOCAL_CONTROL
-    '                ICONTROL.Text = IARRAY(1)
-    '            Next
-    '        End If
-    '    Next
-    'End Sub
 
-
-    ' Teacher section of question class.
+    Dim RECALC_EVENT As EventHandler = Function(sender, e) RECOMPUTE_CHOSEN_QUESTION()
+    Dim ADDING_EVENT As EventHandler = Function(sender, e) UPDATE_CLASS(False)
+    Dim EDITING_EVENT As EventHandler = Function(sender, e) UPDATE_CLASS(True)
+    Dim REVOKER_EVENT As EventHandler = Function(sender, e) REMOVE_HANDLER()
 
     Private Function UPDATE_CLASS(Optional EDIT As Boolean = False)
         QUESTION_TEXT = FORM1.QUESTION_INPUT.Text
@@ -103,7 +63,7 @@ Class QUESTION
 
         Dim CHOSEN_QUESTION_TEMPLATE As String = FORM1.QUESTION_CHOOSER_LIST.SelectedItem.ToString
         Dim TEMPLATE_ITEMS = DATA_HANDLER.QUESTION_DEFINERS.Item(CHOSEN_QUESTION_TEMPLATE)
-        TYPE = FORM1.QUESTION_CHOOSER_LIST.SelectedItem.ToString
+        Type = FORM1.QUESTION_CHOOSER_LIST.SelectedItem.ToString
         ' Update the group 'Question Creation'
         FORM1.QUESTION_DISPLAY.Text = TEMPLATE_ITEMS(0) ' The first item is always the string question, like "Calculate the like terms." or whatever.
         QUESTION_TITLE = TEMPLATE_ITEMS(0)
@@ -155,5 +115,61 @@ Class QUESTION
         AddHandler FORM1.QUESTION_CREATE.Click, EDITING_EVENT
         Return True
     End Function
+End Class
+
+
+Class QUESTION
+
+    Public TYPE As String
+
+    Protected ENABLED As Boolean = True ' Determines if editable.
+    Protected DATA_HANDLER As DATA_HANDLE
+    Protected ANSWER_CLASS As SIMPLE_SIMPLIFY ' Dynamic answer that can be recomputed.
+    Public QUESTION_ANSWER_TYPE As QUESTION_TYPE_ANSWER
+
+    Public QUESTION_TEXT As String ' This is the actual question that is saved in the class.
+    Public QUESTION_TITLE As String
+    Public STATUS As QUESTION_STATUS ' This is used for submissions. I won't make a seperate class for this as it will just complicate things for no reason... e.e
+
+
+    Public Function RETURN_QUESTION()
+        Return QUESTION_TEXT
+    End Function
+
+    Public Function RETURN_QUESTION_TYPE()
+        Return QUESTION_ANSWER_TYPE.ToString()
+    End Function
+
+    Public Function RETURN_QUESTION_TITLE()
+        Return QUESTION_TITLE
+    End Function
+
+    Protected ANSWER As String = ""
+
+    Public Function RETURN_ANSWER()
+        Return ANSWER
+    End Function
+
+    Public Function RETURN_ANSWER_FUNCTION_OUTPUT(VALUE As Integer)
+        Return ANSWER_CLASS.GET_OUTPUT(VALUE) ' Says f(x) = 9x^2, this will output the 9x^2 for the selected value, like 1.
+    End Function
+
+    Public Overridable Sub SUBMIT_ANSWER(INPUT As String) 'Submits answer..
+        Me.ANSWER = INPUT
+    End Sub
+
+    'Public Sub SET_ANSWER_MENU() ' Sets the answer menu's (groupbox) properties.
+    '    For Each IARRAY As Array In Properties ' Loop through the properties list
+    '        If ANSWER_MENU.Controls.ContainsKey(IARRAY(0)) Then
+    '            Dim LOCAL_CONTROL As Array = ANSWER_MENU.Controls.Find(IARRAY(0), True)
+    '            For Each ICONTROL As Control In LOCAL_CONTROL
+    '                ICONTROL.Text = IARRAY(1)
+    '            Next
+    '        End If
+    '    Next
+    'End Sub
+
+
 
 End Class
+
