@@ -113,6 +113,7 @@ Partial Class FORM1
         Me.EXIT_EXPORT_ANSWERS = New System.Windows.Forms.Button()
         Me.EXPORT_ANSWERS_NAME = New System.Windows.Forms.RichTextBox()
         Me.SUBMISSIONS = New System.Windows.Forms.GroupBox()
+        Me.SUBMISSIONS_EXIT = New System.Windows.Forms.Button()
         Me.SUBMISSIONS_ADD = New System.Windows.Forms.Button()
         Me.SUBMISSIONS_CLEAR_ALL = New System.Windows.Forms.Button()
         Me.SUBMISSIONS_EXPORT = New System.Windows.Forms.Button()
@@ -1240,6 +1241,7 @@ Partial Class FORM1
         '
         'SUBMISSIONS
         '
+        Me.SUBMISSIONS.Controls.Add(Me.SUBMISSIONS_EXIT)
         Me.SUBMISSIONS.Controls.Add(Me.SUBMISSIONS_ADD)
         Me.SUBMISSIONS.Controls.Add(Me.SUBMISSIONS_CLEAR_ALL)
         Me.SUBMISSIONS.Controls.Add(Me.SUBMISSIONS_EXPORT)
@@ -1257,6 +1259,18 @@ Partial Class FORM1
         Me.SUBMISSIONS.TabIndex = 17
         Me.SUBMISSIONS.TabStop = False
         Me.SUBMISSIONS.Text = "Submissions"
+        '
+        'SUBMISSIONS_EXIT
+        '
+        Me.SUBMISSIONS_EXIT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SUBMISSIONS_EXIT.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SUBMISSIONS_EXIT.ForeColor = System.Drawing.Color.Maroon
+        Me.SUBMISSIONS_EXIT.Location = New System.Drawing.Point(1185, 974)
+        Me.SUBMISSIONS_EXIT.Name = "SUBMISSIONS_EXIT"
+        Me.SUBMISSIONS_EXIT.Size = New System.Drawing.Size(127, 80)
+        Me.SUBMISSIONS_EXIT.TabIndex = 10
+        Me.SUBMISSIONS_EXIT.Text = "Exit"
+        Me.SUBMISSIONS_EXIT.UseVisualStyleBackColor = True
         '
         'SUBMISSIONS_ADD
         '
@@ -1606,6 +1620,11 @@ Partial Class FORM1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1324, 1062)
+        Me.Controls.Add(Me.TEST_VIEWER)
+        Me.Controls.Add(Me.QUESTION_CHOOSER)
+        Me.Controls.Add(Me.EXPORT_ANSWERS_GROUP)
+        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.TEST_EXPORT)
         Me.Controls.Add(Me.MARK_QUESTION)
         Me.Controls.Add(Me.QUESTION_ANSWERER)
         Me.Controls.Add(Me.QUESTION_INPUT1)
@@ -1616,11 +1635,6 @@ Partial Class FORM1
         Me.Controls.Add(Me.LOGIN_GROUP)
         Me.Controls.Add(Me.MODE_GROUP)
         Me.Controls.Add(Me.VIEW_SUBMISSION)
-        Me.Controls.Add(Me.TEST_VIEWER)
-        Me.Controls.Add(Me.QUESTION_CHOOSER)
-        Me.Controls.Add(Me.EXPORT_ANSWERS_GROUP)
-        Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.TEST_EXPORT)
         Me.Name = "FORM1"
         Me.Text = "Form1"
         Me.MODE_GROUP.ResumeLayout(False)
@@ -1758,4 +1772,5 @@ Partial Class FORM1
     Friend WithEvents MARK_QUESTION_NUMBER As Label
     Friend WithEvents MARK_QUESTION_TITLE As Label
     Friend WithEvents MARK_QUESTION_QUESTION As RichTextBox
+    Friend WithEvents SUBMISSIONS_EXIT As Button
 End Class

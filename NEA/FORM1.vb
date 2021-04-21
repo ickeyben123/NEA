@@ -108,6 +108,7 @@ Public Class FORM1
                 AddHandler QUESTION_CREATION_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(QUESTION_CHOOSER, True)
                 AddHandler QUESTION_CREATE.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True)
                 AddHandler Q_CONTROL_GROUP_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
+                AddHandler Q_CONTROL_GROUP_EXIT.Click, Function(sender, e) CLEAR_ALL_DATA()
                 AddHandler Q_CONTROL_GROUP_EDIT.Click, Function(SENDER, E) EDIT()
                 AddHandler Q_CONTROL_GROUP_REMOVE.Click, Function(sender, e) DELETE(Q_CONTROL_GROUP_LISTBOX.SelectedIndex)
                 AddHandler Q_CONTROL_GROUP_CLEAR_ALL.Click, Function(sender, e) DATA_HANDLER.CLEAR_ALL()
@@ -120,6 +121,10 @@ Public Class FORM1
                 AddHandler MARK_QUESTION_INCORRECT.Click, Function(sender, e) OVERRIDE_SUBMISSION_QUESTION(sender, e, QUESTION_STATUS.WRONG)
                 AddHandler MARK_QUESTION_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(VIEW_SUBMISSION, True)
                 AddHandler MARK_QUESTION_EXIT.Click, Function(sender, e) UPDATE_LIST_OF_QUESTIONS_ON_SELECTED_SUBMISSION()
+                AddHandler VIEW_SUBMISSION_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(SUBMISSIONS, True)
+                AddHandler SUBMISSIONS_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
+                AddHandler SUBMISSIONS_EXIT.Click, Function(sender, e) CLEAR_ALL_DATA()
+                AddHandler SUBMISSIONS_EXPORT.Click, Function(sender, e) EXPORT(sender, e, TESTS(SUBMISSIONS_LIST.SelectedIndex), "Marked Answers.json", TESTS(SUBMISSIONS_LIST.SelectedIndex).STUDENT_NAME)
 
                 ' Update the question chooser listview.
                 For Each ENUM_ITEM As QUESTION_TYPE In ENUMS
@@ -151,6 +156,11 @@ Public Class FORM1
     ' END
     '////////////////////////////
 
+    Private Function CLEAR_ALL_DATA()
+        TESTS = New List(Of DATA_HANDLE)
+        DATA_HANDLER.CLEAR_ALL()
+        Return True
+    End Function
 
     '//////////////////////////////
     ' Student UI Subroutines.
@@ -182,6 +192,11 @@ Public Class FORM1
             SELECTED_TEST = INDEX_OF_ITEM
             TESTS(INDEX_OF_ITEM).UPDATE_TEST_LIST() ' This updates the list of questions in the selected test.
             TOGGLE_CERTAIN_SCREEN(TEST_VIEWER, True)
+            If TESTS(INDEX_OF_ITEM).MARKED Then ' If the test is marked then they cannot answer it anymore.
+                TEST_VIEWER_ANSWER_SELECTED_QUESTION.Visible = False
+            Else
+                TEST_VIEWER_ANSWER_SELECTED_QUESTION.Visible = True
+            End If
             Return True
         End If
         Return False
@@ -204,16 +219,22 @@ Public Class FORM1
             End If
 
             NEW_TEST.NAME = QUESTION_LIST(0).Item("NAME") ' Adds the metadata for the test.
-                NEW_TEST.DESCRIPTION = QUESTION_LIST(0).Item("DESCRIPTION")
-                If QUESTION_LIST(0).ContainsKey("STUDENT NAME") Then
-                    NEW_TEST.STUDENT_NAME = QUESTION_LIST(0).Item("STUDENT NAME")
-                End If
-                QUESTION_LIST.RemoveAt(0) ' Removes the metadata
+            NEW_TEST.DESCRIPTION = QUESTION_LIST(0).Item("DESCRIPTION")
 
-                For Each QUESTION As Dictionary(Of String, String) In QUESTION_LIST
-                    Dim NEW_QUESTION As New QUESTION()
-                    NEW_QUESTION.QUESTION_TEXT = QUESTION.Item("QUESTION")
-                    NEW_QUESTION.QUESTION_TITLE = QUESTION.Item("QUESTION TITLE")
+            If QUESTION_LIST(0).Item("MARKED") = "False" Then ' This deems whether it has been marked by a teacher.
+                NEW_TEST.MARKED = False
+            ElseIf QUESTION_LIST(0).Item("MARKED") = "True" Then
+                NEW_TEST.MARKED = True
+            End If
+            If QUESTION_LIST(0).ContainsKey("STUDENT NAME") Then
+                NEW_TEST.STUDENT_NAME = QUESTION_LIST(0).Item("STUDENT NAME")
+            End If
+            QUESTION_LIST.RemoveAt(0) ' Removes the metadata
+
+            For Each QUESTION As Dictionary(Of String, String) In QUESTION_LIST
+                Dim NEW_QUESTION As New QUESTION()
+                NEW_QUESTION.QUESTION_TEXT = QUESTION.Item("QUESTION")
+                NEW_QUESTION.QUESTION_TITLE = QUESTION.Item("QUESTION TITLE")
                 If QUESTION.Item("QUESTION TYPE") = "DIFFERENTIATION" Then
                     NEW_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.DIFFERENTIATION
                 Else
@@ -227,13 +248,24 @@ Public Class FORM1
                     NEW_QUESTION.TEACHER_EDITED = True
                 End If
 
+                If QUESTION.ContainsKey("STATUS") Then ' Status enum serialisation, which probably can be done better but it works hahahahahahahahahaaaaaaa
+                    Select Case QUESTION.Item("STATUS")
+                        Case "CORRECT"
+                            NEW_QUESTION.STATUS = QUESTION_STATUS.CORRECT
+                        Case "INDETERMINED"
+                            NEW_QUESTION.STATUS = QUESTION_STATUS.INDETERMINED
+                        Case "WRONG"
+                            NEW_QUESTION.STATUS = QUESTION_STATUS.WRONG
+                    End Select
+                End If
+
                 NEW_QUESTION.TYPE = QUESTION.Item("TYPE")
-                    If QUESTION.ContainsKey("ANSWER") Then ' If the user is adding their answer document back in, then they go back to where they were.
-                        NEW_QUESTION.SUBMIT_ANSWER(QUESTION.Item("ANSWER"))
-                    End If
-                    NEW_TEST.ADD(NEW_QUESTION)
-                Next
-                TESTS.Add(NEW_TEST)
+                If QUESTION.ContainsKey("ANSWER") Then ' If the user is adding their answer document back in, then they go back to where they were.
+                    NEW_QUESTION.SUBMIT_ANSWER(QUESTION.Item("ANSWER"))
+                End If
+                NEW_TEST.ADD(NEW_QUESTION)
+            Next
+            TESTS.Add(NEW_TEST)
                 If Not REVOKE_EXTRAS Then
                     TEST_LIST_UPDATE()
                     TOGGLE_CERTAIN_SCREEN(TEST_AREA, True)
@@ -340,22 +372,24 @@ Public Class FORM1
         SUBMISSIONS_LIST_UPDATE()
         If TESTS.Count > 0 Then
             Dim ADDED_TEST As DATA_HANDLE = TESTS(TESTS.Count - 1)
-
+            ADDED_TEST.MARKED = True ' This will allow the student to view the data and see the marks they got.
             For Each SELECTED_QUESTION In ADDED_TEST.RETURN_QUESTIONS
-                Dim BASELINE As Double = SELECTED_QUESTION.RETURN_ANSWER_FUNCTION_OUTPUT(3)
-                Dim NEW_QUESTION As New SIMPLE_SIMPLIFY(SELECTED_QUESTION.RETURN_ANSWER)
-                Dim TO_COMPARE As Double = NEW_QUESTION.GET_OUTPUT(3)
-                If BASELINE = TO_COMPARE And SELECTED_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.DIFFERENTIATION Then
-                    ' I am only checking that the functions output the same values.
-                    ' For differentiation where form doesn't matter, this is good enough.
-                    SELECTED_QUESTION.STATUS = QUESTION_STATUS.CORRECT
-                ElseIf BASELINE <> TO_COMPARE Then
-                    ' This will always mean that it is wrong.
-                    SELECTED_QUESTION.STATUS = QUESTION_STATUS.WRONG
-                ElseIf BASELINE = TO_COMPARE And SELECTED_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.SIMPLIFICATION Then
-                    ' As 3x+2x = 5x, and substituting 3 for each will yield the same result, I cannot say it is correct, as the user can change nothing and it will still say baseline = to_compare.
-                    SELECTED_QUESTION.STATUS = QUESTION_STATUS.INDETERMINED
-                    ' This must be checked by the teacher
+                If Not SELECTED_QUESTION.TEACHER_EDITED Then ' This means that the teacher hasn't overridden the marking.
+                    Dim BASELINE As Double = SELECTED_QUESTION.RETURN_ANSWER_FUNCTION_OUTPUT(3)
+                    Dim NEW_QUESTION As New SIMPLE_SIMPLIFY(SELECTED_QUESTION.RETURN_ANSWER)
+                    Dim TO_COMPARE As Double = NEW_QUESTION.GET_OUTPUT(3)
+                    If BASELINE = TO_COMPARE And SELECTED_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.DIFFERENTIATION Then
+                        ' I am only checking that the functions output the same values.
+                        ' For differentiation where form doesn't matter, this is good enough.
+                        SELECTED_QUESTION.STATUS = QUESTION_STATUS.CORRECT
+                    ElseIf BASELINE <> TO_COMPARE Then
+                        ' This will always mean that it is wrong.
+                        SELECTED_QUESTION.STATUS = QUESTION_STATUS.WRONG
+                    ElseIf BASELINE = TO_COMPARE And SELECTED_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.SIMPLIFICATION Then
+                        ' As 3x+2x = 5x, and substituting 3 for each will yield the same result, I cannot say it is correct, as the user can change nothing and it will still say baseline = to_compare.
+                        SELECTED_QUESTION.STATUS = QUESTION_STATUS.INDETERMINED
+                        ' This must be checked by the teacher
+                    End If
                 End If
             Next
 
@@ -612,6 +646,7 @@ Public Class FORM1
             If Not STUDENT_NAME = "" Then
                 META_DATA.Add("STUDENT NAME", STUDENT_NAME)
             End If
+            META_DATA.Add("MARKED", CHOSEN_TO_EXPORT.MARKED.ToString)
             DATA_LIST.Add(META_DATA)
 
             For Each QUESTION As QUESTION In CHOSEN_TO_EXPORT.RETURN_QUESTIONS
@@ -622,6 +657,7 @@ Public Class FORM1
                 QUESTION_DATA.Add("ANSWER", QUESTION.RETURN_ANSWER) ' The answer the user set.
                 QUESTION_DATA.Add("TYPE", QUESTION.TYPE) ' The type, either differentiation or simplification.
                 QUESTION_DATA.Add("TEACHER EDITED", QUESTION.TEACHER_EDITED.ToString) ' The type, either differentiation or simplification.
+                QUESTION_DATA.Add("STATUS", QUESTION.STATUS.ToString) ' The type, either differentiation or simplification.
                 DATA_LIST.Add(QUESTION_DATA)
             Next
 

@@ -23,6 +23,9 @@ Class DATA_HANDLE_TEACHER : Inherits DATA_HANDLE ' For Teachers.
 End Class
 Class DATA_HANDLE
 
+    Private MARK_SYMBOLS As Dictionary(Of QUESTION_STATUS, String) = New Dictionary(Of QUESTION_STATUS, String) From
+    {{QUESTION_STATUS.CORRECT, "✓"}, {QUESTION_STATUS.WRONG, "X"}, {QUESTION_STATUS.INDETERMINED, "?"}}
+
     Shadows QUESTIONS As New List(Of QUESTION)
     Protected Event QUESTION_LIST_CHANGE()
     Protected Form As Form
@@ -34,6 +37,7 @@ Class DATA_HANDLE
 
     Public DESCRIPTION As String = ""
     Public NAME As String = ""
+    Public MARKED As Boolean = False
 
     Sub New(Optional STUDENT As Boolean = False)
         If Not STUDENT Then
@@ -83,7 +87,18 @@ Class DATA_HANDLE
     Sub UPDATE_TEST_LIST()
         FORM1.TEST_VIEWER_QUESTION_LIST.Items.Clear()
         For Each QUESTION As QUESTION In QUESTIONS
-            FORM1.TEST_VIEWER_QUESTION_LIST.Items.Add(QUESTION.TYPE)
+            Dim POSSIBLE_ADD As String = ""
+            If MARKED Then
+                Select Case QUESTION.STATUS
+                    Case QUESTION_STATUS.WRONG
+                        POSSIBLE_ADD = " " & MARK_SYMBOLS(QUESTION_STATUS.WRONG)
+                    Case QUESTION_STATUS.CORRECT
+                        POSSIBLE_ADD = " " & MARK_SYMBOLS(QUESTION_STATUS.CORRECT)
+                    Case QUESTION_STATUS.INDETERMINED
+                        POSSIBLE_ADD = " " & MARK_SYMBOLS(QUESTION_STATUS.INDETERMINED)
+                End Select
+            End If
+            FORM1.TEST_VIEWER_QUESTION_LIST.Items.Add(QUESTION.TYPE & POSSIBLE_ADD)
         Next
     End Sub
 
