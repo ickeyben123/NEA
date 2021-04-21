@@ -217,8 +217,6 @@ Class OPTIMISER : Inherits UTILITIES
 
     ' Simplification Functions
     ' //These are made to actually modify the expression.
-    '//// THIS TO BE FINISHED!! ////  TAKE INTO ACCOUNT NEAGTIVE NUMBERS!
-
 
     ' // Multiplication Functions
 
@@ -306,7 +304,6 @@ Class OPTIMISER : Inherits UTILITIES
 
                             If LIMITED_DIFFERENTIATE(NEW_TIMES_NODE) IsNot Nothing Then
                                 If (LIMITED_DIFFERENTIATE(NEW_TIMES_NODE).LEFT.COUNT + LIMITED_DIFFERENTIATE(NEW_TIMES_NODE).RIGHT.COUNT) > 0 Then
-                                    'Console.WriteLine("brrerrr" & IN_ORDER(LIMITED_DIFFERENTIATE(NEW_TIMES_NODE), True))
                                     MULTIPLIER.RIGHT.Add(LIMITED_DIFFERENTIATE(NEW_TIMES_NODE)) ' the du. or more so du/dx if u is in x.
                                 End If
                             End If
@@ -620,7 +617,6 @@ Class OPTIMISER : Inherits UTILITIES
 
         If NODE.VALUE = "*" Then
             If NODE.RIGHT.Count = 1 Then
-                ' Console.WriteLine("FUCKJING HELL WHY ARE YOU HERRE" & ELEMENT(A).RIGHT(0).VALUE)
                 If NODE.RIGHT(0).VALUE = "1" Then
                     NODE.RIGHT.RemoveAt(0)
                     If Not NODE.LEFT.Count = 1 Then
@@ -796,8 +792,6 @@ Class OPTIMISER : Inherits UTILITIES
 
 
         If NODE.VALUE = "*" Then
-            ' Console.WriteLine("DETECTED THE SHIT" & IN_ORDER(NODE, True) & NODE.LEFT.Count & NODE.RIGHT.Count & NODE.RIGHT(0).VALUE)
-
             Dim ITERATION_LIST = {NODE.LEFT, NODE.RIGHT} ' This is a slight modification to allow >2 brackets in a multiplier.
             ' If I have, say, (9x+3)*(10x-3)*8x, then I will first select (9x+3) and compare it to (10x-3) and 8x, both are doable, but the algorithm will first evaluate (9x+3)*(10x-3).
             ' It will the return the result as one bracket.
@@ -890,7 +884,6 @@ Class OPTIMISER : Inherits UTILITIES
                         End If
 
                         If TEMPORARY_NODE.VALUE = "+" Then ' This means that there was a successful calculation.
-                            'Console.WriteLine("done lol")
                             ' We will remove the two nodes that were previously in the temporary node
                             ELEMENT_LIST.Remove(SELECTED_NODE)
                             NODE.LEFT.Remove(EVERY_OTHER_NODE(C))
@@ -1149,7 +1142,7 @@ Class OPTIMISER : Inherits UTILITIES
 
             If Not NODE.RIGHT Is Nothing Then
                 For A As Integer = 0 To NODE.RIGHT.Count() - 1
-                    If NODE.RIGHT.Count = 1 And IsNumeric(NODE.RIGHT(0).VALUE) Then ' This takes into account that a number will be in the form (a*b, where a is the coefficient and b "1"
+                    If NODE.RIGHT.Count = 1 And IsNumeric(NODE.RIGHT(0).VALUE) Then ' This takes into account that a number will be in the form a*b, where a is the coefficient and b "1"
                         If NODE.RIGHT(0).VALUE = 1 Then
                             Exit For
                         End If
@@ -1414,7 +1407,7 @@ Class OPTIMISER : Inherits UTILITIES
         ' In cases where (3+3)+4 occur there will be a binary method of parsing. Ie, two root nodes to create the tree.
         ' This is not needed, as a plus can be done to many items at once. I can do 3 5 3 +, and it will not change anything.
         ' This concept is also true for multiplication.
-        ' Therefore the simplifcation involves changing * and + into a single node with many children - as many as possible. 
+        ' Therefore the simplification involves changing * and + into a single node with many children - as many as possible. 
         ' Negation is assumed to be removed, but for division we must be careful and ignore them. 
 
         ' I will be using postorder for this. (postorder works from the bottom to the top naturally, which I am fanciful towards. Dunno why.)

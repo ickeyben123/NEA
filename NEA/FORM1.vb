@@ -16,6 +16,8 @@ Public Enum LOGIN_MODE
     STUDENT
 End Enum
 
+
+
 ' This enum contains all the available questions
 
 ' The class for the form.
@@ -90,7 +92,7 @@ Public Class FORM1
                 AddHandler QUESTION_ANSWERER_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEST_VIEWER, True)
                 AddHandler QUESTION_ANSWERER_EXIT.Click, Function(sender, e) ANSWER_QUESTION() ' This is easier trust me :L
                 AddHandler QUESTION_ANSWERER_EXIT.Click, Function(sender, e) TEST_QUESTION_LIST_MOUSE_UP()
-                AddHandler EXPORT_ANSWERS_EXPORT.Click, Function(sender, e) EXPORT(sender, e, TESTS(TEST_AREA_LIST.SelectedIndex), "\Answers.json", EXPORT_ANSWERS_NAME.Text) ' The export function that I modified to accomodate for custom data_handle object inputs.
+                AddHandler EXPORT_ANSWERS_EXPORT.Click, Function(sender, e) EXPORT(sender, e, TESTS(TEST_AREA_LIST.SelectedIndex), "Answers.json", EXPORT_ANSWERS_NAME.Text) ' The export function that I modified to accomodate for custom data_handle object inputs.
                 AddHandler EXIT_EXPORT_ANSWERS.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(TEST_AREA, True)
             Else
                 TOGGLE_CERTAIN_SCREEN(TEACHER_GROUP, True)
@@ -114,6 +116,10 @@ Public Class FORM1
 
                 ' Answer Submissions section
                 AddHandler SUBMISSIONS_REMOVE.Click, Function(sender, e) TEST_DELETE(SUBMISSIONS_LIST.SelectedIndex) ' As there are a number of simularities between this and the student area I will recycle some functions.
+                AddHandler MARK_QUESTION_CORRECT.Click, Function(sender, e) OVERRIDE_SUBMISSION_QUESTION(sender, e, QUESTION_STATUS.CORRECT)
+                AddHandler MARK_QUESTION_INCORRECT.Click, Function(sender, e) OVERRIDE_SUBMISSION_QUESTION(sender, e, QUESTION_STATUS.WRONG)
+                AddHandler MARK_QUESTION_EXIT.Click, Function(sender, e) TOGGLE_CERTAIN_SCREEN(VIEW_SUBMISSION, True)
+                AddHandler MARK_QUESTION_EXIT.Click, Function(sender, e) UPDATE_LIST_OF_QUESTIONS_ON_SELECTED_SUBMISSION()
 
                 ' Update the question chooser listview.
                 For Each ENUM_ITEM As QUESTION_TYPE In ENUMS
@@ -190,38 +196,51 @@ Public Class FORM1
         If DialogResult.OK = DIALOG.ShowDialog Then
             Dim JSON_STRING As String = File.ReadAllText(DIALOG.FileName)
             Dim QUESTION_LIST As List(Of Dictionary(Of String, String)) = JsonSerializer.Deserialize(Of List(Of Dictionary(Of String, String)))(JSON_STRING)  ' Decserialiszes the data yeahhhh!!!
-            Dim NEW_TEST As New DATA_HANDLE(True)
+            Dim NEW_TEST
+            If Not REVOKE_EXTRAS Then
+                NEW_TEST = New DATA_HANDLE(True)
+            Else
+                NEW_TEST = New DATA_HANDLE_TEACHER()
+            End If
 
             NEW_TEST.NAME = QUESTION_LIST(0).Item("NAME") ' Adds the metadata for the test.
-            NEW_TEST.DESCRIPTION = QUESTION_LIST(0).Item("DESCRIPTION")
-            If QUESTION_LIST(0).ContainsKey("STUDENT NAME") Then
-                NEW_TEST.STUDENT_NAME = QUESTION_LIST(0).Item("STUDENT NAME")
-            End If
-            QUESTION_LIST.RemoveAt(0) ' Removes the metadata
+                NEW_TEST.DESCRIPTION = QUESTION_LIST(0).Item("DESCRIPTION")
+                If QUESTION_LIST(0).ContainsKey("STUDENT NAME") Then
+                    NEW_TEST.STUDENT_NAME = QUESTION_LIST(0).Item("STUDENT NAME")
+                End If
+                QUESTION_LIST.RemoveAt(0) ' Removes the metadata
 
-            For Each QUESTION As Dictionary(Of String, String) In QUESTION_LIST
-                Dim NEW_QUESTION As New QUESTION()
-                NEW_QUESTION.QUESTION_TEXT = QUESTION.Item("QUESTION")
-                NEW_QUESTION.QUESTION_TITLE = QUESTION.Item("QUESTION TITLE")
+                For Each QUESTION As Dictionary(Of String, String) In QUESTION_LIST
+                    Dim NEW_QUESTION As New QUESTION()
+                    NEW_QUESTION.QUESTION_TEXT = QUESTION.Item("QUESTION")
+                    NEW_QUESTION.QUESTION_TITLE = QUESTION.Item("QUESTION TITLE")
                 If QUESTION.Item("QUESTION TYPE") = "DIFFERENTIATION" Then
                     NEW_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.DIFFERENTIATION
                 Else
                     NEW_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.SIMPLIFICATION
                 End If
-                NEW_QUESTION.TYPE = QUESTION.Item("TYPE")
-                If QUESTION.ContainsKey("ANSWER") Then ' If the user is adding their answer document back in, then they go back to where they were.
-                    NEW_QUESTION.SUBMIT_ANSWER(QUESTION.Item("ANSWER"))
+                If Not QUESTION.ContainsKey("TEACHER EDITED") Then
+                    NEW_QUESTION.TEACHER_EDITED = False
+                ElseIf QUESTION.Item("TEACHER EDITED") = "False" Then ' For the submission data.
+                    NEW_QUESTION.TEACHER_EDITED = False
+                ElseIf QUESTION.Item("TEACHER EDITED") = "True" Then
+                    NEW_QUESTION.TEACHER_EDITED = True
                 End If
-                NEW_TEST.ADD(NEW_QUESTION)
-            Next
-            TESTS.Add(NEW_TEST)
-            If Not REVOKE_EXTRAS Then
-                TEST_LIST_UPDATE()
-                TOGGLE_CERTAIN_SCREEN(TEST_AREA, True)
-                NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Test " & NEW_TEST.NAME & " has been successfully added.", Color.Orange)
+
+                NEW_QUESTION.TYPE = QUESTION.Item("TYPE")
+                    If QUESTION.ContainsKey("ANSWER") Then ' If the user is adding their answer document back in, then they go back to where they were.
+                        NEW_QUESTION.SUBMIT_ANSWER(QUESTION.Item("ANSWER"))
+                    End If
+                    NEW_TEST.ADD(NEW_QUESTION)
+                Next
+                TESTS.Add(NEW_TEST)
+                If Not REVOKE_EXTRAS Then
+                    TEST_LIST_UPDATE()
+                    TOGGLE_CERTAIN_SCREEN(TEST_AREA, True)
+                    NOTIFICATIONS_OBJECT.ADD_NOTIFICATION("Test " & NEW_TEST.NAME & " has been successfully added.", Color.Orange)
+                End If
             End If
-        End If
-        Return True
+            Return True
     End Function
 
     Private Function MOVE_LEFT_QUESTION() Handles QUESTION_ANSWERER_LEFT.Click ' This is for moving left in the test.
@@ -319,33 +338,119 @@ Public Class FORM1
     Private Function ADD_SUBMISSION(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles SUBMISSIONS_ADD.Click
         ADD_TEST(SENDER, E, True) ' Adds a selected test through deserialisation.
         SUBMISSIONS_LIST_UPDATE()
-        Dim ADDED_TEST As DATA_HANDLE_TEACHER = TESTS(TESTS.Count - 1)
+        If TESTS.Count > 0 Then
+            Dim ADDED_TEST As DATA_HANDLE = TESTS(TESTS.Count - 1)
 
-        For Each SELECTED_QUESTION In ADDED_TEST.QUESTIONS
-            Dim BASELINE As Double = SELECTED_QUESTION.RETURN_ANSWER_FUNCTION_OUTPUT(3)
-            Dim NEW_QUESTION As New SIMPLE_SIMPLIFY(SELECTED_QUESTION.RETURN_ANSWER)
-            Dim TO_COMPARE As Double = NEW_QUESTION.GET_OUTPUT(3)
-            If BASELINE = TO_COMPARE And SELECTED_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.DIFFERENTIATION Then
-                ' I am only checking that the functions output the same values.
-                ' For differentiation where form doesn't matter, this is good enough.
-                SELECTED_QUESTION.STATUS = QUESTION_STATUS.CORRECT
-            ElseIf BASELINE <> TO_COMPARE Then
-                ' This will always mean that it is wrong.
-                SELECTED_QUESTION.STATUS = QUESTION_STATUS.WRONG
-            ElseIf BASELINE = TO_COMPARE And SELECTED_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.SIMPLIFICATION Then
-                ' As 3x+2x = 5x, and substituting 3 for each will yield the same result, I cannot say it is correct, as the user can change nothing and it will still say baseline = to_compare.
-                SELECTED_QUESTION.STATUS = QUESTION_STATUS.INDETERMINED
-                ' This must be checked by the teacher.
+            For Each SELECTED_QUESTION In ADDED_TEST.RETURN_QUESTIONS
+                Dim BASELINE As Double = SELECTED_QUESTION.RETURN_ANSWER_FUNCTION_OUTPUT(3)
+                Dim NEW_QUESTION As New SIMPLE_SIMPLIFY(SELECTED_QUESTION.RETURN_ANSWER)
+                Dim TO_COMPARE As Double = NEW_QUESTION.GET_OUTPUT(3)
+                If BASELINE = TO_COMPARE And SELECTED_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.DIFFERENTIATION Then
+                    ' I am only checking that the functions output the same values.
+                    ' For differentiation where form doesn't matter, this is good enough.
+                    SELECTED_QUESTION.STATUS = QUESTION_STATUS.CORRECT
+                ElseIf BASELINE <> TO_COMPARE Then
+                    ' This will always mean that it is wrong.
+                    SELECTED_QUESTION.STATUS = QUESTION_STATUS.WRONG
+                ElseIf BASELINE = TO_COMPARE And SELECTED_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.SIMPLIFICATION Then
+                    ' As 3x+2x = 5x, and substituting 3 for each will yield the same result, I cannot say it is correct, as the user can change nothing and it will still say baseline = to_compare.
+                    SELECTED_QUESTION.STATUS = QUESTION_STATUS.INDETERMINED
+                    ' This must be checked by the teacher
+                End If
+            Next
 
-            End If
+            Return True
+        End If
+        Return False
+    End Function
+
+    Private Function UPDATE_LIST_OF_QUESTIONS_ON_SELECTED_SUBMISSION()
+        ' This updates the list of questions in the selected submission that the teacher chose to view.
+        Dim SELECTED_TEST As Integer = SUBMISSIONS_LIST.SelectedIndex
+        VIEW_SUBMISSION_COLLECTION.Items.Clear()
+        For Each QUESTION_O As QUESTION In TESTS.Item(SELECTED_TEST).RETURN_QUESTIONS
+            Dim TO_BE_STRING As String = QUESTION_O.TYPE & " "
+            Select Case QUESTION_O.STATUS
+                Case QUESTION_STATUS.CORRECT
+                    TO_BE_STRING = TO_BE_STRING & "✓"
+                Case QUESTION_STATUS.WRONG
+                    TO_BE_STRING = TO_BE_STRING & "X"
+                Case QUESTION_STATUS.INDETERMINED
+                    TO_BE_STRING = TO_BE_STRING & "?"
+            End Select
+            VIEW_SUBMISSION_COLLECTION.Items.Add(TO_BE_STRING)
         Next
+    End Function
 
-        Return True
+    Private Function OVERRIDE_SUBMISSION_QUESTION(SENDER As Object, E As EventArgs, TYPE As QUESTION_STATUS)
+        Dim SELECTED_QUESTION As QUESTION = TESTS(SELECTED_TEST).RETURN_QUESTIONS()(VIEW_SUBMISSION_COLLECTION.SelectedIndex)
+        SELECTED_QUESTION.STATUS = TYPE
+        SELECTED_QUESTION.TEACHER_EDITED = True
+        OVERRIDE_SUBMISSION_QUESTION_PREP(SENDER, E) ' This will redisplay the page with the correct data.
+    End Function
+    Public Function OVERRIDE_SUBMISSION_QUESTION_PREP(ByVal SENDER As Object, ByVal E As EventArgs) Handles VIEW_SUBMISSION_OVERRIDE.Click
+        ' This is for overriding the submission's teacher selected question.
+
+        If VIEW_SUBMISSION_COLLECTION.SelectedItems.Count > 0 Then
+            Dim SELECTED_QUESTION As QUESTION = TESTS(SELECTED_TEST).RETURN_QUESTIONS()(VIEW_SUBMISSION_COLLECTION.SelectedIndex) ' This is the question chosen to override marking.
+            MARK_QUESTION_QUESTION.Text = SELECTED_QUESTION.RETURN_QUESTION ' The Question
+            MARK_QUESTION_COMPUTED_ANSWER.Text = SELECTED_QUESTION.RETURN_COMPUTED_ANSWER ' the computed answer.
+            MARK_QUESTION_STUDENTS_ANSWER.Text = SELECTED_QUESTION.RETURN_ANSWER ' The students answer.
+            MARK_QUESTION_TITLE.Text = SELECTED_QUESTION.RETURN_QUESTION_TITLE
+            MARK_QUESTION_NUMBER.Text = VIEW_SUBMISSION_COLLECTION.SelectedIndex + 1
+            Select Case SELECTED_QUESTION.STATUS
+                Case QUESTION_STATUS.CORRECT
+                    MARK_QUESTION_COMPUTED_ANSWER.BackColor = Color.FromArgb(192, 255, 192)
+                    MARK_QUESTION_DEEMED_VALIDITY.Text = "Marked Correct"
+                    If Not SELECTED_QUESTION.TEACHER_EDITED Then
+                        MARK_QUESTION_DEEMED_REASON.Text = "Automated check has found that the student's answer procures the same value as the computed answer."
+                    Else
+                        MARK_QUESTION_DEEMED_REASON.Text = "The teacher has overriden the automated decision."
+                    End If
+                Case QUESTION_STATUS.WRONG
+                    MARK_QUESTION_COMPUTED_ANSWER.BackColor = Color.FromArgb(255, 128, 128)
+                    MARK_QUESTION_DEEMED_VALIDITY.Text = "Marked Wrong"
+                    Debug.WriteLine("qwrr" & SELECTED_QUESTION.TEACHER_EDITED.ToString)
+                    If Not SELECTED_QUESTION.TEACHER_EDITED Then
+                        MARK_QUESTION_DEEMED_REASON.Text = "Automated check deemed that the calculated answer does not procure the same value as the students."
+                    Else
+                        MARK_QUESTION_DEEMED_REASON.Text = "The teacher has overriden the automated decision."
+                    End If
+                Case QUESTION_STATUS.INDETERMINED
+                    MARK_QUESTION_DEEMED_VALIDITY.Text = "Marked Indetermined"
+                    MARK_QUESTION_COMPUTED_ANSWER.BackColor = Color.FromArgb(255, 192, 128)
+                    MARK_QUESTION_DEEMED_REASON.Text = "Automated check deemed that it requires further teacher input on the validity of the student's answer."
+            End Select
+            TOGGLE_CERTAIN_SCREEN(MARK_QUESTION, True)
+        End If
     End Function
 
     Public Function VIEW_SUBMISSION_EVENT(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles SUBMISSIONS_VIEW.Click
-
+        ' This occurs when the teachers clicks the button to view the actual submitted test
+        If SUBMISSIONS_LIST.SelectedItems.Count > 0 Then
+            UPDATE_LIST_OF_QUESTIONS_ON_SELECTED_SUBMISSION()
+            TOGGLE_CERTAIN_SCREEN(VIEW_SUBMISSION, True)
+        End If
     End Function
+
+    Private Sub VIEW_SUBMISSIONS_LIST_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles VIEW_SUBMISSION_COLLECTION.MouseUp
+        ' This shows the options when you right click on the question on the submission test section for the teacher.
+        Dim CMS = New ContextMenuStrip
+        Dim SELECTED_ITEM = VIEW_SUBMISSION_COLLECTION.SelectedItem
+        If E.Button = MouseButtons.Right Then
+            If VIEW_SUBMISSION_COLLECTION.SelectedItems.Count = 1 Then
+                Dim ITEM1 = CMS.Items.Add("Override " & SELECTED_ITEM.ToString)
+                ITEM1.Tag = 1
+                AddHandler ITEM1.Click, Function(s, ev) VIEW_SUBMISSION_EVENT(s, ev)
+            End If
+            CMS.Show(VIEW_SUBMISSION_COLLECTION, E.Location)
+        ElseIf VIEW_SUBMISSION_COLLECTION.SelectedItems.Count = 1 Then ' If they havent selected any question.
+            Dim INDEX_OF_ITEM = VIEW_SUBMISSION_COLLECTION.SelectedIndex
+            VIEW_SUBMISSION_QUESTION.Text = TESTS(SUBMISSIONS_LIST.SelectedIndex).RETURN_QUESTIONS()(INDEX_OF_ITEM).RETURN_QUESTION
+            VIEW_SUBMISSION_ANSWER.Text = TESTS(SUBMISSIONS_LIST.SelectedIndex).RETURN_QUESTIONS()(INDEX_OF_ITEM).RETURN_ANSWER
+        End If
+    End Sub
+
     Private Sub SUBMISSIONS_LIST_MOUSE_UP(ByVal SENDER As Object, ByVal E As System.Windows.Forms.MouseEventArgs) Handles SUBMISSIONS_LIST.MouseUp
         ' This shows the options when you right click on the question viewer for the teacher.
         Dim CMS = New ContextMenuStrip
@@ -354,7 +459,7 @@ Public Class FORM1
             If SUBMISSIONS_LIST.SelectedItems.Count = 1 Then
                 Dim ITEM1 = CMS.Items.Add("View " & SELECTED_ITEM.ToString)
                 ITEM1.Tag = 1
-                AddHandler ITEM1.Click, AddressOf EDIT
+                AddHandler ITEM1.Click, Function(s, ev) VIEW_SUBMISSION_EVENT(s, ev)
                 Dim ITEM2 = CMS.Items.Add("Delete " & SELECTED_ITEM.ToString)
                 ITEM2.Tag = 2
                 AddHandler ITEM2.Click, Function(s, ev) TEST_DELETE(SUBMISSIONS_LIST.SelectedIndex)
@@ -370,18 +475,35 @@ Public Class FORM1
         End If
     End Sub
 
-    'Private Sub ListBox1_DrawItem(sender As System.Object, e As System.Windows.Forms.DrawItemEventArgs) Handles SUBMISSIONS_LIST.DrawItem
-    '    e.DrawBackground()
-    '    If SUBMISSIONS_LIST.Items(e.Index).ToString().Contains("?") Then
-    '        e.Graphics.FillRectangle(Brushes.DarkOrange, e.Bounds)
-    '    ElseIf SUBMISSIONS_LIST.Items(e.Index).ToString().Contains("✓") Then
-    '        e.Graphics.FillRectangle(Brushes.DarkGreen, e.Bounds)
-    '    ElseIf SUBMISSIONS_LIST.Items(e.Index).ToString().Contains("x") Then
-    '        e.Graphics.FillRectangle(Brushes.Magenta, e.Bounds)
-    '    End If
-    '    e.Graphics.DrawString(SUBMISSIONS_LIST.Items(e.Index).ToString(), e.Font, Brushes.Black, New System.Drawing.PointF(e.Bounds.X, e.Bounds.Y))
-    '    e.DrawFocusRectangle()
-    'End Sub
+    Private Sub VIEW_SUBMISSION_COLLECTION_HOVER(SENDER As System.Object, E As EventArgs) Handles VIEW_SUBMISSION_COLLECTION.SelectedIndexChanged
+        ' This is required so that it looks like something is happening when you hover.
+
+        VIEW_SUBMISSION_COLLECTION.Refresh() ' I have to refresh it every single time and it is appalling who made this system ahhh
+        ' E.Item.BackColor = Color.Lime
+    End Sub
+
+    Private Sub VIEW_SUBMISSION_COLLECTION_DRAW(sender As System.Object, e As System.Windows.Forms.DrawItemEventArgs) Handles VIEW_SUBMISSION_COLLECTION.DrawItem
+        e.DrawBackground()
+        ' This basically colour codes the questions based on their status.
+        Dim TEXT_COLOUR = Brushes.White
+        If VIEW_SUBMISSION_COLLECTION.SelectedIndex = e.Index Then
+            If VIEW_SUBMISSION_COLLECTION.Items(e.Index).ToString().Contains("?") Then
+                e.Graphics.FillRectangle(Brushes.Orange, e.Bounds)
+            ElseIf VIEW_SUBMISSION_COLLECTION.Items(e.Index).ToString().Contains("✓") Then
+                e.Graphics.FillRectangle(Brushes.LightGreen, e.Bounds)
+            ElseIf VIEW_SUBMISSION_COLLECTION.Items(e.Index).ToString().Contains("X") Then
+                e.Graphics.FillRectangle(Brushes.Red, e.Bounds)
+            End If
+        ElseIf VIEW_SUBMISSION_COLLECTION.Items(e.Index).ToString().Contains("?") Then
+            e.Graphics.FillRectangle(Brushes.DarkOrange, e.Bounds)
+        ElseIf VIEW_SUBMISSION_COLLECTION.Items(e.Index).ToString().Contains("✓") Then
+            e.Graphics.FillRectangle(Brushes.DarkGreen, e.Bounds)
+        ElseIf VIEW_SUBMISSION_COLLECTION.Items(e.Index).ToString().Contains("X") Then
+            e.Graphics.FillRectangle(Brushes.Maroon, e.Bounds)
+        End If
+        e.Graphics.DrawString(VIEW_SUBMISSION_COLLECTION.Items(e.Index).ToString(), e.Font, TEXT_COLOUR, New System.Drawing.PointF(e.Bounds.X, e.Bounds.Y))
+        e.DrawFocusRectangle()
+    End Sub
     Private Function SELECTED_SUBMISSION_QUESTION_UPDATE() ' Updates the SUBMISSION list.
         SUBMISSIONS_LIST.Items.Clear()
         For Each TEST As DATA_HANDLE In TESTS
@@ -466,7 +588,7 @@ Public Class FORM1
         Return False
     End Function
 
-    Private Function EXPORT(SENDER As Object, E As EventArgs, Optional TEST As DATA_HANDLE = Nothing, Optional TEST_NAME As String = "\Question Export.json", Optional STUDENT_NAME As String = Nothing) Handles TEST_EXPORT_EXPORT.Click
+    Private Function EXPORT(SENDER As Object, E As EventArgs, Optional TEST As DATA_HANDLE = Nothing, Optional TEST_NAME As String = "Question Export.json", Optional STUDENT_NAME As String = "") Handles TEST_EXPORT_EXPORT.Click
 
         Dim CHOSEN_TO_EXPORT = DATA_HANDLER
         Dim NAME = TEST_EXPORT_NAME.Text
@@ -480,14 +602,14 @@ Public Class FORM1
         If CHOSEN_TO_EXPORT.RETURN_QUESTIONS().Count > 0 Then
 
             ' I aim to create a list of all the data I need.
-            Dim STREAM As Stream = File.Open(My.Computer.FileSystem.SpecialDirectories.MyDocuments & TEST_NAME, FileMode.OpenOrCreate) ' The file I will be exporting to.
+            Dim STREAM As Stream = File.Open(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & STUDENT_NAME & " " & NAME & " " & TEST_NAME, FileMode.Create) ' The file I will be exporting to.
 
             Dim DATA_LIST As New List(Of Dictionary(Of String, String))
 
             Dim META_DATA As New Dictionary(Of String, String) ' The name and description of the test.
             META_DATA.Add("NAME", NAME)
             META_DATA.Add("DESCRIPTION", DESCRIPTION)
-            If Not STUDENT_NAME Is Nothing Then
+            If Not STUDENT_NAME = "" Then
                 META_DATA.Add("STUDENT NAME", STUDENT_NAME)
             End If
             DATA_LIST.Add(META_DATA)
@@ -499,13 +621,14 @@ Public Class FORM1
                 QUESTION_DATA.Add("QUESTION TYPE", QUESTION.RETURN_QUESTION_TYPE) ' The type, either differentiation or simplification.
                 QUESTION_DATA.Add("ANSWER", QUESTION.RETURN_ANSWER) ' The answer the user set.
                 QUESTION_DATA.Add("TYPE", QUESTION.TYPE) ' The type, either differentiation or simplification.
+                QUESTION_DATA.Add("TEACHER EDITED", QUESTION.TEACHER_EDITED.ToString) ' The type, either differentiation or simplification.
                 DATA_LIST.Add(QUESTION_DATA)
             Next
 
             JsonSerializer.SerializeAsync(STREAM, DATA_LIST) ' This converts the list into a string that is then written into my text file.
             Debug.WriteLine(JsonSerializer.Serialize(DATA_LIST))
             STREAM.Close()
-            Shell("explorer /select," & My.Computer.FileSystem.SpecialDirectories.MyDocuments & TEST_NAME, AppWinStyle.NormalFocus)
+            Shell("explorer /select," & My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & STUDENT_NAME & " " & NAME & " " & TEST_NAME, AppWinStyle.NormalFocus)
             If TEST_NAME = "\QUESTION Export.json" Then
                 TOGGLE_CERTAIN_SCREEN(Q_CONTROL_GROUP, True)
             End If

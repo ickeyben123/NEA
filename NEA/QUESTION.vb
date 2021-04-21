@@ -130,10 +130,14 @@ Class QUESTION
     Public QUESTION_TEXT As String ' This is the actual question that is saved in the class.
     Public QUESTION_TITLE As String
     Public STATUS As QUESTION_STATUS ' This is used for submissions. I won't make a seperate class for this as it will just complicate things for no reason... e.e
-
+    Public TEACHER_EDITED As Boolean = False
 
     Public Function RETURN_QUESTION()
         Return QUESTION_TEXT
+    End Function
+
+    Public Function RETURN_COMPUTED_ANSWER()
+        Return ANSWER_CLASS.RESULT
     End Function
 
     Public Function RETURN_QUESTION_TYPE()
@@ -156,6 +160,15 @@ Class QUESTION
 
     Public Overridable Sub SUBMIT_ANSWER(INPUT As String) 'Submits answer..
         Me.ANSWER = INPUT
+
+        ' When the user answer is set it is expected that the actual answer will also exist, so this will check for it. 
+        If ANSWER_CLASS Is Nothing Then
+            If QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.SIMPLIFICATION Then
+                ANSWER_CLASS = New SIMPLE_SIMPLIFY(Me.QUESTION_TEXT, False, True)
+            ElseIf QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.DIFFERENTIATION Then
+                ANSWER_CLASS = New SIMPLE_SIMPLIFY(Me.QUESTION_TEXT, True) ' Parameters are Differentiate, Expand Brackets.
+            End If
+        End If
     End Sub
 
     'Public Sub SET_ANSWER_MENU() ' Sets the answer menu's (groupbox) properties.
