@@ -32,8 +32,21 @@ Class DATA_HANDLE
     Public QUESTION_DEFINERS As Dictionary(Of String, List(Of String))
 
     Public STUDENT_NAME As String = ""
-    Public QUESTION_1 = "Simplify the following expression."
-    Public QUESTION_2 = "Calculate the derivative as a ratio over x."
+    Public Property QUESTION_1
+        Get
+            Return "Simplify the following expression."
+        End Get
+        Set(value)
+        End Set
+    End Property
+
+    Public Property QUESTION_2
+        Get
+            Return "Calculate the derivative as a ratio over x."
+        End Get
+        Set(value)
+        End Set
+    End Property
 
     Public DESCRIPTION As String = ""
     Public NAME As String = ""
@@ -60,18 +73,18 @@ Class DATA_HANDLE
             {"Proving Product Rule", New List(Of String)({QUESTION_2, "uv"})}}
     End Sub
 
-    Function REMOVE(QUESTION_OBJECT As QUESTION)
+    Private Function REMOVE(QUESTION_OBJECT As QUESTION)
         QUESTIONS.Remove(QUESTION_OBJECT)
         RaiseEvent QUESTION_LIST_CHANGE()
         Return True
     End Function
 
-    Function CLEAR_ALL()
+    Private Function CLEAR_ALL()
         QUESTIONS = New List(Of QUESTION)
         RaiseEvent QUESTION_LIST_CHANGE()
     End Function
 
-    Function ADD(QUESTION_OBJECT As QUESTION)
+    Public Function ADD(QUESTION_OBJECT As QUESTION)
         QUESTIONS.Add(QUESTION_OBJECT)
         RaiseEvent QUESTION_LIST_CHANGE()
         Return True

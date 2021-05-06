@@ -49,7 +49,7 @@ Class TEACHER_QUESTION : Inherits QUESTION
         Return True
     End Function
 
-    Function REMOVE_HANDLER()
+    Private Function REMOVE_HANDLER()
         RemoveHandler FORM1.QUESTION_RECOMPUTE_ANSWER.Click, RECALC_EVENT
         RemoveHandler FORM1.QUESTION_CREATE.Click, ADDING_EVENT
         RemoveHandler FORM1.QUESTION_CREATE.Click, REVOKER_EVENT
@@ -125,27 +125,23 @@ Class QUESTION
     Protected ENABLED As Boolean = True ' Determines if editable.
     Protected DATA_HANDLER As DATA_HANDLE
     Protected ANSWER_CLASS As SIMPLE_SIMPLIFY ' Dynamic answer that can be recomputed.
-    Public QUESTION_ANSWER_TYPE As QUESTION_TYPE_ANSWER
+    Protected QUESTION_TEXT As String ' This is the actual question that is saved in the class.
 
-    Public QUESTION_TEXT As String ' This is the actual question that is saved in the class.
-    Public QUESTION_TITLE As String
-    Public STATUS As QUESTION_STATUS ' This is used for submissions. I won't make a seperate class for this as it will just complicate things for no reason... e.e
-    Public TEACHER_EDITED As Boolean = False
+    Public Property QUESTION_ANSWER_TYPE As QUESTION_TYPE_ANSWER
+    Public Property QUESTION_TITLE As String
+    Public Property STATUS As QUESTION_STATUS ' This is used for submissions. I won't make a seperate class for this as it will just complicate things for no reason... e.e
+    Public Property TEACHER_EDITED As Boolean = False
 
     Public Function RETURN_QUESTION()
         Return QUESTION_TEXT
     End Function
 
+    Public Sub SET_QUESTION(V As String)
+        QUESTION_TEXT = V
+    End Sub
+
     Public Function RETURN_COMPUTED_ANSWER()
         Return ANSWER_CLASS.RESULT
-    End Function
-
-    Public Function RETURN_QUESTION_TYPE()
-        Return QUESTION_ANSWER_TYPE.ToString()
-    End Function
-
-    Public Function RETURN_QUESTION_TITLE()
-        Return QUESTION_TITLE
     End Function
 
     Protected ANSWER As String = ""

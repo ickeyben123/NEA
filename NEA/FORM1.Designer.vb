@@ -33,8 +33,6 @@ Partial Class FORM1
         Dim Label14 As System.Windows.Forms.Label
         Dim Label5 As System.Windows.Forms.Label
         Dim Label7 As System.Windows.Forms.Label
-        Dim Label10 As System.Windows.Forms.Label
-        Dim Label11 As System.Windows.Forms.Label
         Dim Label16 As System.Windows.Forms.Label
         Dim Label18 As System.Windows.Forms.Label
         Dim Label19 As System.Windows.Forms.Label
@@ -103,11 +101,6 @@ Partial Class FORM1
         Me.TEST_EXPORT_EXPORT = New System.Windows.Forms.Button()
         Me.TEST_EXPORT_EXIT = New System.Windows.Forms.Button()
         Me.TEST_EXPORT_NAME = New System.Windows.Forms.RichTextBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.RichTextBox2 = New System.Windows.Forms.RichTextBox()
-        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.EXPORT_ANSWERS_GROUP = New System.Windows.Forms.GroupBox()
         Me.EXPORT_ANSWERS_EXPORT = New System.Windows.Forms.Button()
         Me.EXIT_EXPORT_ANSWERS = New System.Windows.Forms.Button()
@@ -153,8 +146,6 @@ Partial Class FORM1
         Label14 = New System.Windows.Forms.Label()
         Label5 = New System.Windows.Forms.Label()
         Label7 = New System.Windows.Forms.Label()
-        Label10 = New System.Windows.Forms.Label()
-        Label11 = New System.Windows.Forms.Label()
         Label16 = New System.Windows.Forms.Label()
         Label18 = New System.Windows.Forms.Label()
         Label19 = New System.Windows.Forms.Label()
@@ -169,7 +160,6 @@ Partial Class FORM1
         Me.TEST_AREA.SuspendLayout()
         Me.TEST_VIEWER.SuspendLayout()
         Me.TEST_EXPORT.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.EXPORT_ANSWERS_GROUP.SuspendLayout()
         Me.SUBMISSIONS.SuspendLayout()
         Me.VIEW_SUBMISSION.SuspendLayout()
@@ -288,26 +278,6 @@ Partial Class FORM1
         Label7.Size = New System.Drawing.Size(408, 82)
         Label7.TabIndex = 11
         Label7.Text = "Description"
-        '
-        'Label10
-        '
-        Label10.AutoSize = True
-        Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Label10.Location = New System.Drawing.Point(34, 325)
-        Label10.Name = "Label10"
-        Label10.Size = New System.Drawing.Size(408, 82)
-        Label10.TabIndex = 11
-        Label10.Text = "Description"
-        '
-        'Label11
-        '
-        Label11.AutoSize = True
-        Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Label11.Location = New System.Drawing.Point(34, 69)
-        Label11.Name = "Label11"
-        Label11.Size = New System.Drawing.Size(231, 82)
-        Label11.TabIndex = 0
-        Label11.Text = "Name"
         '
         'Label16
         '
@@ -1131,66 +1101,6 @@ Partial Class FORM1
         Me.TEST_EXPORT_NAME.TabIndex = 6
         Me.TEST_EXPORT_NAME.Text = ""
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Label10)
-        Me.GroupBox1.Controls.Add(Me.Button1)
-        Me.GroupBox1.Controls.Add(Me.Button2)
-        Me.GroupBox1.Controls.Add(Me.RichTextBox2)
-        Me.GroupBox1.Controls.Add(Label11)
-        Me.GroupBox1.Controls.Add(Me.RichTextBox1)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1324, 1062)
-        Me.GroupBox1.TabIndex = 15
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Export Test"
-        '
-        'Button1
-        '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.Color.Green
-        Me.Button1.Location = New System.Drawing.Point(48, 766)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(222, 80)
-        Me.Button1.TabIndex = 10
-        Me.Button1.Text = "Export"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.ForeColor = System.Drawing.Color.Maroon
-        Me.Button2.Location = New System.Drawing.Point(1185, 970)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(127, 80)
-        Me.Button2.TabIndex = 9
-        Me.Button2.Text = "Exit"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'RichTextBox2
-        '
-        Me.RichTextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RichTextBox2.Location = New System.Drawing.Point(48, 180)
-        Me.RichTextBox2.MaxLength = 500
-        Me.RichTextBox2.Name = "RichTextBox2"
-        Me.RichTextBox2.Size = New System.Drawing.Size(1222, 121)
-        Me.RichTextBox2.TabIndex = 6
-        Me.RichTextBox2.Text = ""
-        '
-        'RichTextBox1
-        '
-        Me.RichTextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RichTextBox1.Location = New System.Drawing.Point(48, 437)
-        Me.RichTextBox1.MaxLength = 500
-        Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(1222, 280)
-        Me.RichTextBox1.TabIndex = 12
-        Me.RichTextBox1.Text = ""
-        '
         'EXPORT_ANSWERS_GROUP
         '
         Me.EXPORT_ANSWERS_GROUP.Controls.Add(Me.EXPORT_ANSWERS_EXPORT)
@@ -1620,10 +1530,6 @@ Partial Class FORM1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1324, 1062)
-        Me.Controls.Add(Me.TEST_VIEWER)
-        Me.Controls.Add(Me.QUESTION_CHOOSER)
-        Me.Controls.Add(Me.EXPORT_ANSWERS_GROUP)
-        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TEST_EXPORT)
         Me.Controls.Add(Me.MARK_QUESTION)
         Me.Controls.Add(Me.QUESTION_ANSWERER)
@@ -1635,6 +1541,9 @@ Partial Class FORM1
         Me.Controls.Add(Me.LOGIN_GROUP)
         Me.Controls.Add(Me.MODE_GROUP)
         Me.Controls.Add(Me.VIEW_SUBMISSION)
+        Me.Controls.Add(Me.TEST_VIEWER)
+        Me.Controls.Add(Me.QUESTION_CHOOSER)
+        Me.Controls.Add(Me.EXPORT_ANSWERS_GROUP)
         Me.Name = "FORM1"
         Me.Text = "Form1"
         Me.MODE_GROUP.ResumeLayout(False)
@@ -1657,8 +1566,6 @@ Partial Class FORM1
         Me.TEST_VIEWER.PerformLayout()
         Me.TEST_EXPORT.ResumeLayout(False)
         Me.TEST_EXPORT.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.EXPORT_ANSWERS_GROUP.ResumeLayout(False)
         Me.EXPORT_ANSWERS_GROUP.PerformLayout()
         Me.SUBMISSIONS.ResumeLayout(False)
@@ -1733,11 +1640,6 @@ Partial Class FORM1
     Friend WithEvents TEST_EXPORT_EXPORT As Button
     Friend WithEvents TEST_EXPORT_EXIT As Button
     Friend WithEvents TEST_EXPORT_NAME As RichTextBox
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents RichTextBox1 As RichTextBox
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents RichTextBox2 As RichTextBox
     Friend WithEvents EXPORT_ANSWERS_GROUP As GroupBox
     Friend WithEvents EXPORT_ANSWERS_EXPORT As Button
     Friend WithEvents EXIT_EXPORT_ANSWERS As Button

@@ -168,7 +168,6 @@ Public Class FORM1
 
     Dim SELECTED_TEST As Integer = 0
     Private Sub EXPORT_ANSWERS(sender As Object, e As EventArgs) Handles TESTS_AREA_EXPORT_TEST.Click
-
         ' I will be using much of the same method for exporting the answers of the student.
         If TEST_AREA_LIST.SelectedItems.Count = 1 Then '  
             TOGGLE_CERTAIN_SCREEN(EXPORT_ANSWERS_GROUP, True)
@@ -233,7 +232,7 @@ Public Class FORM1
 
             For Each QUESTION As Dictionary(Of String, String) In QUESTION_LIST
                 Dim NEW_QUESTION As New QUESTION()
-                NEW_QUESTION.QUESTION_TEXT = QUESTION.Item("QUESTION")
+                NEW_QUESTION.SET_QUESTION(QUESTION.Item("QUESTION"))
                 NEW_QUESTION.QUESTION_TITLE = QUESTION.Item("QUESTION TITLE")
                 If QUESTION.Item("QUESTION TYPE") = "DIFFERENTIATION" Then
                     NEW_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.DIFFERENTIATION
@@ -294,7 +293,7 @@ Public Class FORM1
     Private Function DISPLAY_ANSWER_QUESTION() ' Displays the question
         Dim SELECTED_QUESTION = TESTS(SELECTED_TEST).RETURN_QUESTIONS()(QUESTION_POINTER)
         QUESTION_ANSWERER_QUESTION.Text = SELECTED_QUESTION.RETURN_QUESTION
-        QUESTION_ANSWERER_TITLE.Text = SELECTED_QUESTION.RETURN_QUESTION_TITLE
+        QUESTION_ANSWERER_TITLE.Text = SELECTED_QUESTION.QUESTION_TITLE
         QUESTION_ANSWERER_ANSWER.Text = SELECTED_QUESTION.RETURN_ANSWER
         QUESTION_ANSWERER_NUMBER.Text = QUESTION_POINTER + 1
         TOGGLE_CERTAIN_SCREEN(QUESTION_ANSWERER, True)
@@ -430,7 +429,7 @@ Public Class FORM1
             MARK_QUESTION_QUESTION.Text = SELECTED_QUESTION.RETURN_QUESTION ' The Question
             MARK_QUESTION_COMPUTED_ANSWER.Text = SELECTED_QUESTION.RETURN_COMPUTED_ANSWER ' the computed answer.
             MARK_QUESTION_STUDENTS_ANSWER.Text = SELECTED_QUESTION.RETURN_ANSWER ' The students answer.
-            MARK_QUESTION_TITLE.Text = SELECTED_QUESTION.RETURN_QUESTION_TITLE
+            MARK_QUESTION_TITLE.Text = SELECTED_QUESTION.QUESTION_TITLE
             MARK_QUESTION_NUMBER.Text = VIEW_SUBMISSION_COLLECTION.SelectedIndex + 1
             Select Case SELECTED_QUESTION.STATUS
                 Case QUESTION_STATUS.CORRECT
@@ -652,8 +651,8 @@ Public Class FORM1
             For Each QUESTION As QUESTION In CHOSEN_TO_EXPORT.RETURN_QUESTIONS
                 Dim QUESTION_DATA As New Dictionary(Of String, String)
                 QUESTION_DATA.Add("QUESTION", QUESTION.RETURN_QUESTION) ' The question, like 3x+3x
-                QUESTION_DATA.Add("QUESTION TITLE", QUESTION.RETURN_QUESTION_TITLE) ' The title, like "Differentiate with respect to x"
-                QUESTION_DATA.Add("QUESTION TYPE", QUESTION.RETURN_QUESTION_TYPE) ' The type, either differentiation or simplification.
+                QUESTION_DATA.Add("QUESTION TITLE", QUESTION.QUESTION_TITLE) ' The title, like "Differentiate with respect to x"
+                QUESTION_DATA.Add("QUESTION TYPE", QUESTION.QUESTION_ANSWER_TYPE.ToString) ' The type, either differentiation or simplification.
                 QUESTION_DATA.Add("ANSWER", QUESTION.RETURN_ANSWER) ' The answer the user set.
                 QUESTION_DATA.Add("TYPE", QUESTION.TYPE) ' The type, either differentiation or simplification.
                 QUESTION_DATA.Add("TEACHER EDITED", QUESTION.TEACHER_EDITED.ToString) ' The type, either differentiation or simplification.
@@ -777,12 +776,6 @@ End Class
 
 ' Handles the logging in of an account.
 Class ACCOUNT
-
-    ' INITIATOR
-
-    Public Sub New()
-
-    End Sub
 
     ' EVENTS 
 

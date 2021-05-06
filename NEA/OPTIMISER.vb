@@ -218,8 +218,6 @@ Class OPTIMISER : Inherits UTILITIES
     ' Simplification Functions
     ' //These are made to actually modify the expression.
 
-    ' // Multiplication Functions
-
     Enum MULTIPLIER_NUM ' Used by 'MULTIPLIER_SIMPLIFIER' 
         SUM
         OTHER
@@ -304,7 +302,7 @@ Class OPTIMISER : Inherits UTILITIES
 
                             If LIMITED_DIFFERENTIATE(NEW_TIMES_NODE) IsNot Nothing Then
                                 If (LIMITED_DIFFERENTIATE(NEW_TIMES_NODE).LEFT.COUNT + LIMITED_DIFFERENTIATE(NEW_TIMES_NODE).RIGHT.COUNT) > 0 Then
-                                    MULTIPLIER.RIGHT.Add(LIMITED_DIFFERENTIATE(NEW_TIMES_NODE)) ' the du. or more so du/dx if u is in x.
+                                    MULTIPLIER.RIGHT.Add(LIMITED_DIFFERENTIATE(NEW_TIMES_NODE)) ' the du. or more so du/dx as everything is divided by dx.
                                 End If
                             End If
                             If PLUS_NODE.LEFT.Count = 0 Then
@@ -321,13 +319,12 @@ Class OPTIMISER : Inherits UTILITIES
 
                     ElseIf SELECTED_NODE.VALUE = "+" Then
                         ' Easier to implement.
-                        ' Console.WriteLine("im hereeee" & IN_ORDER(SELECTED_NODE, True))
+                        ' This will just look through each item in the node and differentiate it.
                         Dim SUB_COLLECTIVE = {SELECTED_NODE.LEFT, SELECTED_NODE.RIGHT}
                         Dim NEW_PLUS_NODE As New TREE_NODE
                         NEW_PLUS_NODE.VALUE = "+"
                         For Each SUB_ELEMENT In SUB_COLLECTIVE
                             For B = 0 To SUB_ELEMENT.Count - 1
-                                ' Console.WriteLine("LINE THE PLUSSS" & IN_ORDER(SUB_ELEMENT(B), True))
                                 Dim DIFFERENTIATED_NODE As TREE_NODE = LIMITED_DIFFERENTIATE(SUB_ELEMENT(B))
                                 If NEW_PLUS_NODE.LEFT.Count = 0 Then
                                     NEW_PLUS_NODE.LEFT.Add(DIFFERENTIATED_NODE) ' Ie (x+y+z) = (dx+dy+dz)
@@ -344,16 +341,19 @@ Class OPTIMISER : Inherits UTILITIES
                         NEW_NODE.RIGHT.AddRange(REFERENCE_NODE.RIGHT)
                         PLUS_NODE.LEFT.Add(NEW_NODE)
                     Else
-                        Dim CHECK = MATCH_COLLECTION_TO_DICTIONARY(Regex.Matches(SELECTED_NODE.VALUE, "(?=[a-z])[^x]"))
+                        Dim CHECK = MATCH_COLLECTION_TO_DICTIONARY(Regex.Matches(SELECTED_NODE.VALUE, "(?=[a-z])[^x]")) ' This looks for variables other than x.
+                        ' The point of this is to use the correct notiation when I am differentiating variables other than x.
                         If CHECK.Count > 0 Then
+                            ' This means that the input variable is not a x. 
+                            ' If it was y, then this would output dy/dx. 
                             Dim TOP, BOTTOM As New TREE_NODE
                             Dim CLONED_SELECTED_NODE As TREE_NODE = SELECTED_NODE.CLONE
-                            TOP.VALUE = "d" & SELECTED_NODE.VALUE
-                            BOTTOM.VALUE = "dx"
+                            TOP.VALUE = "d" & SELECTED_NODE.VALUE ' This would be the dy
+                            BOTTOM.VALUE = "dx" ' The divider, dx
                             CLONED_SELECTED_NODE.VALUE = "/"
                             CLONED_SELECTED_NODE.LEFT.Add(TOP)
                             CLONED_SELECTED_NODE.RIGHT.Add(BOTTOM)
-                            Return CLONED_SELECTED_NODE
+                            Return CLONED_SELECTED_NODE ' Returns this node.
                         End If
                     End If
                 Next
@@ -1045,7 +1045,6 @@ Class OPTIMISER : Inherits UTILITIES
 
 
                                 If ALL_TERMS_A.Count = ALL_TERMS_B.Count Then ' They must have the same number of variables.
-                                    Dim COUNT_SIMILAR As Integer = 0
                                     For Each ITEM In STRING_TERMS_A
                                         STRING_TERMS_B.Remove(ITEM)
                                     Next
