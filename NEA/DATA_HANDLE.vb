@@ -73,13 +73,13 @@ Class DATA_HANDLE
             {"Proving Product Rule", New List(Of String)({QUESTION_2, "uv"})}}
     End Sub
 
-    Private Function REMOVE(QUESTION_OBJECT As QUESTION)
+    Public Function REMOVE(QUESTION_OBJECT As QUESTION)
         QUESTIONS.Remove(QUESTION_OBJECT)
         RaiseEvent QUESTION_LIST_CHANGE()
         Return True
     End Function
 
-    Private Function CLEAR_ALL()
+    Public Function CLEAR_ALL()
         QUESTIONS = New List(Of QUESTION)
         RaiseEvent QUESTION_LIST_CHANGE()
     End Function

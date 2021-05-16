@@ -635,7 +635,7 @@ Public Class FORM1
         If CHOSEN_TO_EXPORT.RETURN_QUESTIONS().Count > 0 Then
 
             ' I aim to create a list of all the data I need.
-            Dim STREAM As Stream = File.Open(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & STUDENT_NAME & " " & NAME & " " & TEST_NAME, FileMode.Create) ' The file I will be exporting to.
+            Dim STREAM As Stream = File.Open(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & STUDENT_NAME & " " & NAME & " " & TEST_NAME, FileMode.OpenOrCreate) ' The file I will be exporting to.
 
             Dim DATA_LIST As New List(Of Dictionary(Of String, String))
 

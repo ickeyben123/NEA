@@ -665,7 +665,7 @@ Partial Class FORM1
         Me.QUESTION_REMOVE.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.QUESTION_REMOVE.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.QUESTION_REMOVE.ForeColor = System.Drawing.Color.Maroon
-        Me.QUESTION_REMOVE.Location = New System.Drawing.Point(316, 937)
+        Me.QUESTION_REMOVE.Location = New System.Drawing.Point(316, 924)
         Me.QUESTION_REMOVE.Name = "QUESTION_REMOVE"
         Me.QUESTION_REMOVE.Size = New System.Drawing.Size(410, 80)
         Me.QUESTION_REMOVE.TabIndex = 5
@@ -1530,6 +1530,8 @@ Partial Class FORM1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1324, 1062)
+        Me.Controls.Add(Me.QUESTION_CHOOSER)
+        Me.Controls.Add(Me.EXPORT_ANSWERS_GROUP)
         Me.Controls.Add(Me.TEST_EXPORT)
         Me.Controls.Add(Me.MARK_QUESTION)
         Me.Controls.Add(Me.QUESTION_ANSWERER)
@@ -1542,8 +1544,6 @@ Partial Class FORM1
         Me.Controls.Add(Me.MODE_GROUP)
         Me.Controls.Add(Me.VIEW_SUBMISSION)
         Me.Controls.Add(Me.TEST_VIEWER)
-        Me.Controls.Add(Me.QUESTION_CHOOSER)
-        Me.Controls.Add(Me.EXPORT_ANSWERS_GROUP)
         Me.Name = "FORM1"
         Me.Text = "Form1"
         Me.MODE_GROUP.ResumeLayout(False)
