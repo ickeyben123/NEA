@@ -377,6 +377,7 @@ Public Class FORM1
                     Dim BASELINE As Double = SELECTED_QUESTION.RETURN_ANSWER_FUNCTION_OUTPUT(3)
                     Dim NEW_QUESTION As New SIMPLE_SIMPLIFY(SELECTED_QUESTION.RETURN_ANSWER)
                     Dim TO_COMPARE As Double = NEW_QUESTION.GET_OUTPUT(3)
+                    Debug.WriteLine("COMPARING " & TO_COMPARE & BASELINE)
                     If BASELINE = TO_COMPARE And SELECTED_QUESTION.QUESTION_ANSWER_TYPE = QUESTION_TYPE_ANSWER.DIFFERENTIATION Then
                         ' I am only checking that the functions output the same values.
                         ' For differentiation where form doesn't matter, this is good enough.
