@@ -14,7 +14,7 @@ It is capable of most simplification methods, involving addition, fraction manip
 meaning the idea of 'top-down term differenation' is upheld. It essentially means to follow the ideal that any term, such as (x^4+2x^3)^5, can be ambiguated as a^5,
 and evaluated top down with a as a simple term. 
 
-Moreso, d(a^5) = 5*a^4*da -> da = (da/dx) * dx, which is just chain rule.
+Moreso, d(a^5) = 5 x a^4 x da -> da = (da/dx) x dx, which is just chain rule.
 
 I have also added fractional differenation, but this is a trivial modification of products.
 
