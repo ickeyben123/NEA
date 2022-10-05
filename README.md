@@ -8,7 +8,7 @@ A general flow involves two parties, a teacher and a collection of students. The
 from a set of question types. There is a heavy emphasis on differenation. It also has the ability to simplify fraction addition, 
 and expand the brackets to further simplify any common elements.
 
-![image](https://user-images.githubusercontent.com/26233238/194129304-9123b230-e71d-49de-b129-b2b165548450.png)
+![image](https://user-images.githubusercontent.com/26233238/194129713-d6f8e77f-f933-4a32-a2e3-89f1e1e126c5.png)
 
 It is capable of most simplification methods, involving addition, fraction manipulation, and bracket expansion. It is designed to follow the fundamentals of calculus, 
 meaning the idea of 'top-down term differenation' is upheld. It essentially means to follow the ideal that any term, such as (x^4+2x^3)^5, can be ambiguated as a^5,
